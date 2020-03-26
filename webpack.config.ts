@@ -24,11 +24,7 @@ const DEBUG = process.argv.includes('--debug');
  * -------------------------------- */
 
 const client: Configuration = {
-   entry: fs
-      .readdirSync(path.join(__dirname, `./${config.path.bin}`))
-      .filter((file) => file.match(/.*\.ts$/))
-      .reduce(getEntryFile, {}),
-
+   entry: path.join(__dirname, `./${config.path.src}/build.ts`),
    mode: RELEASE ? 'production' : 'development',
    target: 'node',
    devtool: DEBUG ? 'eval-source-map' : void 0,
@@ -36,7 +32,7 @@ const client: Configuration = {
    cache: !RELEASE,
    output: {
       path: path.join(__dirname, `./${config.path.dist}`),
-      filename: '[name].js',
+      filename: 'build.js',
    },
    resolve: {
       extensions: ['.ts', '.tsx', 'json'],
@@ -81,20 +77,6 @@ const client: Configuration = {
       timings: true,
    },
 };
-
-/* -----------------------------------
- *
- * Entry
- *
- * -------------------------------- */
-
-function getEntryFile(result: Entry, file: string) {
-   const name = path.basename(file, path.extname(file));
-
-   result[name] = path.join(__dirname, `./${config.path.bin}`, file);
-
-   return result;
-}
 
 /* -----------------------------------
  *
