@@ -1,19 +1,17 @@
-import { tasks } from '@/tasks';
-
 /* -----------------------------------
  *
- * Validate
+ * Async
  *
  * -------------------------------- */
 
-if (!tasks[process.argv[2]]) {
-   process.exit(1);
+function buildAsyncSass() {
+   console.log('buildAsyncSass!');
 }
 
 /* -----------------------------------
  *
- * Execute
+ * Export
  *
  * -------------------------------- */
 
-tasks[process.argv[2]]();
+export { buildAsyncSass };
