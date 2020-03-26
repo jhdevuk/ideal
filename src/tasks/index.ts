@@ -7,7 +7,7 @@ import { buildAsyncSass } from './sass/buildAsyncSass';
  * -------------------------------- */
 
 interface ITasks {
-   [index: string]: (...args: any) => void;
+   [index: string]: (source: string, options?: object) => void;
 }
 
 /* -----------------------------------

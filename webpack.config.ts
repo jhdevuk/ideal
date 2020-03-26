@@ -1,11 +1,6 @@
-import {
-   Configuration,
-   Entry,
-   DefinePlugin,
-   BannerPlugin,
-} from 'webpack';
+import { Configuration, DefinePlugin, BannerPlugin } from 'webpack';
+import nodeExternals from 'webpack-node-externals';
 import * as path from 'path';
-import * as fs from 'fs';
 import { config } from './src/config';
 
 /* -----------------------------------
@@ -27,6 +22,7 @@ const client: Configuration = {
    entry: path.join(__dirname, `./${config.path.src}/build.ts`),
    mode: RELEASE ? 'production' : 'development',
    target: 'node',
+   externals: [nodeExternals()],
    devtool: DEBUG ? 'eval-source-map' : void 0,
    context: path.join(__dirname, `./${config.path.src}`),
    cache: !RELEASE,
@@ -39,6 +35,10 @@ const client: Configuration = {
       alias: {
          '@': path.join(__dirname, `./${config.path.src}`),
       },
+   },
+   node: {
+      __filename: true,
+      __dirname: true,
    },
    module: {
       rules: [

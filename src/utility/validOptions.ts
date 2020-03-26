@@ -1,14 +1,17 @@
-import glob from 'glob';
 import { IOptions } from '@/options';
 
 /* -----------------------------------
  *
- * Async
+ * Validate
  *
  * -------------------------------- */
 
-function buildAsyncSass(path: string, { release = false }: IOptions) {
-   console.log('buildAsyncSass!', path, release);
+function validOptions(path: string, options: IOptions) {
+   if (!path) {
+      return false;
+   }
+
+   return true;
 }
 
 /* -----------------------------------
@@ -17,4 +20,4 @@ function buildAsyncSass(path: string, { release = false }: IOptions) {
  *
  * -------------------------------- */
 
-export { buildAsyncSass };
+export { validOptions };
