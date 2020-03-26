@@ -1,4 +1,4 @@
-import { buildAsyncSass } from './sass/buildAsyncSass';
+import { sassBuildTask } from './sass/sassBuildTask';
 
 /* -----------------------------------
  *
@@ -17,7 +17,7 @@ interface ITasks {
  * -------------------------------- */
 
 const tasks: ITasks = {
-   'sass:async': buildAsyncSass,
+   'sass:build': sassBuildTask,
 };
 
 /* -----------------------------------
