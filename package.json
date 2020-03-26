@@ -9,7 +9,7 @@
       "build": "webpack"
    },
    "bin": {
-      "warden": "./dist/warden.js"
+      "warden": "./dist/build.js"
    },
    "devDependencies": {
       "@types/webpack": "^4.41.8",
