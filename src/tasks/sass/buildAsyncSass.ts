@@ -1,5 +1,5 @@
-import glob from 'glob';
 import { IOptions } from '@/options';
+import { readFiles } from '@/utility/readFiles';
 
 /* -----------------------------------
  *
@@ -7,8 +7,13 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function buildAsyncSass(path: string, { release = false }: IOptions) {
-   console.log('buildAsyncSass!', path, release);
+async function buildAsyncSass(
+   path: string,
+   { release = false }: IOptions
+) {
+   const files = await readFiles(path);
+
+   console.log('buildAsyncSass!', path, files);
 }
 
 /* -----------------------------------
