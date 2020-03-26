@@ -10,8 +10,8 @@ import { validOptions } from '@/utility/validOptions';
  *
  * -------------------------------- */
 
-const METHOD = process.argv[2];
-const SOURCE = process.argv[3];
+const method = process.argv[2];
+const source = process.argv[3];
 
 /* -----------------------------------
  *
@@ -19,7 +19,7 @@ const SOURCE = process.argv[3];
  *
  * -------------------------------- */
 
-const OPTIONS: IOptions = {
+const options: IOptions = {
    release: (argv.release as boolean) || false,
 };
 
@@ -29,7 +29,7 @@ const OPTIONS: IOptions = {
  *
  * -------------------------------- */
 
-if (!tasks[METHOD] || !validOptions(SOURCE, OPTIONS)) {
+if (!tasks[method] || !validOptions(source, options)) {
    log.error('Missing required arguments');
 
    process.exit(1);
@@ -41,4 +41,4 @@ if (!tasks[METHOD] || !validOptions(SOURCE, OPTIONS)) {
  *
  * -------------------------------- */
 
-tasks[METHOD](SOURCE, OPTIONS);
+tasks[method](source, options);

@@ -17,7 +17,7 @@ interface ITasks {
  * -------------------------------- */
 
 const tasks: ITasks = {
-   'sass:build': sassBuildTask,
+   'build:css': sassBuildTask,
 };
 
 /* -----------------------------------
