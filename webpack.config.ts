@@ -41,7 +41,7 @@ const client: Configuration = {
    resolve: {
       extensions: ['.ts', '.tsx', 'json'],
       alias: {
-         '@': path.join(__dirname, `../${config.path.src}`),
+         '@': path.join(__dirname, `./${config.path.src}`),
       },
    },
    module: {
@@ -61,9 +61,6 @@ const client: Configuration = {
                   loader: 'ts-loader',
                },
             ],
-         },
-         {
-            loader: 'shebang-loader',
          },
       ],
    },
