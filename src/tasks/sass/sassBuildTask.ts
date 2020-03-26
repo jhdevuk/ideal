@@ -3,17 +3,17 @@ import { readFiles } from '@/utility/readFiles';
 
 /* -----------------------------------
  *
- * Async
+ * SASS
  *
  * -------------------------------- */
 
-async function buildAsyncSass(
+async function sassBuildTask(
    path: string,
    { release = false }: IOptions
 ) {
    const files = await readFiles(path);
 
-   console.log('buildAsyncSass!', path, files);
+   console.log('sassBuildTask!', path, files);
 }
 
 /* -----------------------------------
@@ -22,4 +22,4 @@ async function buildAsyncSass(
  *
  * -------------------------------- */
 
-export { buildAsyncSass };
+export { sassBuildTask };
