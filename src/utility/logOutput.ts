@@ -8,7 +8,7 @@ import chalk from 'chalk';
  * -------------------------------- */
 
 function error(value: string) {
-   log.error(`${chalk.red('Error')} ${value}`);
+   log.error(`${chalk.red('Error')}: ${value}`);
 }
 
 /* -----------------------------------
@@ -23,8 +23,18 @@ function info(prefix: string, value: string, suffix: string = '') {
 
 /* -----------------------------------
  *
+ * File
+ *
+ * -------------------------------- */
+
+function file(value: string) {
+   log.info(`${chalk.grey(value)} built`);
+}
+
+/* -----------------------------------
+ *
  * Export
  *
  * -------------------------------- */
 
-export { error, info };
+export { error, info, file };

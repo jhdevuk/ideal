@@ -24,7 +24,15 @@ async function run(method: Method, { source, options }: IConfig) {
 
    log.info('Running', method.name);
 
-   await method(source, options);
+   try {
+      const result = await method(source, options);
+
+      result.forEach((file) => log.file(file));
+   } catch ({ message }) {
+      log.error(message);
+
+      return;
+   }
 
    const end = new Date();
    const time = end.getTime() - start.getTime();
