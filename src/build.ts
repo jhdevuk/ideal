@@ -29,7 +29,19 @@ const options: IOptions = {
  *
  * -------------------------------- */
 
-if (!tasks[method] || !validOptions(source, options)) {
+if (!tasks[method]) {
+   log.error(`Unknown build task method: ${method}`);
+
+   process.exit(1);
+}
+
+/* -----------------------------------
+ *
+ * Validate
+ *
+ * -------------------------------- */
+
+if (!validOptions(source, options)) {
    log.error('Missing required arguments');
 
    process.exit(1);
