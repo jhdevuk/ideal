@@ -28,7 +28,7 @@ function info(prefix: string, value: string, suffix: string = '') {
  * -------------------------------- */
 
 function file(value: string) {
-   log.info(`${chalk.grey(value)} built`);
+   log.info(`${chalk.yellow(value)} complete`);
 }
 
 /* -----------------------------------
