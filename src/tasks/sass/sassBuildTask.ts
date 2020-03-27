@@ -16,17 +16,29 @@ async function sassBuildTask(
    { output, ...options }: IOptions
 ) {
    const files = await readGlobFiles(source);
-   const names = getFileNames(files);
+   const names = getFileNames(files).map((file) => `${file}.css`);
 
-   const result = await Promise.all(
-      files.map((file) => convertFile(file, options))
-   );
+   if (!files.length) {
+      throw new Error('No matching files found');
+   }
+
+   let result: any;
+
+   try {
+      result = await Promise.all(
+         files.map((file) => convertFile(file, options))
+      );
+   } catch ({ message }) {
+      throw new Error(message);
+   }
 
    await Promise.all(
       result.map(({ cssValue }, index) =>
-         writeFile(path.join(output, `${names[index]}.css`), cssValue)
+         writeFile(path.join(output, names[index]), cssValue)
       )
    );
+
+   return names;
 }
 
 /* -----------------------------------

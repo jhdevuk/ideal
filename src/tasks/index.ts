@@ -7,7 +7,7 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-type Method = (source: string, options: IOptions) => Promise<void>;
+type Method = (source: string, options: IOptions) => Promise<string[]>;
 
 /* -----------------------------------
  *
