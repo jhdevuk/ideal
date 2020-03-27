@@ -18,7 +18,7 @@ function error(value: string) {
  * -------------------------------- */
 
 function info(prefix: string, value: string, suffix: string = '') {
-   log.info(`${prefix}: ${chalk.blue(value)} ${suffix}...`);
+   log.info(`${prefix}: ${chalk.cyan(value)} ${suffix}...`);
 }
 
 /* -----------------------------------
