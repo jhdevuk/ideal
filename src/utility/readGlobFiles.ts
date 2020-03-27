@@ -1,4 +1,6 @@
 import glob from 'glob';
+import { ReadStream } from 'fs';
+import { readFile } from './readFile';
 
 /* -----------------------------------
  *
@@ -6,16 +8,18 @@ import glob from 'glob';
  *
  * -------------------------------- */
 
-const readFiles = (path: string) =>
+const readGlobFiles = (path: string): Promise<ReadStream[]> =>
    new Promise((resolve, reject) =>
-      glob(path, (error, files) => {
+      glob(path, async (error, files) => {
          if (error) {
             reject(error);
 
             return;
          }
 
-         resolve(files);
+         const result = files.map((file) => readFile(file));
+
+         resolve(result);
       })
    );
 
@@ -25,4 +29,4 @@ const readFiles = (path: string) =>
  *
  * -------------------------------- */
 
-export { readFiles };
+export { readGlobFiles };

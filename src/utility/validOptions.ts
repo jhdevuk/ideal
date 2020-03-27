@@ -6,7 +6,7 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function validOptions(path: string, options: IOptions) {
+function validOptions(path: string, { output }: IOptions) {
    if (!path) {
       return false;
    }

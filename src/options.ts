@@ -5,6 +5,7 @@
  * -------------------------------- */
 
 interface IOptions {
+   output: string;
    release?: boolean;
 }
 

@@ -1,5 +1,8 @@
+import path from 'path';
 import { IOptions } from '@/options';
-import { readFiles } from '@/utility/readFiles';
+import { readGlobFiles } from '@/utility/readGlobFiles';
+import { convertFile } from './convertFile';
+import { writeFile } from '@/utility/writeFile';
 
 /* -----------------------------------
  *
@@ -7,13 +10,22 @@ import { readFiles } from '@/utility/readFiles';
  *
  * -------------------------------- */
 
-async function sassBuildTask(
-   path: string,
-   { release = false }: IOptions
-) {
-   const files = await readFiles(path);
+async function sassBuildTask(source: string, options: IOptions) {
+   const { output = './dist' } = options;
 
-   console.log('sassBuildTask!', path, files);
+   const files = await readGlobFiles(source);
+
+   const result = await Promise.all(
+      files.map((file) => convertFile(file, options))
+   );
+
+   await Promise.all(
+      result.map(({ cssValue }) =>
+         writeFile(path.join(output, `test.css`), cssValue)
+      )
+   );
+
+   console.log('sassBuildTask!', path, options, result);
 }
 
 /* -----------------------------------
