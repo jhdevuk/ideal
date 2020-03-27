@@ -20,7 +20,8 @@ const source = process.argv[3];
  * -------------------------------- */
 
 const options: IOptions = {
-   release: (argv.release as boolean) || false,
+   release: !argv.release,
+   output: (argv.output as string) || './dist',
 };
 
 /* -----------------------------------
