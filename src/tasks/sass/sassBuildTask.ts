@@ -10,9 +10,10 @@ import { writeFile } from '@/utility/writeFile';
  *
  * -------------------------------- */
 
-async function sassBuildTask(source: string, options: IOptions) {
-   const { output = './dist' } = options;
-
+async function sassBuildTask(
+   source: string,
+   { output, ...options }: IOptions
+) {
    const files = await readGlobFiles(source);
 
    const result = await Promise.all(
