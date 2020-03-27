@@ -18,7 +18,9 @@ function error(value: string) {
  * -------------------------------- */
 
 function info(prefix: string, value: string, suffix: string = '') {
-   log.info(`${prefix}: ${chalk.cyan(value)} ${suffix}...`);
+   const output = [prefix, chalk.cyan(value), suffix];
+
+   log.info(output.join(' '));
 }
 
 /* -----------------------------------
@@ -28,7 +30,13 @@ function info(prefix: string, value: string, suffix: string = '') {
  * -------------------------------- */
 
 function file(value: string) {
-   log.info(`${chalk.grey(' ->')} ${chalk.yellow(value)} complete`);
+   const output = [
+      chalk.grey(' ->'),
+      chalk.yellow(value),
+      chalk.grey('built'),
+   ];
+
+   log.info(output.join(' '));
 }
 
 /* -----------------------------------
