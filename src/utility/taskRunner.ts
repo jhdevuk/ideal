@@ -28,8 +28,8 @@ async function run(method: Method, { source, options }: IConfig) {
       const result = await method(source, options);
 
       result.forEach((file) => log.file(file));
-   } catch ({ message }) {
-      log.error(message);
+   } catch ({ message, file, line }) {
+      log.error(message, file, line);
 
       return;
    }
