@@ -3,6 +3,7 @@ import { IOptions } from '@/options';
 import { readGlobFiles } from '@/utility/readGlobFiles';
 import { getFileNames } from '@/utility/getFileNames';
 import { writeFile } from '@/utility/writeFile';
+import { TaskError } from '@/utility/taskError';
 import { convertFile } from './convertFile';
 
 /* -----------------------------------
@@ -16,7 +17,7 @@ async function sassBuildTask(
    { output, ...options }: IOptions
 ) {
    const files = await readGlobFiles(source);
-   const names = getFileNames(files).map((file) => `${file}.css`);
+   const names = getFileNames(files);
 
    if (!files.length) {
       throw new Error('No matching files found');
@@ -24,24 +25,27 @@ async function sassBuildTask(
 
    let result: any;
 
-   try {
-      result = await Promise.all(
-         files.map((file) => convertFile(file, options))
-      );
-   } catch ({ message }) {
-      throw new Error(message);
-   }
+   result = await Promise.all(
+      files.map((file, index) =>
+         convertFile(file, options).catch((error) => {
+            error.file = `${names[index]}.scss`;
 
-   await Promise.all(
-      result.map(({ cssValue }, index) =>
-         writeFile(path.join(output, names[index]), cssValue)
+            throw error;
+         })
       )
    );
 
-   return names;
+   await Promise.all(
+      result.map(({ cssValue }, index) =>
+         writeFile(path.join(output, `${names[index]}.css`), cssValue)
+      )
+   );
+
+   return names.map((file) => `${file}.css`);
 }
 
-/* -----------------------------------
+/* --------------------------------
+---
  *
  * Export
  *

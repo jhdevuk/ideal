@@ -7,8 +7,12 @@ import chalk from 'chalk';
  *
  * -------------------------------- */
 
-function error(value: string) {
-   log.error(`${chalk.red('Error')}: ${value}`);
+function error(value: string, subject = '', line = '') {
+   log.error(
+      `${chalk.red('Error')}: ${chalk.yellow(subject)} ${value} ${
+         line && chalk.yellow(`on line ${line}`)
+      }`
+   );
 }
 
 /* -----------------------------------
