@@ -27,8 +27,6 @@ async function sassBuildTask(
          writeFile(path.join(output, `${names[index]}.css`), cssValue)
       )
    );
-
-   console.log('sassBuildTask!', files);
 }
 
 /* -----------------------------------

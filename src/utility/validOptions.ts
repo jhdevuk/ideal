@@ -6,8 +6,8 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function validOptions(path: string, { output }: IOptions) {
-   if (!path) {
+function validOptions(source: string, { output }: IOptions) {
+   if (!source) {
       return false;
    }
 
