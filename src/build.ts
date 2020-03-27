@@ -1,8 +1,9 @@
 import { argv } from 'yargs';
-import log from 'fancy-log';
 import { tasks } from '@/tasks';
 import { IOptions } from '@/options';
+import * as log from '@/utility/logOutput';
 import { validOptions } from '@/utility/validOptions';
+import { run } from '@/utility/taskRunner';
 
 /* -----------------------------------
  *
@@ -10,8 +11,8 @@ import { validOptions } from '@/utility/validOptions';
  *
  * -------------------------------- */
 
-const method = process.argv[2];
-const source = process.argv[3];
+const method = argv._[0];
+const source = argv._[1];
 
 /* -----------------------------------
  *
@@ -54,4 +55,4 @@ if (!validOptions(source, options)) {
  *
  * -------------------------------- */
 
-tasks[method](source, options);
+run(tasks[method], { source, options });

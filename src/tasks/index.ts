@@ -1,4 +1,13 @@
 import { sassBuildTask } from './sass/sassBuildTask';
+import { IOptions } from '@/options';
+
+/* -----------------------------------
+ *
+ * IMethod
+ *
+ * -------------------------------- */
+
+type Method = (source: string, options: IOptions) => Promise<void>;
 
 /* -----------------------------------
  *
@@ -7,7 +16,7 @@ import { sassBuildTask } from './sass/sassBuildTask';
  * -------------------------------- */
 
 interface ITasks {
-   [index: string]: (source: string, options?: object) => void;
+   [index: string]: Method;
 }
 
 /* -----------------------------------
@@ -26,4 +35,4 @@ const tasks: ITasks = {
  *
  * -------------------------------- */
 
-export { tasks };
+export { Method, tasks };
