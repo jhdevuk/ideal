@@ -9,7 +9,7 @@ import { streamToString, stringToStream } from '@/utility/streamHelpers';
  *
  * -------------------------------- */
 
-async function convertFile(stream: Readable, options: Partial<IOptions>) {
+async function convertFile(stream: Readable) {
    const { css, map } = renderSync({
       data: await streamToString(stream),
    });

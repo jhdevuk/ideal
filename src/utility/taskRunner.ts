@@ -1,6 +1,7 @@
 import { Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
+import { readGlobFiles } from './readGlobFiles';
 
 /* -----------------------------------
  *
@@ -19,13 +20,17 @@ interface IConfig {
  *
  * -------------------------------- */
 
-async function run(method: Method, { source, options }: IConfig) {
+async function run(method: Method, config: IConfig) {
+   const { source } = config;
+
    const start = new Date();
+   const files = await readGlobFiles(source);
+   const build = await method({ files, config });
 
    log.info('Running', method.name);
 
    try {
-      const result = await method(source, options);
+      const result = await Promise.all(files.map(build));
 
       result.forEach((file) => log.file(file));
    } catch ({ message, file, line }) {
