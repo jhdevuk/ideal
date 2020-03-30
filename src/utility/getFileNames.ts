@@ -8,11 +8,19 @@ import { ReadStream } from 'fs';
  * -------------------------------- */
 
 function getFileNames(files: ReadStream[]) {
-   return files.map(({ path: filePath }) => {
-      const { name } = path.parse(filePath as string);
+   return files.map(getFileName);
+}
 
-      return name;
-   });
+/* -----------------------------------
+ *
+ * Name
+ *
+ * -------------------------------- */
+
+function getFileName({ path: filePath }: ReadStream) {
+   const { name } = path.parse(filePath as string);
+
+   return name;
 }
 
 /* -----------------------------------
@@ -21,4 +29,4 @@ function getFileNames(files: ReadStream[]) {
  *
  * -------------------------------- */
 
-export { getFileNames };
+export { getFileName, getFileNames };

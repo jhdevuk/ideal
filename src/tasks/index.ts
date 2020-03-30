@@ -1,23 +1,36 @@
+import { ReadStream } from 'fs';
 import { sassBuildTask } from './sass/sassBuildTask';
 import { IOptions } from '@/options';
 
 /* -----------------------------------
  *
- * IMethod
+ * ISetup
  *
  * -------------------------------- */
 
-type Method = (source: string, options: IOptions) => Promise<string[]>;
+interface ISetup {
+   files: ReadStream[];
+   config: {
+      source: string;
+      options: IOptions;
+   };
+}
 
 /* -----------------------------------
  *
- * ITasks
+ * Method
  *
  * -------------------------------- */
 
-interface ITasks {
-   [index: string]: Method;
-}
+type Method = (setup: ISetup) => Promise<Task>;
+
+/* -----------------------------------
+ *
+ * Task
+ *
+ * -------------------------------- */
+
+type Task = (file: ReadStream, index: number) => Promise<any>;
 
 /* -----------------------------------
  *
@@ -25,7 +38,7 @@ interface ITasks {
  *
  * -------------------------------- */
 
-const tasks: ITasks = {
+const tasks = {
    'build:css': sassBuildTask,
 };
 
@@ -35,4 +48,4 @@ const tasks: ITasks = {
  *
  * -------------------------------- */
 
-export { Method, tasks };
+export { ISetup, Method, tasks };
