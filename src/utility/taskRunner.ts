@@ -75,11 +75,11 @@ async function run(taskMethod: Method, config: IConfig) {
  * -------------------------------- */
 
 async function writeOutput(result: IResult[], output: string) {
+   const names = result.map((item) => Object.keys(item)).flat();
+
    const files = result
       .map((item) => Object.keys(item).map((key) => item[key]))
       .flat();
-
-   const names = result.map((item) => Object.keys(item)).flat();
 
    await Promise.all(
       files.map((file, index) =>
