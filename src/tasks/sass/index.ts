@@ -8,7 +8,7 @@ import { convertFile } from './tools/convertFile';
  *
  * -------------------------------- */
 
-async function sassBuildTask({
+async function sass({
    config: {
       sourcePath,
       options: { sourceMap },
@@ -37,4 +37,4 @@ async function sassBuildTask({
  *
  * -------------------------------- */
 
-export { sassBuildTask };
+export { sass };
