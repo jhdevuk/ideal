@@ -24,7 +24,10 @@ interface IConfig {
  *
  * -------------------------------- */
 
-async function run(methodKey: string, { sourcePath, options }: IConfig) {
+async function taskRunner(
+   methodKey: string,
+   { sourcePath, options }: IConfig
+) {
    const startTime = new Date().getTime();
    const paths = await readGlobFiles(sourcePath);
    const method: Method = tasks[methodKey];
@@ -47,7 +50,7 @@ async function run(methodKey: string, { sourcePath, options }: IConfig) {
          )
       );
 
-      const result = await writeOutput(streams, options.output);
+      const result = await writeStreams(streams, options.output);
 
       result?.forEach(log.file);
    } catch ({ message, file, line }) {
@@ -67,7 +70,7 @@ async function run(methodKey: string, { sourcePath, options }: IConfig) {
  *
  * -------------------------------- */
 
-async function writeOutput(result: IResult[], output: string) {
+async function writeStreams(result: IResult[], output: string) {
    const names = result.map((item) => Object.keys(item)).flat();
 
    const files = result
@@ -89,4 +92,4 @@ async function writeOutput(result: IResult[], output: string) {
  *
  * -------------------------------- */
 
-export { run };
+export { taskRunner };

@@ -1,5 +1,6 @@
 import { ReadStream } from 'fs';
 import { IOptions } from '@/options';
+import { Task } from '@/tasks';
 import { convertSassFile } from './tools/convertSassFile';
 
 /* -----------------------------------
@@ -8,7 +9,7 @@ import { convertSassFile } from './tools/convertSassFile';
  *
  * -------------------------------- */
 
-async function sass({ sourceMap }: IOptions) {
+async function sass({ sourceMap }: IOptions): Promise<Task> {
    const includePaths = [];
 
    return async (

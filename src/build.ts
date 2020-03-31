@@ -3,7 +3,7 @@ import { tasks } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { validOptions } from '@/utility/validOptions';
-import { run } from '@/utility/taskRunner';
+import { taskRunner } from '@/utility/taskRunner';
 
 /* -----------------------------------
  *
@@ -57,4 +57,4 @@ if (!validOptions(sourcePath, options)) {
  *
  * -------------------------------- */
 
-run(methodKey, { sourcePath, options });
+taskRunner(methodKey, { sourcePath, options });

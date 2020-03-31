@@ -51,4 +51,4 @@ const tasks = {
  *
  * -------------------------------- */
 
-export { IResult, Method, tasks };
+export { IResult, Method, Task, tasks };
