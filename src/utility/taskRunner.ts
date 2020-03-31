@@ -1,7 +1,9 @@
-import { Method } from '@/tasks';
+import { IResult, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
+import { readFile } from './readFile';
 import { readGlobFiles } from './readGlobFiles';
+import { getFileName } from './getFileNames';
 
 /* -----------------------------------
  *
@@ -10,7 +12,7 @@ import { readGlobFiles } from './readGlobFiles';
  * -------------------------------- */
 
 interface IConfig {
-   source: string;
+   sourcePath: string;
    options: IOptions;
 }
 
@@ -20,19 +22,24 @@ interface IConfig {
  *
  * -------------------------------- */
 
-async function run(method: Method, config: IConfig) {
-   const { source } = config;
-
+async function run(taskMethod: Method, config: IConfig) {
    const start = new Date();
-   const files = await readGlobFiles(source);
-   const build = await method({ files, config });
+   const { sourcePath } = config;
 
-   log.info('Running', method.name);
+   const paths = await readGlobFiles(sourcePath);
+   const files = paths.map((item) => readFile(item));
+   const build = await taskMethod({ paths, config });
+
+   log.info('Running', taskMethod.name);
 
    try {
-      const result = await Promise.all(files.map(build));
+      const result = await Promise.all(
+         files.map((file) => build(file, getFileName(file)))
+      );
 
-      result.forEach((file) => log.file(file));
+      const output = writeOutput(result);
+
+      output?.forEach(log.file);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 
@@ -42,7 +49,21 @@ async function run(method: Method, config: IConfig) {
    const end = new Date();
    const time = end.getTime() - start.getTime();
 
-   log.info('Finished', method.name, `after ${time} ms`);
+   log.info('Finished', taskMethod.name, `after ${time} ms`);
+}
+
+/* -----------------------------------
+ *
+ * Write
+ *
+ * -------------------------------- */
+
+function writeOutput(result: IResult[]) {
+   const names = Object.keys(result);
+
+   console.log('NAMES', result);
+
+   return [];
 }
 
 /* -----------------------------------
