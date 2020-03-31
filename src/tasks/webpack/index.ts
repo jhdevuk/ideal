@@ -1,10 +1,12 @@
+import { Task } from '@/tasks';
+
 /* -----------------------------------
  *
  * Task
  *
  * -------------------------------- */
 
-async function webpack() {
+async function webpack(): Promise<Task> {
    return async () => {
       return {};
    };
