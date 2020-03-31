@@ -23,6 +23,7 @@ const sourcePath = argv._[1];
 const options: IOptions = {
    release: !!argv.release,
    output: (argv.output as string) || './dist',
+   sourceMap: argv.sourceMap ? true : false,
 };
 
 /* -----------------------------------

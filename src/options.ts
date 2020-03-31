@@ -7,6 +7,7 @@
 interface IOptions {
    output: string;
    release?: boolean;
+   sourceMap?: boolean;
 }
 
 /* -----------------------------------
