@@ -24,8 +24,8 @@ async function writeResultStreams(
       )
    );
 
-   const result = sizes.reduce((array, size, index) => {
-      array.push({ fileName: names[index], fileSize: size });
+   const result = names.reduce((array, name, index) => {
+      array.push({ fileName: name, fileSize: sizes[index] });
 
       return array;
    }, []);
