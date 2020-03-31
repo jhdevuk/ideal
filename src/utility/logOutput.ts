@@ -1,5 +1,7 @@
 import log from 'fancy-log';
 import chalk from 'chalk';
+import getFileSize from 'filesize';
+import { IResult } from '@/tasks';
 
 /* -----------------------------------
  *
@@ -29,14 +31,16 @@ function info(prefix: string, value: string, suffix: string = '') {
 
 /* -----------------------------------
  *
- * File
+ * Result
  *
  * -------------------------------- */
 
-function file(value: string) {
+function result({ fileName, fileSize }: IResult) {
    const output = [
       chalk.grey(' ->'),
-      chalk.yellow(value),
+      chalk.yellow(fileName),
+      '-',
+      chalk.green(getFileSize(fileSize)),
       chalk.grey('built'),
    ];
 
@@ -49,4 +53,4 @@ function file(value: string) {
  *
  * -------------------------------- */
 
-export { error, info, file };
+export { error, info, result };
