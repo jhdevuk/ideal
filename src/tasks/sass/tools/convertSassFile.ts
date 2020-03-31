@@ -21,12 +21,12 @@ interface IConfig {
  *
  * -------------------------------- */
 
-async function convertFile(
+async function convertSassFile(
    stream: Readable,
    { includePaths, fileName, filePath, sourceMap }: IConfig
 ) {
    try {
-      const { css, map, stats } = renderSync({
+      const { css, map } = renderSync({
          data: await streamToString(stream),
          file: filePath,
          includePaths,
@@ -51,4 +51,4 @@ async function convertFile(
  *
  * -------------------------------- */
 
-export { convertFile };
+export { convertSassFile };
