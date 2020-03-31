@@ -1,8 +1,8 @@
 {
-   "name": "warden",
+   "name": "ideal",
    "version": "1.0.0",
    "main": "index.js",
-   "repository": "https://github.com/jhdevuk/warden",
+   "repository": "https://github.com/jhdevuk/ideal",
    "author": "jhdevuk",
    "license": "MIT",
    "scripts": {
@@ -10,7 +10,7 @@
       "watch": "run-s \"build --watch\""
    },
    "bin": {
-      "warden": "./dist/build.js"
+      "ideal": "./dist/build.js"
    },
    "dependencies": {
       "chalk": "^3.0.0",
