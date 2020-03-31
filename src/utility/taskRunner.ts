@@ -2,10 +2,10 @@ import path from 'path';
 import { IResult, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
-import { readFile } from './readFile';
-import { readGlobFiles } from './readGlobFiles';
-import { getFileName } from './getFileNames';
-import { writeFile } from './writeFile';
+import { readFile } from '@/utility/readFile';
+import { readGlobFiles } from '@/utility/readGlobFiles';
+import { getFileName } from '@/utility/getFileNames';
+import { writeFile } from '@/utility/writeFile';
 
 /* -----------------------------------
  *
