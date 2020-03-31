@@ -8,17 +8,15 @@ import { convertFile } from './tools/convertFile';
  *
  * -------------------------------- */
 
-async function sass({
-   config: {
-      sourcePath,
-      options: { sourceMap },
-   },
-}: ITask) {
-   return async (file: ReadStream, name: string) => {
-      const { cssResult, mapOutput } = await convertFile(file, {
-         sourcePath,
+async function sass({ config: { options } }: ITask) {
+   const includePaths = [];
+
+   return async (stream: ReadStream, path: string, name: string) => {
+      const { cssResult, mapOutput } = await convertFile(stream, {
+         filePath: path,
+         includePaths,
          fileName: name,
-         sourceMap,
+         sourceMap: options.sourceMap,
       });
 
       const result = { [`${name}.css`]: cssResult };

@@ -47,7 +47,9 @@ async function run(taskMethod: Method, config: IConfig) {
 
    try {
       const streams = await Promise.all(
-         files.map((file) => build(file, getFileName(file)))
+         files.map((stream, index) =>
+            build(stream, paths[index], getFileName(stream))
+         )
       );
 
       const result = await writeOutput(streams, output);

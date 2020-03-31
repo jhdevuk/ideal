@@ -1,3 +1,4 @@
+import isGlob from 'is-glob';
 import { IOptions } from '@/options';
 
 /* -----------------------------------
@@ -7,7 +8,7 @@ import { IOptions } from '@/options';
  * -------------------------------- */
 
 function validOptions(source: string, { output }: IOptions) {
-   if (!source) {
+   if (!isGlob(source)) {
       return false;
    }
 
