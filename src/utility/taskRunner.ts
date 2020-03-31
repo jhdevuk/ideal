@@ -33,6 +33,13 @@ async function run(taskMethod: Method, config: IConfig) {
    } = config;
 
    const paths = await readGlobFiles(sourcePath);
+
+   if (!paths.length) {
+      log.error('has no matching files', sourcePath);
+
+      return;
+   }
+
    const files = paths.map((item) => readFile(item));
    const build = await taskMethod({ paths, config });
 
