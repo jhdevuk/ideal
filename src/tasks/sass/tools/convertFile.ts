@@ -1,6 +1,5 @@
 import { Readable } from 'stream';
 import { renderSync } from 'node-sass';
-import { getPathsFromGlob } from '@/utility/getPathsFromGlob';
 import { streamToString, stringToStream } from '@/utility/streamHelpers';
 
 /* -----------------------------------
@@ -10,8 +9,9 @@ import { streamToString, stringToStream } from '@/utility/streamHelpers';
  * -------------------------------- */
 
 interface IConfig {
-   sourcePath: string;
+   includePaths: string[];
    fileName: string;
+   filePath: string;
    sourceMap?: boolean;
 }
 
@@ -23,12 +23,13 @@ interface IConfig {
 
 async function convertFile(
    stream: Readable,
-   { sourcePath, fileName, sourceMap }: IConfig
+   { includePaths, fileName, filePath, sourceMap }: IConfig
 ) {
    try {
-      const { css, map } = renderSync({
+      const { css, map, stats } = renderSync({
          data: await streamToString(stream),
-         includePaths: getPathsFromGlob(sourcePath),
+         file: filePath,
+         includePaths,
          outFile: `${fileName}.css`,
          sourceMap,
       });

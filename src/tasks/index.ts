@@ -2,6 +2,7 @@ import { ReadStream } from 'fs';
 import { Readable } from 'stream';
 import { IOptions } from '@/options';
 import { sass } from './sass';
+import { webpack } from './webpack';
 
 /* -----------------------------------
  *
@@ -41,7 +42,11 @@ type Method = (props: ITask) => Promise<Task>;
  *
  * -------------------------------- */
 
-type Task = (file: ReadStream, name: string) => Promise<IResult>;
+type Task = (
+   file: ReadStream,
+   path: string,
+   name: string
+) => Promise<IResult>;
 
 /* -----------------------------------
  *
@@ -51,6 +56,7 @@ type Task = (file: ReadStream, name: string) => Promise<IResult>;
 
 const tasks = {
    'build:css': sass,
+   'build:js': webpack,
 };
 
 /* -----------------------------------

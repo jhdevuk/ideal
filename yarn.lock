@@ -2004,7 +2004,7 @@ is-glob@^3.1.0:
   dependencies:
     is-extglob "^2.1.0"
 
-is-glob@^4.0.0:
+is-glob@^4.0.0, is-glob@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.1.tgz#7567dbe9f2f5e2467bc77ab83c4a29482407a5dc"
   integrity sha512-5G0tKtBTFImOqDnLB2hG6Bp2qcKEFduo4tZu9MT/H6NQv/ghhy30o55ufafxJ/LdH79LLs2Kfrn85TLKyA7BUg==
@@ -2078,6 +2078,11 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
+
+isdir@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/isdir/-/isdir-2.0.1.tgz#01b93b57f2c2ef067f08a874d69e958bab976ea0"
+  integrity sha1-Abk7V/LC7wZ/CKh01p6Vi6uXbqA=
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -2198,6 +2203,13 @@ lcid@^2.0.0:
   integrity sha512-avPEb8P8EGnwXKClwsNUgryVjllcRqtMYa49NTsbQagYuT1DcXnl1915oxWjoyGrXR6zH/Y0Zc96xWsPcoDKeA==
   dependencies:
     invert-kv "^2.0.0"
+
+listdirs@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/listdirs/-/listdirs-3.1.1.tgz#4e1ccc1ee0c1548887a707111fb86252fccad58c"
+  integrity sha512-ahjcWQ/flyh3BgxaXdSkYvofV9iy5G9w1pzjZEBmPrwVSGeCjZW9iISo58HKcPZb1Zf3od8BgWpmOYHDPy1LhQ==
+  dependencies:
+    isdir "^2.0.0"
 
 load-json-file@^1.0.0:
   version "1.1.0"
