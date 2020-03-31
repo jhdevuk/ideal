@@ -11,7 +11,7 @@ import { run } from '@/utility/taskRunner';
  *
  * -------------------------------- */
 
-const taskMethod = argv._[0];
+const methodKey = argv._[0];
 const sourcePath = argv._[1];
 
 /* -----------------------------------
@@ -33,8 +33,8 @@ const options: IOptions = {
  *
  * -------------------------------- */
 
-if (!tasks[taskMethod]) {
-   log.error(`Unknown build task method: ${taskMethod}`);
+if (!tasks[methodKey]) {
+   log.error(`Unknown build task method: ${methodKey}`);
 
    process.exit(1);
 }
@@ -57,4 +57,4 @@ if (!validOptions(sourcePath, options)) {
  *
  * -------------------------------- */
 
-run(tasks[taskMethod], { sourcePath, options });
+run(methodKey, { sourcePath, options });

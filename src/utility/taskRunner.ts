@@ -1,5 +1,5 @@
 import path from 'path';
-import { IResult, Method } from '@/tasks';
+import { IResult, tasks, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
@@ -24,15 +24,10 @@ interface IConfig {
  *
  * -------------------------------- */
 
-async function run(taskMethod: Method, config: IConfig) {
+async function run(methodKey: string, { sourcePath, options }: IConfig) {
    const startTime = new Date().getTime();
-
-   const {
-      sourcePath,
-      options: { output },
-   } = config;
-
    const paths = await readGlobFiles(sourcePath);
+   const method: Method = tasks[methodKey];
 
    if (!paths.length) {
       log.error('has no matching files', sourcePath);
@@ -41,9 +36,9 @@ async function run(taskMethod: Method, config: IConfig) {
    }
 
    const files = paths.map((item) => readFile(item));
-   const build = await taskMethod({ paths, config });
+   const build = await method(options);
 
-   log.info('Running', taskMethod.name, 'task...');
+   log.info('Running', methodKey, 'task...');
 
    try {
       const streams = await Promise.all(
@@ -52,7 +47,7 @@ async function run(taskMethod: Method, config: IConfig) {
          )
       );
 
-      const result = await writeOutput(streams, output);
+      const result = await writeOutput(streams, options.output);
 
       result?.forEach(log.file);
    } catch ({ message, file, line }) {
@@ -63,11 +58,7 @@ async function run(taskMethod: Method, config: IConfig) {
 
    const endTime = new Date().getTime();
 
-   log.info(
-      'Finished',
-      taskMethod.name,
-      `after ${endTime - startTime} ms`
-   );
+   log.info('Finished', methodKey, `after ${endTime - startTime} ms`);
 }
 
 /* -----------------------------------

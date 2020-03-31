@@ -1,5 +1,5 @@
 import { ReadStream } from 'fs';
-import { ITask } from '@/tasks';
+import { IOptions } from '@/options';
 import { convertSassFile } from './tools/convertSassFile';
 
 /* -----------------------------------
@@ -8,21 +8,25 @@ import { convertSassFile } from './tools/convertSassFile';
  *
  * -------------------------------- */
 
-async function sass({ config: { options } }: ITask) {
+async function sass({ sourceMap }: IOptions) {
    const includePaths = [];
 
-   return async (stream: ReadStream, path: string, name: string) => {
+   return async (
+      stream: ReadStream,
+      filePath: string,
+      fileName: string
+   ) => {
       const { cssResult, mapOutput } = await convertSassFile(stream, {
-         filePath: path,
+         filePath,
          includePaths,
-         fileName: name,
-         sourceMap: options.sourceMap,
+         fileName,
+         sourceMap,
       });
 
-      const result = { [`${name}.css`]: cssResult };
+      const result = { [`${fileName}.css`]: cssResult };
 
       if (mapOutput) {
-         result[`${name}.map.css`] = mapOutput;
+         result[`${fileName}.map.css`] = mapOutput;
       }
 
       return result;

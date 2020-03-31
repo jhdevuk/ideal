@@ -6,20 +6,6 @@ import { webpack } from './webpack';
 
 /* -----------------------------------
  *
- * ITask
- *
- * -------------------------------- */
-
-interface ITask {
-   paths: string[];
-   config: {
-      sourcePath: string;
-      options: IOptions;
-   };
-}
-
-/* -----------------------------------
- *
  * IResult
  *
  * -------------------------------- */
@@ -34,7 +20,7 @@ interface IResult {
  *
  * -------------------------------- */
 
-type Method = (props: ITask) => Promise<Task>;
+type Method = (options: IOptions) => Promise<Task>;
 
 /* -----------------------------------
  *
@@ -65,4 +51,4 @@ const tasks = {
  *
  * -------------------------------- */
 
-export { ITask, IResult, Method, tasks };
+export { IResult, Method, tasks };
