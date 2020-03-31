@@ -1,6 +1,5 @@
 import { ReadStream } from 'fs';
 import { ITask } from '@/tasks';
-import { getFileName } from '@/utility/getFileNames';
 import { convertFile } from './tools/convertFile';
 
 /* -----------------------------------
@@ -10,16 +9,25 @@ import { convertFile } from './tools/convertFile';
  * -------------------------------- */
 
 async function sassBuildTask({
-   paths,
-   config: { sourcePath, options },
+   config: {
+      sourcePath,
+      options: { sourceMap },
+   },
 }: ITask) {
    return async (file: ReadStream, name: string) => {
-      const { cssValue } = await convertFile(file, {
+      const { cssResult, mapOutput } = await convertFile(file, {
          sourcePath,
          fileName: name,
+         sourceMap,
       });
 
-      return { [`${name}.css`]: cssValue };
+      const result = { [`${name}.css`]: cssResult };
+
+      if (mapOutput) {
+         result[`${name}.map.css`] = mapOutput;
+      }
+
+      return result;
    };
 }
 

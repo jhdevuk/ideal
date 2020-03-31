@@ -12,6 +12,7 @@ import { streamToString, stringToStream } from '@/utility/streamHelpers';
 interface IConfig {
    sourcePath: string;
    fileName: string;
+   sourceMap?: boolean;
 }
 
 /* -----------------------------------
@@ -22,17 +23,19 @@ interface IConfig {
 
 async function convertFile(
    stream: Readable,
-   { sourcePath, fileName }: IConfig
+   { sourcePath, fileName, sourceMap }: IConfig
 ) {
    try {
       const { css, map } = renderSync({
          data: await streamToString(stream),
          includePaths: getPathsFromGlob(sourcePath),
+         outFile: `${fileName}.css`,
+         sourceMap,
       });
 
       return {
-         cssValue: stringToStream(css),
-         sourceMap: map,
+         cssResult: stringToStream(css),
+         mapOutput: map && stringToStream(map),
       };
    } catch (error) {
       error.file = `${fileName}.scss`;
