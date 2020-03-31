@@ -1,9 +1,11 @@
+import path from 'path';
 import { IResult, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from './readFile';
 import { readGlobFiles } from './readGlobFiles';
 import { getFileName } from './getFileNames';
+import { writeFile } from './writeFile';
 
 /* -----------------------------------
  *
@@ -23,8 +25,12 @@ interface IConfig {
  * -------------------------------- */
 
 async function run(taskMethod: Method, config: IConfig) {
-   const start = new Date();
-   const { sourcePath } = config;
+   const startTime = new Date().getTime();
+
+   const {
+      sourcePath,
+      options: { output },
+   } = config;
 
    const paths = await readGlobFiles(sourcePath);
    const files = paths.map((item) => readFile(item));
@@ -33,23 +39,26 @@ async function run(taskMethod: Method, config: IConfig) {
    log.info('Running', taskMethod.name);
 
    try {
-      const result = await Promise.all(
+      const streams = await Promise.all(
          files.map((file) => build(file, getFileName(file)))
       );
 
-      const output = writeOutput(result);
+      const result = await writeOutput(streams, output);
 
-      output?.forEach(log.file);
+      result?.forEach(log.file);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 
       return;
    }
 
-   const end = new Date();
-   const time = end.getTime() - start.getTime();
+   const endTime = new Date().getTime();
 
-   log.info('Finished', taskMethod.name, `after ${time} ms`);
+   log.info(
+      'Finished',
+      taskMethod.name,
+      `after ${endTime - startTime} ms`
+   );
 }
 
 /* -----------------------------------
@@ -58,12 +67,16 @@ async function run(taskMethod: Method, config: IConfig) {
  *
  * -------------------------------- */
 
-function writeOutput(result: IResult[]) {
-   const names = Object.keys(result);
+async function writeOutput(result: IResult[], output: string) {
+   const names = result.map((item) => Object.keys(item)).flat();
 
-   console.log('NAMES', result);
+   await Promise.all(
+      result.map((item, index) =>
+         writeFile(path.join(output, names[index]), item[names[index]])
+      )
+   );
 
-   return [];
+   return names;
 }
 
 /* -----------------------------------
