@@ -1,19 +1,30 @@
 import { ReadStream } from 'fs';
+import { Readable } from 'stream';
 import { sassBuildTask } from './sass/sassBuildTask';
 import { IOptions } from '@/options';
 
 /* -----------------------------------
  *
- * ISetup
+ * ITask
  *
  * -------------------------------- */
 
-interface ISetup {
-   files: ReadStream[];
+interface ITask {
+   paths: string[];
    config: {
-      source: string;
+      sourcePath: string;
       options: IOptions;
    };
+}
+
+/* -----------------------------------
+ *
+ * IResult
+ *
+ * -------------------------------- */
+
+interface IResult {
+   [index: string]: Readable;
 }
 
 /* -----------------------------------
@@ -22,7 +33,7 @@ interface ISetup {
  *
  * -------------------------------- */
 
-type Method = (setup: ISetup) => Promise<Task>;
+type Method = (props: ITask) => Promise<Task>;
 
 /* -----------------------------------
  *
@@ -30,7 +41,7 @@ type Method = (setup: ISetup) => Promise<Task>;
  *
  * -------------------------------- */
 
-type Task = (file: ReadStream, index: number) => Promise<any>;
+type Task = (file: ReadStream, name: string) => Promise<IResult>;
 
 /* -----------------------------------
  *
@@ -48,4 +59,4 @@ const tasks = {
  *
  * -------------------------------- */
 
-export { ISetup, Method, tasks };
+export { ITask, IResult, Method, tasks };

@@ -1,7 +1,6 @@
-import path from 'path';
 import { ReadStream } from 'fs';
-import { Readable } from 'stream';
-import { ISetup } from '@/tasks';
+import { ITask } from '@/tasks';
+import { getFileName } from '@/utility/getFileNames';
 import { convertFile } from './tools/convertFile';
 
 /* -----------------------------------
@@ -10,11 +9,17 @@ import { convertFile } from './tools/convertFile';
  *
  * -------------------------------- */
 
-async function sassBuildTask({ files, config }: ISetup) {
-   return async (file: ReadStream, index: number) => {
-      const { cssValue } = await convertFile(file);
+async function sassBuildTask({
+   paths,
+   config: { sourcePath, options },
+}: ITask) {
+   return async (file: ReadStream, name: string) => {
+      const { cssValue } = await convertFile(file, {
+         sourcePath,
+         fileName: name,
+      });
 
-      console.log('PROCESS', cssValue);
+      return { [`${name}.css`]: cssValue };
    };
 }
 /* --------------------------------

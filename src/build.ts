@@ -11,8 +11,8 @@ import { run } from '@/utility/taskRunner';
  *
  * -------------------------------- */
 
-const method = argv._[0];
-const source = argv._[1];
+const taskMethod = argv._[0];
+const sourcePath = argv._[1];
 
 /* -----------------------------------
  *
@@ -31,8 +31,8 @@ const options: IOptions = {
  *
  * -------------------------------- */
 
-if (!tasks[method]) {
-   log.error(`Unknown build task method: ${method}`);
+if (!tasks[taskMethod]) {
+   log.error(`Unknown build task method: ${taskMethod}`);
 
    process.exit(1);
 }
@@ -43,7 +43,7 @@ if (!tasks[method]) {
  *
  * -------------------------------- */
 
-if (!validOptions(source, options)) {
+if (!validOptions(sourcePath, options)) {
    log.error('Missing required arguments');
 
    process.exit(1);
@@ -55,4 +55,4 @@ if (!validOptions(source, options)) {
  *
  * -------------------------------- */
 
-run(tasks[method], { source, options });
+run(tasks[taskMethod], { sourcePath, options });
