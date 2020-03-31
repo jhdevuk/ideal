@@ -20,6 +20,7 @@ function writeFile(
 
          resolve(size);
       });
+
       writeStream.on('error', reject);
    });
 }
