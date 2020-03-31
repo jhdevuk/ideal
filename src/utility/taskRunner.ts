@@ -36,7 +36,7 @@ async function run(taskMethod: Method, config: IConfig) {
    const files = paths.map((item) => readFile(item));
    const build = await taskMethod({ paths, config });
 
-   log.info('Running', taskMethod.name);
+   log.info('Running', taskMethod.name, 'task...');
 
    try {
       const streams = await Promise.all(

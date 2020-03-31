@@ -1,7 +1,7 @@
 import { ReadStream } from 'fs';
 import { Readable } from 'stream';
-import { sassBuildTask } from './sass/sassBuildTask';
 import { IOptions } from '@/options';
+import { sass } from './sass';
 
 /* -----------------------------------
  *
@@ -50,7 +50,7 @@ type Task = (file: ReadStream, name: string) => Promise<IResult>;
  * -------------------------------- */
 
 const tasks = {
-   'build:css': sassBuildTask,
+   'build:css': sass,
 };
 
 /* -----------------------------------
