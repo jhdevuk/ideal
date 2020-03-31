@@ -1,11 +1,11 @@
 import path from 'path';
-import { IResult, tasks, Method } from '@/tasks';
+import { tasks, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
 import { readGlobFiles } from '@/utility/readGlobFiles';
 import { getFileName } from '@/utility/getFileNames';
-import { writeFile } from '@/utility/writeFile';
+import { writeResultStreams } from '@/utility/writeResultStreams';
 
 /* -----------------------------------
  *
@@ -50,9 +50,9 @@ async function taskRunner(
          )
       );
 
-      const result = await writeStreams(streams, options.output);
+      const result = await writeResultStreams(streams, options.output);
 
-      result?.forEach(log.file);
+      result.forEach(log.result);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 
@@ -62,28 +62,6 @@ async function taskRunner(
    const endTime = new Date().getTime();
 
    log.info('Finished', methodKey, `after ${endTime - startTime} ms`);
-}
-
-/* -----------------------------------
- *
- * Write
- *
- * -------------------------------- */
-
-async function writeStreams(result: IResult[], output: string) {
-   const names = result.map((item) => Object.keys(item)).flat();
-
-   const files = result
-      .map((item) => Object.keys(item).map((key) => item[key]))
-      .flat();
-
-   await Promise.all(
-      files.map((file, index) =>
-         writeFile(path.join(output, names[index]), file)
-      )
-   );
-
-   return names;
 }
 
 /* -----------------------------------

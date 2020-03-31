@@ -6,12 +6,23 @@ import { webpack } from './webpack';
 
 /* -----------------------------------
  *
+ * IStream
+ *
+ * -------------------------------- */
+
+interface IStream {
+   [index: string]: Readable;
+}
+
+/* -----------------------------------
+ *
  * IResult
  *
  * -------------------------------- */
 
 interface IResult {
-   [index: string]: Readable;
+   fileName: string;
+   fileSize: number;
 }
 
 /* -----------------------------------
@@ -32,7 +43,7 @@ type Task = (
    file: ReadStream,
    path: string,
    name: string
-) => Promise<IResult>;
+) => Promise<IStream>;
 
 /* -----------------------------------
  *
@@ -51,4 +62,4 @@ const tasks = {
  *
  * -------------------------------- */
 
-export { IResult, Method, Task, tasks };
+export { IStream, IResult, Method, Task, tasks };
