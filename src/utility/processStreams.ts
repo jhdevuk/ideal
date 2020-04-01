@@ -1,11 +1,12 @@
 import { fromStream as getHash } from 'hasha';
 import fileSize from 'filesize';
+import { Readable } from 'stream';
 import { IStream, IResult } from '@/tasks';
 import { flattenArray } from '@/utility/flattenArray';
 
 /* -----------------------------------
  *
- * Format
+ * Process
  *
  * -------------------------------- */
 
@@ -17,19 +18,27 @@ async function processStreams(
    const result = streams
       .map((item) => Object.keys(item))
       .map((item, index) =>
-         item.map((name) => {
-            const stream = streams[index][name];
-
-            return {
-               name,
-               hash: getHash(stream, { algorithm: 'md5' }),
-               size: fileSize(stream.readableLength),
-               stream,
-            };
-         })
+         item.map((name) => formatStream(streams[index], name))
       );
 
    return flattenArray(result);
+}
+
+/* -----------------------------------
+ *
+ * Format
+ *
+ * -------------------------------- */
+
+function formatStream(stream: IStream, name: string): IResult {
+   const content = stream[name];
+
+   return {
+      name,
+      hash: getHash(content, { algorithm: 'md5' }),
+      size: fileSize(content.readableLength),
+      stream: content,
+   };
 }
 
 /* -----------------------------------
