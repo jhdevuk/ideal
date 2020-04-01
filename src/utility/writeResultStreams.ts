@@ -1,5 +1,6 @@
 import path from 'path';
 import { IStream, IResult } from '@/tasks';
+import { flattenArray } from '@/utility/flattenArray';
 import { writeFile } from '@/utility/writeFile';
 
 /* -----------------------------------
@@ -12,11 +13,11 @@ async function writeResultStreams(
    stream: IStream[],
    output: string
 ): Promise<IResult[]> {
-   const names = stream.map((item) => Object.keys(item)).flat();
+   const names = flattenArray(stream.map((item) => Object.keys(item)));
 
-   const files = stream
-      .map((item) => Object.keys(item).map((key) => item[key]))
-      .flat();
+   const files = flattenArray(
+      stream.map((item) => Object.keys(item).map((key) => item[key]))
+   );
 
    const sizes = await Promise.all(
       files.map((file, index) =>
