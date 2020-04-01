@@ -25,6 +25,7 @@ const options: IOptions = {
    output: (argv.output as string) || './dist',
    sourceMap: !!argv.sourceMap,
    watch: !!argv.watch,
+   verbose: !!argv.verbose,
 };
 
 /* -----------------------------------
