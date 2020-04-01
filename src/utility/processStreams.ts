@@ -18,12 +18,10 @@ async function processStreams(
    const result = streams
       .map((item) => Object.keys(item))
       .map((item, index) =>
-         item
-            .map((name) => formatStream(streams[index], name))
-            .filter(({ stream }) => !!stream)
+         item.map((name) => formatStream(streams[index], name))
       );
 
-   return flattenArray(result);
+   return flattenArray(result).filter(({ stream }) => !!stream);
 }
 
 /* -----------------------------------
