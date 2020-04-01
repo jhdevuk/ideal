@@ -21,11 +21,10 @@ async function sass({ sourceMap }: IOptions): Promise<Task> {
          sourceMap,
       });
 
-      const result = { [fileName]: cssResult };
-
-      if (mapOutput) {
-         result[`${fileName}.map`] = mapOutput;
-      }
+      const result = {
+         [fileName]: cssResult,
+         [`${fileName}.map`]: mapOutput,
+      };
 
       return result;
    };

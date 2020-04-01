@@ -18,7 +18,9 @@ async function processStreams(
    const result = streams
       .map((item) => Object.keys(item))
       .map((item, index) =>
-         item.map((name) => formatStream(streams[index], name))
+         item
+            .map((name) => formatStream(streams[index], name))
+            .filter(({ stream }) => !!stream)
       );
 
    return flattenArray(result);
@@ -31,13 +33,13 @@ async function processStreams(
  * -------------------------------- */
 
 function formatStream(stream: IStream, name: string): IResult {
-   const content = stream[name];
+   const data = stream[name];
 
    return {
       name,
-      hash: getHash(content, { algorithm: 'md5' }),
-      size: fileSize(content.readableLength),
-      stream: content,
+      hash: data && getHash(data, { algorithm: 'md5' }),
+      size: data && fileSize(data.readableLength),
+      stream: data,
    };
 }
 
