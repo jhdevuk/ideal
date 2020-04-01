@@ -35,7 +35,7 @@ const options: IOptions = {
  * -------------------------------- */
 
 if (!tasks[methodKey]) {
-   log.error('Unknown build task method:', methodKey);
+   log.error('Unknown build task:', methodKey);
 
    process.exit(1);
 }
