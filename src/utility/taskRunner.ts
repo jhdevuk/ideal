@@ -1,5 +1,5 @@
 import chokidar from 'chokidar';
-import { IResult, tasks, Method } from '@/tasks';
+import { IResult, tasks, Method, Task } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
@@ -32,7 +32,8 @@ async function taskRunner(
 ) {
    const startTime = new Date().getTime();
    const paths = await readGlobFiles(sourcePath);
-   const taskMethod = () => runTask(tasks[methodKey], paths, options);
+   const method = await tasks[methodKey](options);
+   const taskMethod = () => runTask(method, paths, options);
 
    if (!paths.length) {
       log.error('No matching files for', sourcePath);
@@ -61,13 +62,8 @@ async function taskRunner(
  *
  * -------------------------------- */
 
-async function runTask(
-   method: Method,
-   paths: string[],
-   options: IOptions
-) {
+async function runTask(task: Task, paths: string[], options: IOptions) {
    const files = paths.map((item) => readFile(item));
-   const task = await method(options);
 
    const streams = files.map((data, index) =>
       task({
