@@ -12,6 +12,8 @@ async function sass({ sourceMap }: IOptions): Promise<Task> {
    const includePaths = [];
 
    return async ({ stream, name, path }: IProps) => {
+      const fileName = `${name}.css`;
+
       const { cssResult, mapOutput } = await convertSassFile(stream, {
          filePath: path,
          includePaths,
@@ -19,10 +21,10 @@ async function sass({ sourceMap }: IOptions): Promise<Task> {
          sourceMap,
       });
 
-      const result = { [`${name}.css`]: cssResult };
+      const result = { [fileName]: cssResult };
 
       if (mapOutput) {
-         result[`${name}.map.css`] = mapOutput;
+         result[`${fileName}.map`] = mapOutput;
       }
 
       return result;
