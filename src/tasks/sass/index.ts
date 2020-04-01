@@ -4,11 +4,11 @@ import { convertSassFile } from './tools/convertSassFile';
 
 /* -----------------------------------
  *
- * Task
+ * Method
  *
  * -------------------------------- */
 
-async function sass({ sourceMap }: IOptions): Promise<Task> {
+async function method({ sourceMap }: IOptions): Promise<Task> {
    const includePaths = [];
 
    return async ({ data, name, path }: IProps) => {
@@ -36,4 +36,4 @@ async function sass({ sourceMap }: IOptions): Promise<Task> {
  *
  * -------------------------------- */
 
-export { sass };
+export { method };

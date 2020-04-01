@@ -1,8 +1,8 @@
 import { ReadStream } from 'fs';
 import { Readable } from 'stream';
 import { IOptions } from '@/options';
-import { sass } from './sass';
-import { webpack } from './webpack';
+import { method as sassMethod } from './sass';
+import { method as webpackMethod } from './webpack';
 
 /* -----------------------------------
  *
@@ -62,8 +62,8 @@ type Task = (props: IProps) => Promise<IStream>;
  * -------------------------------- */
 
 const tasks = {
-   'build:css': sass,
-   'build:js': webpack,
+   'build:css': sassMethod,
+   'build:js': webpackMethod,
 };
 
 /* -----------------------------------
