@@ -1,4 +1,3 @@
-import { ReadStream } from 'fs';
 import { IOptions } from '@/options';
 import { Task, IProps } from '@/tasks';
 import { convertSassFile } from './tools/convertSassFile';
@@ -12,18 +11,18 @@ import { convertSassFile } from './tools/convertSassFile';
 async function sass({ sourceMap }: IOptions): Promise<Task> {
    const includePaths = [];
 
-   return async ({ stream, fileName, filePath }: IProps) => {
+   return async ({ stream, name, path }: IProps) => {
       const { cssResult, mapOutput } = await convertSassFile(stream, {
-         filePath,
+         filePath: path,
          includePaths,
-         fileName,
+         fileName: name,
          sourceMap,
       });
 
-      const result = { [`${fileName}.css`]: cssResult };
+      const result = { [`${name}.css`]: cssResult };
 
       if (mapOutput) {
-         result[`${fileName}.map.css`] = mapOutput;
+         result[`${name}.map.css`] = mapOutput;
       }
 
       return result;

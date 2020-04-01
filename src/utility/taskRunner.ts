@@ -1,4 +1,3 @@
-import path from 'path';
 import { tasks, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
@@ -48,8 +47,8 @@ async function taskRunner(
          files.map((stream, index) =>
             build({
                stream,
-               filePath: paths[index],
-               fileName: getFileName(stream),
+               path: paths[index],
+               name: getFileName(stream),
             })
          )
       );
@@ -59,6 +58,8 @@ async function taskRunner(
       result.forEach(log.result);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
+
+      process.exit(1);
 
       return;
    }
