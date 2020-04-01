@@ -1,11 +1,13 @@
 import chokidar from 'chokidar';
-import { tasks, Method, Task } from '@/tasks';
+import { tasks, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
 import { readGlobFiles } from '@/utility/readGlobFiles';
 import { getFileName } from '@/utility/getFileNames';
-import { writeResultStreams } from '@/utility/writeResultStreams';
+import { processStreams } from '@/utility/processStreams';
+import { hashFileNames } from '@/utility/hashFileNames';
+import { writeStreams } from '@/utility/writeStreams';
 
 /* -----------------------------------
  *
@@ -67,20 +69,20 @@ async function runTask(
    const files = paths.map((item) => readFile(item));
    const task = await method(options);
 
+   const streams = files.map((stream, index) =>
+      task({
+         stream,
+         path: paths[index],
+         name: getFileName(stream),
+      })
+   );
+
    let result = [];
 
    try {
-      const streams = await Promise.all(
-         files.map((stream, index) =>
-            task({
-               stream,
-               path: paths[index],
-               name: getFileName(stream),
-            })
-         )
-      );
-
-      result = await writeResultStreams(streams, options.output);
+      result = await processStreams(streams);
+      result = await hashFileNames(result, options.release);
+      result = await writeStreams(result, options.output);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 

@@ -1,3 +1,4 @@
+import hash from 'hasha';
 import { Readable } from 'stream';
 import fs, { PathLike } from 'fs';
 
@@ -7,19 +8,15 @@ import fs, { PathLike } from 'fs';
  *
  * -------------------------------- */
 
-function writeFile(
+async function writeFile(
    filePath: PathLike,
    readStream: Readable,
    encoding: string = 'utf8'
-): Promise<number> {
+): Promise<void> {
    const writeStream = fs.createWriteStream(filePath, encoding);
 
-   return new Promise((resolve, reject) => {
-      readStream.pipe(writeStream).on('finish', () => {
-         const { size } = fs.statSync(filePath);
-
-         resolve(size);
-      });
+   return new Promise(async (resolve, reject) => {
+      readStream.pipe(writeStream).on('finish', resolve);
 
       writeStream.on('error', reject);
    });
