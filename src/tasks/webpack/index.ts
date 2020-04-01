@@ -1,6 +1,7 @@
-import webpack from 'webpack-stream';
+import buildTool from 'webpack-stream';
 import named from 'vinyl-named';
 import { Task, IProps } from '@/tasks';
+import { config } from './webpack.default';
 
 /* -----------------------------------
  *
@@ -9,7 +10,7 @@ import { Task, IProps } from '@/tasks';
  * -------------------------------- */
 
 async function method(): Promise<Task> {
-   const webpackStream = webpack();
+   const webpackStream = buildTool(config as any); // type error without any
 
    return async ({ data, name, path }: IProps) => {
       const result = data.pipe(named()).pipe(webpackStream);
