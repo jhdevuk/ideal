@@ -46,7 +46,11 @@ async function taskRunner(
    try {
       const streams = await Promise.all(
          files.map((stream, index) =>
-            build(stream, paths[index], getFileName(stream))
+            build({
+               stream,
+               filePath: paths[index],
+               fileName: getFileName(stream),
+            })
          )
       );
 
