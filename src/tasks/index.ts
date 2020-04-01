@@ -11,7 +11,7 @@ import { webpack } from './webpack';
  * -------------------------------- */
 
 interface IProps {
-   stream: ReadStream;
+   data: ReadStream;
    path: string;
    name: string;
 }

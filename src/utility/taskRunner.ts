@@ -69,11 +69,11 @@ async function runTask(
    const files = paths.map((item) => readFile(item));
    const task = await method(options);
 
-   const streams = files.map((stream, index) =>
+   const streams = files.map((data, index) =>
       task({
-         stream,
+         data,
          path: paths[index],
-         name: getFileName(stream),
+         name: getFileName(data),
       })
    );
 

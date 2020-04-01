@@ -11,10 +11,10 @@ import { convertSassFile } from './tools/convertSassFile';
 async function sass({ sourceMap }: IOptions): Promise<Task> {
    const includePaths = [];
 
-   return async ({ stream, name, path }: IProps) => {
+   return async ({ data, name, path }: IProps) => {
       const fileName = `${name}.css`;
 
-      const { cssResult, mapOutput } = await convertSassFile(stream, {
+      const { cssResult, mapOutput } = await convertSassFile(data, {
          filePath: path,
          includePaths,
          fileName: name,
