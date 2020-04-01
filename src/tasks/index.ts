@@ -6,6 +6,18 @@ import { webpack } from './webpack';
 
 /* -----------------------------------
  *
+ * IProps
+ *
+ * -------------------------------- */
+
+interface IProps {
+   stream: ReadStream;
+   filePath: string;
+   fileName: string;
+}
+
+/* -----------------------------------
+ *
  * IStream
  *
  * -------------------------------- */
@@ -39,11 +51,7 @@ type Method = (options: IOptions) => Promise<Task>;
  *
  * -------------------------------- */
 
-type Task = (
-   file: ReadStream,
-   path: string,
-   name: string
-) => Promise<IStream>;
+type Task = (props: IProps) => Promise<IStream>;
 
 /* -----------------------------------
  *
@@ -62,4 +70,4 @@ const tasks = {
  *
  * -------------------------------- */
 
-export { IStream, IResult, Method, Task, tasks };
+export { IProps, IStream, IResult, Method, Task, tasks };
