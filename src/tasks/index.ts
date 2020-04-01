@@ -33,7 +33,9 @@ interface IStream {
  * -------------------------------- */
 
 interface IResult {
-   fileName: string;
+   name: string;
+   hash: Promise<string>;
+   size: string;
    stream: Readable;
 }
 

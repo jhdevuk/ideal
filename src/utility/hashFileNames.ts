@@ -1,7 +1,4 @@
-import hash from 'hasha';
-import { IOptions } from '@/options';
 import { IResult } from '@/tasks';
-import { flattenArray } from '@/utility/flattenArray';
 
 /* -----------------------------------
  *
@@ -13,6 +10,15 @@ async function hashFileNames(
    streams: IResult[],
    applyHash: boolean
 ): Promise<IResult[]> {
+   if (!applyHash) {
+      return streams;
+   }
+
+   const hash = await Promise.all(streams.map((item) => item.hash));
+
+   console.log(streams);
+   // console.log(hash);
+
    return streams;
 }
 
