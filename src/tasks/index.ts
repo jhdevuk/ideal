@@ -34,7 +34,7 @@ interface IStream {
 
 interface IResult {
    fileName: string;
-   fileSize: number;
+   stream: Readable;
 }
 
 /* -----------------------------------
