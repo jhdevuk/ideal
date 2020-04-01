@@ -33,7 +33,7 @@ async function taskRunner(
    const method: Method = tasks[methodKey];
 
    if (!paths.length) {
-      log.error('has no matching files', sourcePath);
+      log.error('No matching files for', sourcePath);
 
       return;
    }
