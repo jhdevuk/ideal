@@ -1,6 +1,5 @@
 import { fromStream as getHash } from 'hasha';
 import fileSize from 'filesize';
-import { Readable } from 'stream';
 import { IStream, IResult } from '@/tasks';
 import { flattenArray } from '@/utility/flattenArray';
 
@@ -18,7 +17,7 @@ async function processStreams(
    const result = streams
       .map((item) => Object.keys(item))
       .map((item, index) =>
-         item.map((name) => formatStream(streams[index], name))
+         item.map((name) => formatResult(streams[index], name))
       );
 
    return flattenArray(result).filter(({ stream }) => !!stream);
@@ -30,7 +29,7 @@ async function processStreams(
  *
  * -------------------------------- */
 
-function formatStream(stream: IStream, name: string): IResult {
+function formatResult(stream: IStream, name: string): IResult {
    const data = stream[name];
 
    return {

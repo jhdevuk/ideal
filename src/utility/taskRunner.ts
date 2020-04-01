@@ -51,7 +51,7 @@ async function taskRunner(
    if (options.watch) {
       chokidar
          .watch(sourcePath)
-         .on('change', async () => watchTask(taskMethod));
+         .on('change', () => watchTask(taskMethod));
    }
 }
 
