@@ -9,10 +9,10 @@ import { IResult } from '@/tasks';
  *
  * -------------------------------- */
 
-function error(value: string, subject = '', line = '') {
+function error(subject: string, details = '', line = '') {
    log.error(
-      `${chalk.red('Error')}: ${chalk.yellow(subject)} ${value} ${
-         line && chalk.yellow(`on line ${line}`)
+      `${chalk.red('Error')}: ${subject} ${chalk.yellow(details)} ${
+         line && chalk.red(`on line ${line}`)
       }`
    );
 }
