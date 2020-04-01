@@ -55,7 +55,9 @@ async function taskRunner(
 
       const result = await writeResultStreams(streams, options.output);
 
-      result.forEach(log.result);
+      if (options.verbose) {
+         result.forEach(log.result);
+      }
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 

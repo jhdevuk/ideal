@@ -9,6 +9,7 @@ interface IOptions {
    release: boolean;
    sourceMap: boolean;
    watch: boolean;
+   verbose: boolean;
 }
 
 /* -----------------------------------
