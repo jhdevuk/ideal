@@ -1,5 +1,6 @@
 import log from 'fancy-log';
 import chalk from 'chalk';
+import { IResult } from '@/tasks';
 
 /* -----------------------------------
  *
@@ -33,10 +34,10 @@ function info(prefix: string, value: string, suffix: string = '') {
  *
  * -------------------------------- */
 
-function result(fileName: string) {
+function result({ name }: IResult) {
    const output = [
       chalk.grey(' ->'),
-      chalk.yellow(fileName),
+      chalk.yellow(name),
       chalk.grey('built'),
    ];
 

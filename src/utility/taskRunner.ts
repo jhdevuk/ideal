@@ -1,5 +1,5 @@
 import chokidar from 'chokidar';
-import { tasks, Method } from '@/tasks';
+import { IResult, tasks, Method } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
@@ -77,7 +77,7 @@ async function runTask(
       })
    );
 
-   let result = [];
+   let result: IResult[] = [];
 
    try {
       result = await processStreams(streams);
