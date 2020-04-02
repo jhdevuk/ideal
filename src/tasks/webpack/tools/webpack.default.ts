@@ -13,7 +13,11 @@ const config: Configuration = {
       libraryTarget: 'commonjs',
       filename: '[name].js',
       chunkFilename: '[name].js',
-      jsonpFunction: '__IDL__',
+      jsonpFunction: '__VC__',
+   },
+   resolve: {
+      modules: ['node_modules'],
+      extensions: ['.ts', '.tsx', '.js', '.json'],
    },
    module: {
       rules: [
