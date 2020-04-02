@@ -16,7 +16,7 @@ async function hashFileNames(
 
    const hash = await Promise.all(streams.map((item) => item.hash));
 
-   console.log(streams);
+   console.log('HASH', streams);
    // console.log(hash);
 
    return streams;

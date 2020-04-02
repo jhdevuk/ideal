@@ -11,8 +11,8 @@ import { taskRunner } from '@/utility/taskRunner';
  *
  * -------------------------------- */
 
-const methodKey = argv._[0];
-const sourcePath = argv._[1];
+const methodKey = argv._[0] || '';
+const sourcePath = argv._[1] || '';
 
 /* -----------------------------------
  *
@@ -35,7 +35,7 @@ const options: IOptions = {
  * -------------------------------- */
 
 if (!tasks[methodKey]) {
-   log.error('Unknown build task:', methodKey);
+   log.error('Unknown build task:', `"${methodKey}"`);
 
    process.exit(1);
 }
