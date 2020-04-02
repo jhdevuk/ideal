@@ -1,4 +1,5 @@
 import { Task, IProps } from '@/tasks';
+import { bufferToStream } from '@/utility/streamHelpers';
 import { bundleCompiler } from './tools/bundleCompiler';
 
 /* -----------------------------------
@@ -10,12 +11,16 @@ import { bundleCompiler } from './tools/bundleCompiler';
 async function method(): Promise<Task> {
    const compiler = bundleCompiler();
 
-   return async ({ data, name, path }: IProps) => {
-      const result = await compiler(data, path);
+   return async ({ data, path }: IProps) => {
+      const output = await compiler(data, path);
 
-      console.log('RESULT', result);
+      const result = output.reduce((prev, item) => {
+         prev[item.name] = item.data;
 
-      return {};
+         return prev;
+      }, {});
+
+      return result;
    };
 }
 
