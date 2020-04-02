@@ -1,9 +1,10 @@
 import buildTool from 'webpack-stream';
-import webpack from 'webpack';
 import source from 'vinyl-source-stream';
 import named from 'vinyl-named';
+import { File } from 'vinyl';
 import { Readable } from 'stream';
 import { config } from './webpack.default';
+import { IFile, formatFile } from './formatFile';
 
 /* -----------------------------------
  *
@@ -12,19 +13,19 @@ import { config } from './webpack.default';
  * -------------------------------- */
 
 function bundleCompiler() {
-   const callback = (resolve: any) => resolve();
-   const compiler = buildTool(config as any);
+   const compiler = buildTool(config);
 
-   return (data: Readable, path: string) =>
+   return (data: Readable, path: string): Promise<IFile[]> =>
       new Promise((resolve, reject) => {
-         const result: Buffer[] = [];
+         const result: IFile[] = [];
 
          data
             .pipe(source(path))
             .pipe(named())
             .pipe(compiler)
-            .on('data', (file: Buffer) => result.push(file))
-            .on('end', () => resolve(result));
+            .on('data', (file: File) => result.push(formatFile(file)))
+            .on('error', reject)
+            .on('close', () => resolve(result));
       });
 }
 

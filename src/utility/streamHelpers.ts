@@ -2,7 +2,7 @@ import { Readable } from 'stream';
 
 /* -----------------------------------
  *
- * Stringify
+ * String
  *
  * -------------------------------- */
 
@@ -24,7 +24,7 @@ function streamToString(
 
 /* -----------------------------------
  *
- * Streamify
+ * Stream
  *
  * -------------------------------- */
 
@@ -42,8 +42,25 @@ function stringToStream(
 
 /* -----------------------------------
  *
+ * Buffer
+ *
+ * -------------------------------- */
+
+function bufferToStream(binary: Buffer) {
+   const readStream = new Readable({
+      read() {
+         this.push(binary);
+         this.push(null);
+      },
+   });
+
+   return readStream;
+}
+
+/* -----------------------------------
+ *
  * Export
  *
  * -------------------------------- */
 
-export { streamToString, stringToStream };
+export { streamToString, stringToStream, bufferToStream };
