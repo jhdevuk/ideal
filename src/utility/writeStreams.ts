@@ -13,7 +13,7 @@ async function writeStreams(
    streams: IResult[],
    output: string
 ): Promise<IResult[]> {
-   await mkdir(output);
+   // await mkdir(output); // BREAKING OUTPUT
 
    await Promise.all(
       streams.map(({ name, stream }) =>
