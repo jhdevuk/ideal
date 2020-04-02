@@ -1,7 +1,5 @@
-import buildTool from 'webpack-stream';
-import named from 'vinyl-named';
 import { Task, IProps } from '@/tasks';
-import { config } from './webpack.default';
+import { bundleCompiler } from './tools/bundleCompiler';
 
 /* -----------------------------------
  *
@@ -10,12 +8,12 @@ import { config } from './webpack.default';
  * -------------------------------- */
 
 async function method(): Promise<Task> {
-   const webpackStream = buildTool(config as any); // type error without any
+   const compiler = bundleCompiler();
 
    return async ({ data, name, path }: IProps) => {
-      const result = data.pipe(named()).pipe(webpackStream);
+      const result = await compiler(data, path);
 
-      console.log(result);
+      console.log('RESULT', result);
 
       return {};
    };
