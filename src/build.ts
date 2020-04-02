@@ -11,8 +11,8 @@ import { taskRunner } from '@/utility/taskRunner';
  *
  * -------------------------------- */
 
-const methodKey = argv._[0] || '';
-const sourcePath = argv._[1] || '';
+const methodKey = process.argv[2] || '';
+const sourcePath = process.argv[3] || '';
 
 /* -----------------------------------
  *
