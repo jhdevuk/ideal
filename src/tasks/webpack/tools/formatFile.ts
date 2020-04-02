@@ -1,5 +1,4 @@
-import { File } from 'vinyl';
-import path from 'path';
+import { BufferFile } from 'vinyl';
 import { Readable } from 'stream';
 import { stringToStream } from '@/utility/streamHelpers';
 
@@ -20,9 +19,9 @@ interface IFile {
  *
  * -------------------------------- */
 
-function formatFile(file: File): IFile {
+function formatFile(file: BufferFile): IFile {
    return {
-      name: path.basename(file.path),
+      name: file.basename,
       data: stringToStream(file.contents),
    };
 }

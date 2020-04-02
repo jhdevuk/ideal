@@ -1,5 +1,5 @@
 import chokidar from 'chokidar';
-import { IResult, tasks, Method, Task } from '@/tasks';
+import { IResult, tasks, Task } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
