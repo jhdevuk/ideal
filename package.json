@@ -21,7 +21,6 @@
       "is-glob": "^4.0.1",
       "mkdirp": "^1.0.3",
       "node-sass": "^4.13.1",
-      "through2": "^3.0.1",
       "ts-loader": "^6.2.2",
       "tslib": "^1.11.1",
       "tslint-loader": "^3.5.4",
