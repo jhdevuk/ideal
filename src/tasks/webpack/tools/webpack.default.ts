@@ -13,8 +13,27 @@ const config: Configuration = {
       libraryTarget: 'commonjs',
       filename: '[name].js',
       chunkFilename: '[name].js',
-      jsonpFunction: '__VC__',
-      publicPath: '/dist/',
+      jsonpFunction: '__IDL__',
+   },
+   module: {
+      rules: [
+         {
+            test: /\.tsx?$/,
+            enforce: 'pre',
+            loader: 'tslint-loader',
+            options: {
+               fix: true,
+            },
+         },
+         {
+            test: /\.tsx?$/,
+            use: [
+               {
+                  loader: 'ts-loader',
+               },
+            ],
+         },
+      ],
    },
 };
 
