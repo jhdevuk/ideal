@@ -14,7 +14,7 @@ const config = ({ release }: IOptions): Configuration => ({
       libraryTarget: 'commonjs',
       filename: '[name].js',
       chunkFilename: '[name].js',
-      jsonpFunction: '__CPN__',
+      jsonpFunction: '__IDL__',
    },
    resolve: {
       modules: ['node_modules'],
