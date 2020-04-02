@@ -1,4 +1,5 @@
 import { Configuration } from 'webpack';
+import { IOptions } from '@/options';
 
 /* -----------------------------------
  *
@@ -6,14 +7,14 @@ import { Configuration } from 'webpack';
  *
  * -------------------------------- */
 
-const config: Configuration = {
+const config = ({ release }: IOptions): Configuration => ({
    target: 'web',
-   mode: 'development',
+   mode: release ? 'production' : 'development',
    output: {
       libraryTarget: 'commonjs',
       filename: '[name].js',
       chunkFilename: '[name].js',
-      jsonpFunction: '__VC__',
+      jsonpFunction: '__CPN__',
    },
    resolve: {
       modules: ['node_modules'],
@@ -39,7 +40,29 @@ const config: Configuration = {
          },
       ],
    },
-};
+   optimization: {
+      mergeDuplicateChunks: true,
+      runtimeChunk: false,
+      splitChunks: {
+         name: true,
+         chunks: 'async',
+         cacheGroups: {
+            default: false,
+            commons: {
+               name: 'shared',
+               minChunks: 2,
+               maxInitialRequests: 5,
+            },
+            vendor: {
+               test: /[\\/]node_modules[\\/]/,
+               name: 'vendor',
+               enforce: true,
+               chunks: 'all',
+            },
+         },
+      },
+   },
+});
 
 /* -----------------------------------
  *

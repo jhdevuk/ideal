@@ -3,6 +3,7 @@ import source from 'vinyl-source-stream';
 import named from 'vinyl-named';
 import { BufferFile } from 'vinyl';
 import { Readable } from 'stream';
+import { IOptions } from '@/options';
 import { config } from './webpack.default';
 import { IFile, formatFile } from './formatFile';
 
@@ -12,8 +13,8 @@ import { IFile, formatFile } from './formatFile';
  *
  * -------------------------------- */
 
-function bundleCompiler() {
-   const compiler = buildTool(config);
+function bundleCompiler(options: IOptions) {
+   const compiler = buildTool(config(options));
 
    return (data: Readable, path: string): Promise<IFile[]> =>
       new Promise((resolve, reject) => {
