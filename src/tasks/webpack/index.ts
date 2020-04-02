@@ -1,4 +1,5 @@
 import { Task, IProps } from '@/tasks';
+import { IOptions } from '@/options';
 import { bundleCompiler } from './tools/bundleCompiler';
 
 /* -----------------------------------
@@ -7,8 +8,8 @@ import { bundleCompiler } from './tools/bundleCompiler';
  *
  * -------------------------------- */
 
-async function method(): Promise<Task> {
-   const compiler = bundleCompiler();
+async function method(options: IOptions): Promise<Task> {
+   const compiler = bundleCompiler(options);
 
    return async ({ data, path }: IProps) => {
       const output = await compiler(data, path);
