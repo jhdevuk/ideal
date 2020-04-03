@@ -1,4 +1,5 @@
 import chokidar from 'chokidar';
+import timeAgo from 'pretty-ms';
 import { IResult, tasks, Task } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
@@ -45,9 +46,9 @@ async function taskRunner(
 
    await taskMethod();
 
-   const endTime = new Date().getTime();
+   const duration = timeAgo(new Date().getTime() - startTime);
 
-   log.info('Finished', methodKey, `after ${endTime - startTime} ms`);
+   log.info('Finished', methodKey, `after ${duration}`);
 
    if (options.watch) {
       chokidar
