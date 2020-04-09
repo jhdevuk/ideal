@@ -1,3 +1,4 @@
+import path from 'path';
 import { Configuration } from 'webpack';
 import { IOptions } from '@/options';
 
@@ -19,6 +20,12 @@ const config = ({ release }: IOptions): Configuration => ({
    resolve: {
       modules: ['node_modules'],
       extensions: ['.ts', '.tsx', '.js', '.json'],
+      alias: {
+         '@': path.resolve('./src/'),
+      },
+   },
+   externals: {
+      'ideal.config': './ideal.config.js',
    },
    module: {
       rules: [

@@ -7,7 +7,7 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function validOptions(source: string, { output }: IOptions) {
+function validOptions(source: string, { watchPath }: IOptions) {
    if (!isGlob(source)) {
       return false;
    }

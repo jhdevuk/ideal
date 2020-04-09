@@ -5,10 +5,11 @@
  * -------------------------------- */
 
 interface IOptions {
-   output: string;
+   outputPath: string;
    release: boolean;
    sourceMap: boolean;
    watch: boolean;
+   watchPath: string;
    verbose: boolean;
 }
 
