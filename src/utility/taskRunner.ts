@@ -52,7 +52,7 @@ async function taskRunner(
 
    if (options.watch) {
       chokidar
-         .watch(sourcePath)
+         .watch(options.watchPath || sourcePath)
          .on('change', () => watchTask(taskMethod));
    }
 }
@@ -79,7 +79,7 @@ async function runTask(task: Task, paths: string[], options: IOptions) {
    try {
       result = await processStreams(streams);
       result = await hashFileNames(result, options.release);
-      result = await writeStreams(result, options.output);
+      result = await writeStreams(result, options.outputPath);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 
@@ -99,6 +99,7 @@ async function runTask(task: Task, paths: string[], options: IOptions) {
 
 async function watchTask(task: () => Promise<void>) {
    //
+   console.log('WATCH');
 }
 
 /* -----------------------------------

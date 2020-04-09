@@ -1,7 +1,6 @@
-import { argv } from 'yargs';
 import { tasks } from '@/tasks';
-import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
+import { loadConfig } from '@/utility/loadConfig';
 import { validOptions } from '@/utility/validOptions';
 import { taskRunner } from '@/utility/taskRunner';
 
@@ -16,20 +15,6 @@ const sourcePath = process.argv[3] || '';
 
 /* -----------------------------------
  *
- * Options
- *
- * -------------------------------- */
-
-const options: IOptions = {
-   release: !!argv.release,
-   output: (argv.output as string) || './dist',
-   sourceMap: !!argv.sourceMap,
-   watch: !!argv.watch,
-   verbose: !!argv.verbose,
-};
-
-/* -----------------------------------
- *
  * Validate
  *
  * -------------------------------- */
@@ -39,6 +24,14 @@ if (!tasks[methodKey]) {
 
    process.exit(1);
 }
+
+/* -----------------------------------
+ *
+ * Options
+ *
+ * -------------------------------- */
+
+const options = loadConfig(methodKey);
 
 /* -----------------------------------
  *
