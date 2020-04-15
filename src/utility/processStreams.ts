@@ -40,8 +40,8 @@ function formatResult(stream: IStream, name: string): IResult {
 
    return {
       name: file.name,
-      extension: file.ext,
-      hash: null,
+      type: file.ext,
+      hash: '',
       size: data && fileSize(data.readableLength),
       stream: data,
    };

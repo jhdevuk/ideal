@@ -16,12 +16,27 @@ async function writeStreams(
    // await mkdir(output); // BREAKING OUTPUT
 
    await Promise.all(
-      streams.map(({ name, stream }) =>
-         writeFile(path.join(output, name), stream)
+      streams.map(({ name, hash, type, stream }) =>
+         writeFile(
+            path.join(output, getFileName(name, hash, type)),
+            stream
+         )
       )
    );
 
    return streams;
+}
+
+/* -----------------------------------
+ *
+ * getFileName
+ *
+ * -------------------------------- */
+
+function getFileName(name: string, hash: string, type: string) {
+   const hashPart = hash ? `.${hash}` : '';
+
+   return name + hashPart + type;
 }
 
 /* -----------------------------------
