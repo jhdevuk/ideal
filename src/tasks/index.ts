@@ -34,8 +34,8 @@ interface IStream {
 
 interface IResult {
    name: string;
-   extension: string;
-   hash: Promise<string>;
+   type: string;
+   hash: string;
    size: string;
    stream: Readable;
 }
