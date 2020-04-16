@@ -9,6 +9,7 @@ import { getFileName } from '@/utility/getFileNames';
 import { processStreams } from '@/utility/processStreams';
 import { hashFileNames } from '@/utility/hashFileNames';
 import { writeStreams } from '@/utility/writeStreams';
+import { writeManifest } from '@/utility/writeManifest';
 
 /* -----------------------------------
  *
@@ -80,6 +81,7 @@ async function runTask(task: Task, paths: string[], options: IOptions) {
       result = await processStreams(streams);
       result = await hashFileNames(result, options.release);
       result = await writeStreams(result, options.outputPath);
+      result = await writeManifest(result);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 
