@@ -1,5 +1,6 @@
 import fileSize from 'filesize';
 import path from 'path';
+import getHash from 'hasha';
 import { IStream, IResult } from '@/tasks';
 import { flattenArray } from '@/utility/flattenArray';
 
@@ -13,19 +14,35 @@ async function processStreams(
    tasks: Array<Promise<IStream>>
 ): Promise<IResult[]> {
    const streams: IStream[] = await Promise.all(tasks);
+   const result = simplifyStreams(streams);
 
-   const result = flattenArray(
-      streams
-         .map((item) => Object.keys(item))
-         .map((item, index) =>
-            item.map((name) => formatResult(streams[index], name))
-         )
-   ).filter(
-      (file, index, array) =>
-         array.findIndex((item) => item.name === file.name) === index
-   );
+   return result;
+}
 
-   return result.filter(({ stream }) => !!stream);
+/* -----------------------------------
+ *
+ * Simplify
+ *
+ * -------------------------------- */
+
+function simplifyStreams(streams: IStream[]) {
+   const formatItems = streams
+      .map((item) => Object.keys(item))
+      .map((item, index) =>
+         item.map((name) => formatResult(streams[index], name))
+      );
+
+   const result = flattenArray(formatItems)
+      .filter(
+         (file, index, array) =>
+            array.findIndex(
+               ({ name, type }) =>
+                  name === file.name && type === file.type
+            ) === index
+      )
+      .filter(({ stream }) => !!stream);
+
+   return result;
 }
 
 /* -----------------------------------
