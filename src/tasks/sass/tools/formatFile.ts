@@ -22,7 +22,7 @@ interface IFile {
 function formatFile({ content, map }: Result): IFile {
    return {
       cssValue: stringToStream(content),
-      sourceMap: stringToStream(map.toString()),
+      sourceMap: null,
    };
 }
 
