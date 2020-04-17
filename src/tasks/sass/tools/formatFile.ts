@@ -19,9 +19,10 @@ interface IFile {
  *
  * -------------------------------- */
 
-function formatFile(file: Result): IFile {
+function formatFile({ content, map }: Result): IFile {
    return {
-      cssValue: stringToStream(file.content),
+      cssValue: stringToStream(content),
+      sourceMap: stringToStream(map.toString()),
    };
 }
 
