@@ -14,7 +14,7 @@ import { IFile, formatFile } from './formatFile';
  * -------------------------------- */
 
 function bundleCompiler(options: IOptions) {
-   const compiler = () => buildTool(config(options));
+   const compiler = buildTool(config(options));
 
    return (data: Readable, path: string): Promise<IFile[]> =>
       new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ function bundleCompiler(options: IOptions) {
          data
             .pipe(source(path))
             .pipe(named())
-            .pipe(compiler())
+            .pipe(compiler)
             .on('data', (file: BufferFile) =>
                result.push(formatFile(file))
             )
