@@ -1,6 +1,7 @@
 import { IOptions } from '@/options';
 import { Task, IProps } from '@/tasks';
-import { convertSassFile } from './tools/convertSassFile';
+import { bundleCompiler } from './tools/bundleCompiler';
+import { streamToString, stringToStream } from '@/utility/streamHelpers';
 
 /* -----------------------------------
  *
@@ -8,22 +9,17 @@ import { convertSassFile } from './tools/convertSassFile';
  *
  * -------------------------------- */
 
-async function method({ sourceMap }: IOptions): Promise<Task> {
-   const includePaths = [];
+async function method(options: IOptions): Promise<Task> {
+   const compiler = bundleCompiler(options);
 
    return async ({ data, name, path }: IProps) => {
       const fileName = `${name}.css`;
 
-      const { cssResult, mapOutput } = await convertSassFile(data, {
-         filePath: path,
-         includePaths,
-         fileName: name,
-         sourceMap,
-      });
+      const { cssValue } = await compiler(data, path);
 
       const result = {
-         [fileName]: cssResult,
-         [`${fileName}.map`]: mapOutput,
+         [fileName]: cssValue,
+         [`${fileName}.map`]: null,
       };
 
       return result;
