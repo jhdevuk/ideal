@@ -12,17 +12,17 @@ function sassCompiler({ sourceMap }: IOptions) {
    return (path: string) =>
       new Transform({
          objectMode: true,
-         transform: processSource(path, sourceMap),
+         transform: transformSource(path, sourceMap),
       });
 }
 
 /* -----------------------------------
  *
- * Process
+ * Transform
  *
  * -------------------------------- */
 
-function processSource(path: string, sourceMap: boolean) {
+function transformSource(path: string, sourceMap: boolean) {
    return async function run(file: Buffer) {
       const result = renderSync({
          data: file.toString(),

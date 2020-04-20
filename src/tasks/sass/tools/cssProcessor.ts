@@ -21,17 +21,17 @@ function cssProcessor(options: IOptions) {
    return (path: string) =>
       new Transform({
          objectMode: true,
-         transform: processSource(plugins, path),
+         transform: transformSource(plugins, path),
       });
 }
 
 /* -----------------------------------
  *
- * Process
+ * Transfrom
  *
  * -------------------------------- */
 
-function processSource(plugins: Transformer[], path: string) {
+function transformSource(plugins: Transformer[], path: string) {
    const instance = postCss(plugins);
 
    return async function run(file: Result) {
