@@ -6,7 +6,7 @@ import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
 import { readGlobFiles } from '@/utility/readGlobFiles';
-import { getFileName } from '@/utility/getFileNames';
+import { getStreamFileName } from '@/utility/getStreamFileNames';
 import { processStreams } from '@/utility/processStreams';
 import { hashFileNames } from '@/utility/hashFileNames';
 import { writeStreams } from '@/utility/writeStreams';
@@ -73,7 +73,7 @@ async function runTask(task: Task, paths: string[], options: IOptions) {
       task({
          data,
          path: paths[index],
-         name: getFileName(data),
+         name: getStreamFileName(data),
       })
    );
 
@@ -83,7 +83,7 @@ async function runTask(task: Task, paths: string[], options: IOptions) {
       result = await processStreams(streams);
       result = await hashFileNames(result, options.release);
       result = await writeStreams(result, options.outputPath);
-      result = await writeManifest(result);
+      result = await writeManifest(result, options.outputPath);
    } catch ({ message, file, line }) {
       log.error(message, file, line);
 
