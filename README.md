@@ -1,4 +1,4 @@
-`ideal` is a collection of tools used to generate client side assets, wrapped up in an easy to use CLI. It currently supports both `TypeScript` and `SASS`.
+`ideal` is a collection of tools to generate client side assets, wrapped up in an easy to use CLI. It currently supports both `TypeScript` and `SASS`.
 
 # Getting Started
 
