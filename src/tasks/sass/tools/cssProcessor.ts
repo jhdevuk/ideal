@@ -38,9 +38,6 @@ function processSource(plugins: Transformer[], path: string) {
       const result = instance.process(file.css);
 
       this.push(result);
-
-      // this.emit('data', result);
-      // this.emit('close');
    };
 }
 
