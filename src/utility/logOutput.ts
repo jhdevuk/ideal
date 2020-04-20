@@ -34,10 +34,10 @@ function info(prefix: string, value: string, suffix: string = '') {
  *
  * -------------------------------- */
 
-function result({ name, size }: IResult) {
+function result({ name, size, type }: IResult) {
    const output = [
       chalk.grey(' ->'),
-      chalk.yellow(name),
+      chalk.yellow(name + type),
       chalk.grey(size),
    ];
 
