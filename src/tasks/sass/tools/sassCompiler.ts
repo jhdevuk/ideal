@@ -23,7 +23,7 @@ function sassCompiler({ sourceMap }: IOptions) {
  * -------------------------------- */
 
 function transformSource(path: string, sourceMap: boolean) {
-   return async function run(file: Buffer) {
+   return function run(file: Buffer) {
       const result = renderSync({
          data: file.toString(),
          file: path,

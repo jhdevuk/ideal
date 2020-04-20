@@ -13,6 +13,7 @@ const defaultOptions: IOptions = {
    release: !!argv.release,
    outputPath: (argv.outputPath as string) || './dist',
    sourceMap: !!argv.sourceMap,
+   cssModules: !!argv.cssModules,
    watch: !!argv.watch,
    watchPath: (argv.watchPath as string) || '',
    verbose: !!argv.verbose,

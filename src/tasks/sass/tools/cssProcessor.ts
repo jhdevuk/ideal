@@ -1,6 +1,7 @@
 import { Result } from 'node-sass';
 import postCss, { Transformer } from 'postcss';
 import autoprefixer from 'autoprefixer';
+import modules from 'postcss-modules';
 import { Transform } from 'stream';
 import { IOptions } from '@/options';
 
@@ -10,13 +11,23 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function cssProcessor(options: IOptions) {
+function cssProcessor({ release, cssModules }: IOptions) {
    const plugins = [
       autoprefixer({
          cascade: false,
          overrideBrowserslist: ['last 2 versions', '> 1%'],
       }),
    ];
+
+   if (cssModules) {
+      plugins.push(
+         modules({
+            generateScopedName: release
+               ? '[hash:base64:8]'
+               : '[name]-[local]',
+         })
+      );
+   }
 
    return (path: string) =>
       new Transform({
@@ -35,7 +46,7 @@ function transformSource(plugins: Transformer[], path: string) {
    const instance = postCss(plugins);
 
    return async function run(file: Result) {
-      const result = instance.process(file.css);
+      const result = await instance.process(file.css, { from: path });
 
       this.push(result);
    };

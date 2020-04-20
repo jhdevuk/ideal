@@ -12,6 +12,7 @@ import { emitFile } from './emitFile';
 
 interface IFile {
    cssValue: Readable;
+   cssModule: Readable;
 }
 
 /* -----------------------------------
