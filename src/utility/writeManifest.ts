@@ -1,6 +1,8 @@
+import fs from 'fs';
 import path from 'path';
-import mkdir from 'mkdirp';
 import { IResult } from '@/tasks';
+import { getResultFileName } from '@/utility/getResultFileName';
+import { stringToStream } from '@/utility/streamHelpers';
 import { writeFile } from '@/utility/writeFile';
 
 /* -----------------------------------
@@ -9,11 +11,46 @@ import { writeFile } from '@/utility/writeFile';
  *
  * -------------------------------- */
 
-async function writeManifest(streams: IResult[]): Promise<IResult[]> {
-   // BUILD JSON FILE
+async function writeManifest(
+   streams: IResult[],
+   outputPath: string
+): Promise<IResult[]> {
+   const manifestPath = path.join(outputPath, 'assets.json');
+   const currentManifest = await loadManifest(manifestPath);
+
+   const buildAssets = streams.reduce((result, { name, hash, type }) => {
+      result[name + type] = getResultFileName(name, hash, type);
+
+      return result;
+   }, {});
+
+   const updatedManifest = stringToStream(
+      JSON.stringify({ ...currentManifest, ...buildAssets })
+   );
+
+   await writeFile(manifestPath, updatedManifest);
 
    return streams;
 }
+
+/* -----------------------------------
+ *
+ * loadManifest
+ *
+ * -------------------------------- */
+
+const loadManifest = (manifestPath: string): Promise<object> =>
+   new Promise((resolve, reject) =>
+      fs.readFile(manifestPath, (error, data) => {
+         if (error || !data) {
+            resolve({});
+
+            return;
+         }
+
+         resolve(JSON.parse(data.toString()));
+      })
+   );
 
 /* -----------------------------------
  *

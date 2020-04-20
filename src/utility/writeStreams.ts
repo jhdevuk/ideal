@@ -1,5 +1,6 @@
 import path from 'path';
 import { IResult } from '@/tasks';
+import { getResultFileName } from '@/utility/getResultFileName';
 import { writeFile } from '@/utility/writeFile';
 
 /* -----------------------------------
@@ -10,30 +11,18 @@ import { writeFile } from '@/utility/writeFile';
 
 async function writeStreams(
    streams: IResult[],
-   output: string
+   outputPath: string
 ): Promise<IResult[]> {
    await Promise.all(
       streams.map(({ name, hash, type, stream }) =>
          writeFile(
-            path.join(output, getFileName(name, hash, type)),
+            path.join(outputPath, getResultFileName(name, hash, type)),
             stream
          )
       )
    );
 
    return streams;
-}
-
-/* -----------------------------------
- *
- * getFileName
- *
- * -------------------------------- */
-
-function getFileName(name: string, hash: string, type: string) {
-   const hashPart = hash ? `.${hash}` : '';
-
-   return name + hashPart + type;
 }
 
 /* -----------------------------------
