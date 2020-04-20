@@ -1,5 +1,4 @@
 import path from 'path';
-import mkdir from 'mkdirp';
 import { IResult } from '@/tasks';
 import { writeFile } from '@/utility/writeFile';
 
@@ -13,8 +12,6 @@ async function writeStreams(
    streams: IResult[],
    output: string
 ): Promise<IResult[]> {
-   // await mkdir(output); // BREAKING OUTPUT
-
    await Promise.all(
       streams.map(({ name, hash, type, stream }) =>
          writeFile(

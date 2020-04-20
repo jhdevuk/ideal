@@ -1,5 +1,6 @@
 import chokidar from 'chokidar';
 import timeAgo from 'pretty-ms';
+import mkdir from 'mkdirp';
 import { IResult, tasks, Task } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
@@ -45,6 +46,7 @@ async function taskRunner(
 
    log.info('Running', methodKey, 'task...');
 
+   await mkdir(options.outputPath);
    await taskMethod();
 
    const duration = timeAgo(new Date().getTime() - startTime);
