@@ -41,4 +41,4 @@ function bundleCompiler(options: IOptions) {
  *
  * -------------------------------- */
 
-export { bundleCompiler };
+export { IFile, bundleCompiler };
