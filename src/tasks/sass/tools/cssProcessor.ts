@@ -1,5 +1,5 @@
 import { Result } from 'node-sass';
-import postCss, { Processor, Transformer } from 'postcss';
+import postCss, { Processor } from 'postcss';
 import autoprefixer from 'autoprefixer';
 import modules from 'postcss-modules';
 import minify from 'cssnano';

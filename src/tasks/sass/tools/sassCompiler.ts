@@ -28,7 +28,6 @@ function transformSource(path: string, sourceMap: boolean) {
          data: file.toString(),
          file: path,
          includePaths: [],
-         outFile: `test.css`,
          sourceMap,
          sourceMapEmbed: sourceMap,
       });
