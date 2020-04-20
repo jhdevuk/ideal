@@ -1,7 +1,8 @@
 import { Result } from 'node-sass';
-import postCss, { Transformer } from 'postcss';
+import postCss, { Processor, Transformer } from 'postcss';
 import autoprefixer from 'autoprefixer';
 import modules from 'postcss-modules';
+import minify from 'cssnano';
 import { Transform } from 'stream';
 import { IOptions } from '@/options';
 
@@ -11,7 +12,7 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function cssProcessor({ release, cssModules }: IOptions) {
+function cssProcessor({ release, cssModules, sourceMap }: IOptions) {
    const plugins = [
       autoprefixer({
          cascade: false,
@@ -20,7 +21,7 @@ function cssProcessor({ release, cssModules }: IOptions) {
    ];
 
    if (cssModules) {
-      plugins.push(
+      plugins.unshift(
          modules({
             generateScopedName: release
                ? '[hash:base64:8]'
@@ -29,10 +30,16 @@ function cssProcessor({ release, cssModules }: IOptions) {
       );
    }
 
+   if (release) {
+      plugins.push(minify());
+   }
+
+   const instance = postCss(plugins);
+
    return (path: string) =>
       new Transform({
          objectMode: true,
-         transform: transformSource(plugins, path),
+         transform: transformSource(instance, path, sourceMap),
       });
 }
 
@@ -42,11 +49,16 @@ function cssProcessor({ release, cssModules }: IOptions) {
  *
  * -------------------------------- */
 
-function transformSource(plugins: Transformer[], path: string) {
-   const instance = postCss(plugins);
-
+function transformSource(
+   instance: Processor,
+   path: string,
+   sourceMap: boolean
+) {
    return async function run(file: Result) {
-      const result = await instance.process(file.css, { from: path });
+      const result = await instance.process(file.css, {
+         from: path,
+         map: sourceMap,
+      });
 
       this.push(result);
    };
