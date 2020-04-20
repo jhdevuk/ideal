@@ -1,5 +1,4 @@
 import { Readable } from 'stream';
-import { Result } from 'postcss';
 import { IOptions } from '@/options';
 import { sassCompiler } from './sassCompiler';
 import { cssProcessor } from './cssProcessor';
