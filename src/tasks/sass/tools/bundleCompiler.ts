@@ -2,7 +2,18 @@ import { Readable } from 'stream';
 import { Result } from 'postcss';
 import { IOptions } from '@/options';
 import { sassCompiler } from './sassCompiler';
-import { IFile, formatFile } from './formatFile';
+import { cssProcessor } from './cssProcessor';
+import { emitFile } from './emitFile';
+
+/* -----------------------------------
+ *
+ * IFile
+ *
+ * -------------------------------- */
+
+interface IFile {
+   cssValue: Readable;
+}
 
 /* -----------------------------------
  *
@@ -12,19 +23,16 @@ import { IFile, formatFile } from './formatFile';
 
 function bundleCompiler(options: IOptions) {
    const compiler = sassCompiler(options);
+   const processor = cssProcessor(options);
 
    return async (data: Readable, path: string): Promise<IFile> =>
-      new Promise((resolve, reject) => {
-         let result: IFile;
-
+      new Promise((resolve, reject) =>
          data
             .pipe(compiler(path))
-            .on('data', (file: any) => (result = formatFile(file)))
+            .pipe(processor(path))
+            .pipe(emitFile(resolve))
             .on('error', reject)
-            .on('close', () => resolve(result));
-
-         return {};
-      });
+      );
 }
 
 /* -----------------------------------

@@ -1,7 +1,6 @@
 import { IOptions } from '@/options';
 import { Task, IProps } from '@/tasks';
 import { bundleCompiler } from './tools/bundleCompiler';
-import { streamToString, stringToStream } from '@/utility/streamHelpers';
 
 /* -----------------------------------
  *
@@ -15,14 +14,11 @@ async function method(options: IOptions): Promise<Task> {
    return async ({ data, name, path }: IProps) => {
       const fileName = `${name}.css`;
 
-      const { cssValue, sourceMap } = await compiler(data, path);
+      const { cssValue } = await compiler(data, path);
 
-      const result = {
+      return {
          [fileName]: cssValue,
-         [`${fileName}.map`]: options.sourceMap && sourceMap,
       };
-
-      return result;
    };
 }
 

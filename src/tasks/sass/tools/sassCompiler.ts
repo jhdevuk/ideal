@@ -1,7 +1,4 @@
-import buildTool, { Processor } from 'postcss';
-import sass from '@csstools/postcss-sass';
-import syntax from 'postcss-scss';
-import autoprefixer from 'autoprefixer';
+import { renderSync } from 'node-sass';
 import { Transform } from 'stream';
 import { IOptions } from '@/options';
 
@@ -11,22 +8,11 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function sassCompiler(options: IOptions) {
-   const postCss = buildTool([
-      sass({
-         outputStyle: 'expanded',
-         includePaths: [],
-      }),
-      autoprefixer({
-         cascade: false,
-         overrideBrowserslist: ['last 2 versions', '> 1%'],
-      }),
-   ]);
-
+function sassCompiler({ sourceMap }: IOptions) {
    return (path: string) =>
       new Transform({
          objectMode: true,
-         transform: processSource(postCss, path),
+         transform: processSource(path, sourceMap),
       });
 }
 
@@ -36,12 +22,18 @@ function sassCompiler(options: IOptions) {
  *
  * -------------------------------- */
 
-function processSource(postCss: Processor, path: string) {
+function processSource(path: string, sourceMap: boolean) {
    return async function run(file: Buffer) {
-      const result = await postCss.process(file, { syntax, from: path });
+      const result = renderSync({
+         data: file.toString(),
+         file: path,
+         includePaths: [],
+         outFile: `test.css`,
+         sourceMap,
+         sourceMapEmbed: sourceMap,
+      });
 
-      this.emit('data', result);
-      this.emit('close');
+      this.push(result);
    };
 }
 
