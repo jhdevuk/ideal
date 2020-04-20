@@ -5,7 +5,18 @@ import { BufferFile } from 'vinyl';
 import { Readable } from 'stream';
 import { IOptions } from '@/options';
 import { config } from './webpack.default';
-import { IFile, formatFile } from './formatFile';
+import { stringToStream } from '@/utility/streamHelpers';
+
+/* -----------------------------------
+ *
+ * IFile
+ *
+ * -------------------------------- */
+
+interface IFile {
+   name: string;
+   data: Readable;
+}
 
 /* -----------------------------------
  *
@@ -24,8 +35,11 @@ function bundleCompiler(options: IOptions) {
             .pipe(source(path))
             .pipe(named())
             .pipe(compiler)
-            .on('data', (file: BufferFile) =>
-               result.push(formatFile(file))
+            .on('data', ({ basename, contents }: BufferFile) =>
+               result.push({
+                  name: basename,
+                  data: stringToStream(contents),
+               })
             )
             .on('error', reject)
             .on('close', () => resolve(result));
@@ -38,4 +52,4 @@ function bundleCompiler(options: IOptions) {
  *
  * -------------------------------- */
 
-export { bundleCompiler };
+export { IFile, bundleCompiler };
