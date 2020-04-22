@@ -54,3 +54,11 @@ TBD
 # Manifest
 
 `ideal` creates an `assets.json` file in the output directory (`./dist` by default), that keeps a record of all assets built _so far_. Each subsequent run of `ideal` appends each file name as a property with the hashed or _real_ file name as a value. Each build overides previous asset names or declares new ones that don't yet exist. This file is intended to be ephermeral, e.g when running a production build with `--release`, this file should not exist in the output path. Equally the `assets.json` file should not be commited to your repository. This ensures that the file is an accurate reflection of the built files for the _currently_ provided source.
+
+# Development
+
+Once you've cloned this repo and run `yarn`, then `yarn start`, you can make use of [`npm link`](https://docs.npmjs.com/cli/link.html) to simulate how this package will work when installed globally. From there, you can run the following in a directory of your choice to run a build:
+
+```
+$ ideal build:js ./path/to/stuff --watch
+```
