@@ -1,4 +1,5 @@
 import buildTool from 'webpack-stream';
+import webpack from 'webpack';
 import source from 'vinyl-source-stream';
 import named from 'vinyl-named';
 import { BufferFile } from 'vinyl';

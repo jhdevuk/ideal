@@ -8,9 +8,10 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-const config = ({ release }: IOptions): Configuration => ({
+const config = ({ release, watch }: IOptions): Configuration => ({
    target: 'web',
    mode: release ? 'production' : 'development',
+   watch,
    output: {
       libraryTarget: 'commonjs',
       filename: '[name].js',
