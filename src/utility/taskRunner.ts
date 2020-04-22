@@ -54,9 +54,11 @@ async function taskRunner(
    log.info('Finished', methodKey, `after ${duration}`);
 
    if (options.watch) {
+      log.info('Watching', methodKey, `task...`);
+
       chokidar
          .watch(options.watchPath || sourcePath)
-         .on('change', () => watchTask(taskMethod));
+         .on('change', () => watchTask(methodKey, taskMethod));
    }
 }
 
@@ -101,9 +103,19 @@ async function runTask(task: Task, paths: string[], options: IOptions) {
  *
  * -------------------------------- */
 
-async function watchTask(task: () => Promise<void>) {
-   //
-   console.log('WATCH');
+async function watchTask(
+   methodKey: string,
+   taskMethod: () => Promise<void>
+) {
+   const startTime = new Date().getTime();
+
+   log.info('Running', methodKey, 'task...');
+
+   await taskMethod();
+
+   const duration = timeAgo(new Date().getTime() - startTime);
+
+   log.info('Finished', methodKey, `after ${duration}`);
 }
 
 /* -----------------------------------
