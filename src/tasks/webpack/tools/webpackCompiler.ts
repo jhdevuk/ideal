@@ -1,7 +1,17 @@
 import { Transform } from 'stream';
-import buildTool from 'webpack-stream';
-import webpack, { Compiler } from 'webpack';
+import stream from 'through';
+import webpack, { Compiler, Entry } from 'webpack';
 import { IOptions } from '@/options';
+
+/* -----------------------------------
+ *
+ * IEntry
+ *
+ * -------------------------------- */
+
+interface IEntry {
+   [index: string]: string[];
+}
 
 /* -----------------------------------
  *
@@ -10,23 +20,23 @@ import { IOptions } from '@/options';
  * -------------------------------- */
 
 function webpackCompiler(options: IOptions) {
+   const entry: IEntry = {};
+
    return (path: string) =>
-      new Transform({
-         objectMode: true,
-         transform: transformSource(path),
-      });
-}
+      stream(
+         ({ named: name }) => {
+            if (!entry[name]) {
+               entry[name] = [];
+            }
 
-/* -----------------------------------
- *
- * Transform
- *
- * -------------------------------- */
+            entry[name].push(path);
+         },
+         function end() {
+            console.log('ENTRIES', entry);
 
-function transformSource(path: string) {
-   return function run(file: Buffer) {
-      this.push(file);
-   };
+            this.emit('close');
+         }
+      );
 }
 
 /* -----------------------------------

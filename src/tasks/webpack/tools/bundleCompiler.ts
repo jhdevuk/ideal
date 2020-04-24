@@ -36,7 +36,7 @@ function bundleCompiler(options: IOptions) {
             .pipe(source(path))
             .pipe(named())
             .pipe(compiler(path))
-            .pipe(emitFile(resolve))
+            // .pipe(emitFile(resolve))
             .on('error', reject)
             .on('close', () => resolve(result));
       });
