@@ -1,8 +1,17 @@
+import maxListenersDebug from 'max-listeners-exceeded-warning';
 import { tasks } from '@/tasks';
 import * as log from '@/utility/logOutput';
 import { loadConfig } from '@/utility/loadConfig';
 import { validOptions } from '@/utility/validOptions';
 import { taskRunner } from '@/utility/taskRunner';
+
+/* -----------------------------------
+ *
+ * Profiler
+ *
+ * -------------------------------- */
+
+process.on('warning', (e) => console.warn(e.stack));
 
 /* -----------------------------------
  *
