@@ -83,15 +83,24 @@ class WebpackInstance {
    ) => {
       const fileNames = Object.keys(assets);
 
-      fileNames.forEach((outname) => {
-         if (assets[outname].emitted) {
-            //   const file = this.prepareFile(fs, compiler, outname);
-            //   stream.queue(file);
+      for (const name of fileNames) {
+         if (!assets[name].emitted) {
+            continue;
          }
-      });
+
+         const file = this.prepareFile(name);
+
+         // stream.queue(file);
+      }
 
       callback();
    };
+
+   private prepareFile(outname: string) {
+      const { instance } = this;
+
+      console.log('WebpackInstance.prepareFile()', outname);
+   }
 }
 
 /* -----------------------------------
