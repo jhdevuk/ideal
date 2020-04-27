@@ -5,7 +5,7 @@ import MemoryFileSystem from 'memory-fs';
 import File, { BufferFile } from 'vinyl';
 import path from 'path';
 import { IOptions } from '@/options';
-import { config as defaultConfig } from './webpack.default';
+import { defaultConfig } from './webpack.default';
 
 /* -----------------------------------
  *
