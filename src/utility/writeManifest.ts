@@ -42,13 +42,21 @@ async function writeManifest(
 const loadManifest = (manifestPath: string): Promise<object> =>
    new Promise((resolve, reject) =>
       fs.readFile(manifestPath, (error, data) => {
+         let jsonData = {};
+
          if (error || !data) {
             resolve({});
 
             return;
          }
 
-         resolve(JSON.parse(data.toString()));
+         try {
+            jsonData = JSON.parse(data.toString());
+         } catch {
+            // no-op
+         }
+
+         resolve(jsonData);
       })
    );
 

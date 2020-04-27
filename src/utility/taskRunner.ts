@@ -1,4 +1,4 @@
-import chokidar from 'chokidar';
+import chokidar, { watch } from 'chokidar';
 import timeAgo from 'pretty-ms';
 import mkdir from 'mkdirp';
 import { IResult, tasks, Task } from '@/tasks';
@@ -54,11 +54,26 @@ async function taskRunner(
    log.info('Finished', methodKey, `after ${duration}`);
 
    if (options.watch) {
+      let runWatch = false;
+
       log.info('Watching', methodKey, `task...`);
 
       chokidar
-         .watch(options.watchPath || sourcePath)
-         .on('change', () => watchTask(methodKey, taskMethod));
+         .watch(options.watchPath || sourcePath, {
+            atomic: false,
+            ignored: [options.outputPath],
+         })
+         .on('change', async () => {
+            if (runWatch) {
+               return;
+            }
+
+            runWatch = true;
+
+            await watchTask(methodKey, taskMethod);
+
+            runWatch = false;
+         });
    }
 }
 
