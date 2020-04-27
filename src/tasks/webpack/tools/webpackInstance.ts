@@ -1,10 +1,11 @@
-import webpack, { Compiler } from 'webpack';
+import webpack, { Compiler, Stats, Configuration } from 'webpack';
 import { ThroughStream } from 'through';
 import log from 'fancy-log';
 import MemoryFileSystem from 'memory-fs';
-import { BufferFile } from 'vinyl';
+import File, { BufferFile } from 'vinyl';
+import path from 'path';
 import { IOptions } from '@/options';
-import { config } from './webpack.default';
+import { config as defaultConfig } from './webpack.default';
 
 /* -----------------------------------
  *
@@ -23,52 +24,70 @@ interface IEntry {
  * -------------------------------- */
 
 class WebpackInstance {
-   private options: IOptions;
    private instance: Compiler;
+   private config: Configuration;
+   private fileSystem = new MemoryFileSystem();
+
    private entry: IEntry = {};
    private isRunning = false;
 
    public constructor(options: IOptions) {
-      this.options = options;
+      this.config = defaultConfig(options);
    }
 
-   public onStreamWrite = (path: string, { named: name }: BufferFile) => {
+   public onStreamWrite = ({
+      named: name,
+      path: filePath,
+   }: BufferFile) => {
       if (!this.entry[name]) {
          this.entry[name] = [];
       }
 
-      this.entry[name].push(path);
+      this.entry[name].push(filePath);
    };
 
    public onStreamEnd = (stream: ThroughStream) => {
-      const { options, entry, isRunning } = this;
+      const { config, entry, isRunning } = this;
 
       if (!this.instance) {
-         this.instance = webpack({ ...config(options), entry });
+         this.instance = webpack({ ...config, entry });
       }
 
       if (!isRunning) {
-         this.instance.run(this.onComplete);
+         this.instance.run(this.onComplete(stream));
          this.isRunning = true;
 
          this.onAfterEmit(stream);
       }
    };
 
-   private onComplete = (error, stats) => {
+   private onComplete = (stream: ThroughStream) => (
+      error: Error,
+      stats: Stats
+   ) => {
+      if (error) {
+         stream.emit('error', error);
+
+         return;
+      }
+
       log.info(
          stats.toString({
             colors: true,
          })
       );
 
-      console.log('WebpackInstance.onComplete()');
+      stream.emit('end');
+
+      this.isRunning = false;
    };
 
    private onAfterEmit(stream: ThroughStream) {
-      const { instance } = this;
+      const { instance, fileSystem } = this;
 
-      // Webpack 4
+      instance.outputFileSystem = fileSystem;
+
+      // Webpack 4 API
       instance.hooks.afterEmit.tapAsync(
          'WebpackStream',
          (compilation, callback) =>
@@ -90,16 +109,30 @@ class WebpackInstance {
 
          const file = this.prepareFile(name);
 
-         // stream.queue(file);
+         stream.queue(file);
       }
 
       callback();
    };
 
-   private prepareFile(outname: string) {
-      const { instance } = this;
+   private prepareFile(name: string) {
+      const { instance, fileSystem } = this;
 
-      console.log('WebpackInstance.prepareFile()', outname);
+      let filePath = fileSystem.join(instance.outputPath, name);
+
+      if (filePath.indexOf('?') !== -1) {
+         filePath = filePath.split('?')[0];
+      }
+
+      const contents = fileSystem.readFileSync(filePath);
+
+      const file = new File({
+         base: instance.outputPath,
+         path: path.join(instance.outputPath, name),
+         contents,
+      });
+
+      return file;
    }
 }
 
