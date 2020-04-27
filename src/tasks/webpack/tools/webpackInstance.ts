@@ -27,9 +27,7 @@ class WebpackInstance {
    private instance: Compiler;
    private config: Configuration;
    private fileSystem = new MemoryFileSystem();
-
    private entry: IEntry = {};
-   private isRunning = false;
 
    public constructor(options: IOptions) {
       this.config = defaultConfig(options);
@@ -47,18 +45,15 @@ class WebpackInstance {
    };
 
    public onStreamEnd = (stream: ThroughStream) => {
-      const { config, entry, isRunning } = this;
+      const { config, entry } = this;
 
       if (!this.instance) {
          this.instance = webpack({ ...config, entry });
       }
 
-      if (!isRunning) {
-         this.instance.run(this.onComplete(stream));
-         this.isRunning = true;
+      this.instance.run(this.onComplete(stream));
 
-         this.onAfterEmit(stream);
-      }
+      this.onAfterEmit(stream);
    };
 
    private onComplete = (stream: ThroughStream) => (
@@ -78,8 +73,6 @@ class WebpackInstance {
       );
 
       stream.emit('end');
-
-      this.isRunning = false;
    };
 
    private onAfterEmit(stream: ThroughStream) {
