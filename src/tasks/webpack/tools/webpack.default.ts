@@ -8,7 +8,7 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-const config = ({ release }: IOptions): Configuration => ({
+const config = ({ release, pathAlias }: IOptions): Configuration => ({
    target: 'web',
    mode: release ? 'production' : 'development',
    output: {
@@ -21,7 +21,7 @@ const config = ({ release }: IOptions): Configuration => ({
       modules: ['node_modules'],
       extensions: ['.ts', '.tsx', '.js', '.json'],
       alias: {
-         '@': path.resolve('./src/'),
+         '@': path.resolve(pathAlias),
       },
    },
    externals: {

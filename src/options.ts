@@ -12,6 +12,7 @@ interface IOptions {
    watch: boolean;
    watchPath: string;
    verbose: boolean;
+   pathAlias: string;
 }
 
 /* -----------------------------------
