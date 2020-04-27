@@ -13,7 +13,9 @@ import { flattenArray } from '@/utility/flattenArray';
 async function processStreams(
    tasks: Array<Promise<IStream>>
 ): Promise<IResult[]> {
-   const streams: IStream[] = await Promise.all(tasks);
+   // const streams: IStream[] = await Promise.all(tasks);
+   const streams = [await tasks[0]];
+
    const result = simplifyStreams(streams);
 
    return result;
