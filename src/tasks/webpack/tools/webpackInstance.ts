@@ -68,16 +68,23 @@ class WebpackInstance {
    private onAfterEmit(stream: ThroughStream) {
       const { instance } = this;
 
-      // Webpack 4 Only
-      instance.hooks.afterEmit.tapAsync('WebpackStream', this.onTapAsync);
+      // Webpack 4
+      instance.hooks.afterEmit.tapAsync(
+         'WebpackStream',
+         (compilation, callback) =>
+            this.onTapAsync(stream, compilation, callback)
+      );
    }
 
    private onTapAsync = (
-      compilation: webpack.compilation.Compilation,
+      stream: ThroughStream,
+      { assets }: webpack.compilation.Compilation,
       callback: () => void
    ) => {
-      Object.keys(compilation.assets).forEach((outname) => {
-         if (compilation.assets[outname].emitted) {
+      const fileNames = Object.keys(assets);
+
+      fileNames.forEach((outname) => {
+         if (assets[outname].emitted) {
             //   const file = this.prepareFile(fs, compiler, outname);
             //   stream.queue(file);
          }
