@@ -1,10 +1,7 @@
 import source from 'vinyl-source-stream';
 import named from 'vinyl-named';
-import { BufferFile } from 'vinyl';
 import { Readable } from 'stream';
 import { IOptions } from '@/options';
-import { config } from './webpack.default';
-import { stringToStream } from '@/utility/streamHelpers';
 import { webpackCompiler } from './webpackCompiler';
 import { emitFile } from './emitFile';
 
@@ -36,7 +33,7 @@ function bundleCompiler(options: IOptions) {
             .pipe(source(path))
             .pipe(named())
             .pipe(compiler(path))
-            // .pipe(emitFile(resolve))
+            .pipe(emitFile(resolve))
             .on('error', reject)
             .on('close', () => resolve(result));
       });
