@@ -11,7 +11,7 @@ function emitFile(resolve: any) {
    return new Transform({
       objectMode: true,
       transform: (file: any) => {
-         console.log('FILE', file);
+         console.log('FILE ->', file);
 
          resolve([]);
       },

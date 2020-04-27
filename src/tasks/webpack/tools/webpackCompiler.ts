@@ -1,17 +1,6 @@
-import { Transform } from 'stream';
 import stream from 'through';
-import webpack, { Compiler, Entry } from 'webpack';
 import { IOptions } from '@/options';
-
-/* -----------------------------------
- *
- * IEntry
- *
- * -------------------------------- */
-
-interface IEntry {
-   [index: string]: string[];
-}
+import { WebpackInstance } from './webpackInstance';
 
 /* -----------------------------------
  *
@@ -20,21 +9,13 @@ interface IEntry {
  * -------------------------------- */
 
 function webpackCompiler(options: IOptions) {
-   const entry: IEntry = {};
+   const instance = new WebpackInstance(options);
 
    return (path: string) =>
       stream(
-         ({ named: name }) => {
-            if (!entry[name]) {
-               entry[name] = [];
-            }
-
-            entry[name].push(path);
-         },
+         (file) => instance.onStreamWrite(path, file),
          function end() {
-            console.log('ENTRIES', entry);
-
-            this.emit('close');
+            instance.onStreamEnd(this);
          }
       );
 }
