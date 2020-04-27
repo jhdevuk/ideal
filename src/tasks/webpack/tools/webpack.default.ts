@@ -11,6 +11,7 @@ import { IOptions } from '@/options';
 const config = ({ release, pathAlias }: IOptions): Configuration => ({
    target: 'web',
    mode: release ? 'production' : 'development',
+   cache: !release,
    output: {
       libraryTarget: 'commonjs',
       filename: '[name].js',
