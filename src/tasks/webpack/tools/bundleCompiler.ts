@@ -5,7 +5,6 @@ import { BufferFile } from 'vinyl';
 import { IOptions } from '@/options';
 import { webpackCompiler } from './webpackCompiler';
 import { stringToStream } from '@/utility/streamHelpers';
-// import { emitFile } from './emitFile';
 
 /* -----------------------------------
  *
