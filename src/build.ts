@@ -49,7 +49,7 @@ const options = loadConfig(methodKey);
  * -------------------------------- */
 
 if (!validOptions(sourcePath, options)) {
-   log.error('Missing required arguments');
+   log.error('Missing or invalid arguments');
 
    process.exit(1);
 }
