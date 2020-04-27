@@ -8,7 +8,10 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-const config = ({ release, pathAlias }: IOptions): Configuration => ({
+const defaultConfig = ({
+   release,
+   pathAlias,
+}: IOptions): Configuration => ({
    target: 'web',
    mode: release ? 'production' : 'development',
    cache: !release,
@@ -78,4 +81,4 @@ const config = ({ release, pathAlias }: IOptions): Configuration => ({
  *
  * -------------------------------- */
 
-export { config };
+export { defaultConfig };
