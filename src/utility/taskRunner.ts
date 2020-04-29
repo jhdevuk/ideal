@@ -23,6 +23,7 @@ class TaskRunner {
    private endTime: number;
    private filePaths: string[];
    private taskMethod: () => Promise<void>;
+   private taskRunning: boolean;
 
    public constructor(
       private readonly methodKey: string,
@@ -65,8 +66,6 @@ class TaskRunner {
          return;
       }
 
-      let runWatch = false;
-
       log.info('Watching', methodKey, `task...`);
 
       chokidar
@@ -74,17 +73,7 @@ class TaskRunner {
             atomic: false,
             ignored: [options.outputPath],
          })
-         .on('change', async () => {
-            if (runWatch) {
-               return;
-            }
-
-            runWatch = true;
-
-            await this.watchTask();
-
-            runWatch = false;
-         });
+         .on('change', () => this.watchTask());
    }
 
    private setTime(type: 'start' | 'end') {
@@ -147,7 +136,13 @@ class TaskRunner {
    }
 
    private async watchTask() {
-      const { methodKey } = this;
+      const { methodKey, taskRunning } = this;
+
+      if (taskRunning) {
+         return;
+      }
+
+      this.taskRunning = true;
 
       const startTime = new Date().getTime();
 
@@ -158,6 +153,8 @@ class TaskRunner {
       const duration = timeAgo(new Date().getTime() - startTime);
 
       log.info('Finished', methodKey, `after ${duration}`);
+
+      this.taskRunning = false;
    }
 }
 
