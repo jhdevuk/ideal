@@ -18,6 +18,7 @@ const defaultOptions: IOptions = {
    watchPath: (argv.watchPath as string) || '',
    verbose: !!argv.verbose,
    pathAlias: (argv.pathAlias as string) || './src',
+   filePrefix: (argv.filePrefix as string) || '',
 };
 
 /* -----------------------------------
