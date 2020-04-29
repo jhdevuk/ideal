@@ -13,6 +13,7 @@ interface IOptions {
    watchPath: string;
    verbose: boolean;
    pathAlias: string;
+   filePrefix: string;
 }
 
 /* -----------------------------------
