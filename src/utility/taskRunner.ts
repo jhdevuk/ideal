@@ -55,11 +55,9 @@ class TaskRunner {
       const duration = timeAgo(new Date().getTime() - this.startTime);
 
       log.info('Finished', methodKey, `after ${duration}`);
-
-      await this.watch();
    }
 
-   private async watch() {
+   public async watch() {
       const { sourcePath, methodKey, options } = this;
 
       if (!options.watch) {
@@ -107,6 +105,8 @@ class TaskRunner {
    private async runTask(method: Task) {
       const { options, filePaths } = this;
 
+      this.taskRunning = true;
+
       const files = filePaths.map((item) => readFile(item));
 
       const streams = files.map((data, index) =>
@@ -133,6 +133,8 @@ class TaskRunner {
       if (options.verbose) {
          result.forEach(log.result);
       }
+
+      this.taskRunning = false;
    }
 
    private async watchTask() {
@@ -141,8 +143,6 @@ class TaskRunner {
       if (taskRunning) {
          return;
       }
-
-      this.taskRunning = true;
 
       const startTime = new Date().getTime();
 
@@ -153,8 +153,6 @@ class TaskRunner {
       const duration = timeAgo(new Date().getTime() - startTime);
 
       log.info('Finished', methodKey, `after ${duration}`);
-
-      this.taskRunning = false;
    }
 }
 
