@@ -1,4 +1,3 @@
-import { Readable } from 'stream';
 import { Task, IProps } from '@/tasks';
 import { IOptions } from '@/options';
 import { bundleCompiler } from './tools/bundleCompiler';

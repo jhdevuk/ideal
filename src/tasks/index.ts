@@ -6,6 +6,16 @@ import { method as webpackMethod } from './webpack';
 
 /* -----------------------------------
  *
+ * ITasks
+ *
+ * -------------------------------- */
+
+interface ITasks {
+   [index: string]: Method;
+}
+
+/* -----------------------------------
+ *
  * IProps
  *
  * -------------------------------- */
@@ -62,7 +72,7 @@ type Task = (props: IProps) => Promise<IStream>;
  *
  * -------------------------------- */
 
-const tasks = {
+const tasks: ITasks = {
    'build:css': sassMethod,
    'build:js': webpackMethod,
 };
