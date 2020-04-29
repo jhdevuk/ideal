@@ -61,3 +61,4 @@ if (!validOptions(sourcePath, options)) {
  * -------------------------------- */
 
 runner.start();
+runner.watch();
