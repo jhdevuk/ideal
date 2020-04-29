@@ -1,4 +1,3 @@
-import maxListenersDebug from 'max-listeners-exceeded-warning';
 import { tasks } from '@/tasks';
 import * as log from '@/utility/logOutput';
 import { loadConfig } from '@/utility/loadConfig';
