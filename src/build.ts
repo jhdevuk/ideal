@@ -3,7 +3,7 @@ import { tasks } from '@/tasks';
 import * as log from '@/utility/logOutput';
 import { loadConfig } from '@/utility/loadConfig';
 import { validOptions } from '@/utility/validOptions';
-import { taskRunner } from '@/utility/taskRunner';
+import { TaskRunner } from '@/utility/taskRunner';
 
 /* -----------------------------------
  *
@@ -36,11 +36,12 @@ if (!tasks[methodKey]) {
 
 /* -----------------------------------
  *
- * Options
+ * Setup
  *
  * -------------------------------- */
 
 const options = loadConfig(methodKey);
+const runner = new TaskRunner(methodKey, sourcePath, options);
 
 /* -----------------------------------
  *
@@ -60,4 +61,4 @@ if (!validOptions(sourcePath, options)) {
  *
  * -------------------------------- */
 
-taskRunner(methodKey, { sourcePath, options });
+runner.start();

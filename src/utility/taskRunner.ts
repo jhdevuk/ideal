@@ -14,46 +14,57 @@ import { writeManifest } from '@/utility/writeManifest';
 
 /* -----------------------------------
  *
- * IConfig
- *
- * -------------------------------- */
-
-interface IConfig {
-   sourcePath: string;
-   options: IOptions;
-}
-
-/* -----------------------------------
- *
  * Runner
  *
  * -------------------------------- */
 
-async function taskRunner(
-   methodKey: string,
-   { sourcePath, options }: IConfig
-) {
-   const startTime = new Date().getTime();
-   const paths = await readGlobFiles(sourcePath);
-   const method = await tasks[methodKey](options);
-   const taskMethod = () => runTask(method, paths, options);
+class TaskRunner {
+   private startTime: number;
+   private endTime: number;
+   private filePaths: string[];
+   private taskMethod: () => Promise<void>;
 
-   if (!paths.length) {
-      log.error('No matching files for', sourcePath);
+   public constructor(
+      private readonly methodKey: string,
+      private readonly sourcePath: string,
+      private readonly options: IOptions
+   ) {}
 
-      return;
+   public async start() {
+      const { methodKey, sourcePath, options } = this;
+
+      await this.setTime('start');
+
+      const filePaths = await this.readPaths();
+
+      if (!filePaths.length) {
+         log.error('No matching files for', sourcePath);
+
+         return;
+      }
+
+      await this.setMethod();
+
+      log.info('Running', methodKey, 'task...');
+
+      await mkdir(options.outputPath);
+
+      await this.taskMethod();
+
+      const duration = timeAgo(new Date().getTime() - this.startTime);
+
+      log.info('Finished', methodKey, `after ${duration}`);
+
+      await this.watch();
    }
 
-   log.info('Running', methodKey, 'task...');
+   private async watch() {
+      const { sourcePath, methodKey, options } = this;
 
-   await mkdir(options.outputPath);
-   await taskMethod();
+      if (!options.watch) {
+         return;
+      }
 
-   const duration = timeAgo(new Date().getTime() - startTime);
-
-   log.info('Finished', methodKey, `after ${duration}`);
-
-   if (options.watch) {
       let runWatch = false;
 
       log.info('Watching', methodKey, `task...`);
@@ -70,67 +81,84 @@ async function taskRunner(
 
             runWatch = true;
 
-            await watchTask(methodKey, taskMethod);
+            await this.watchTask();
 
             runWatch = false;
          });
    }
-}
 
-/* -----------------------------------
- *
- * Task
- *
- * -------------------------------- */
+   private setTime(type: 'start' | 'end') {
+      const timeValue = new Date().getTime();
 
-async function runTask(task: Task, paths: string[], options: IOptions) {
-   const files = paths.map((item) => readFile(item));
+      if (type === 'start') {
+         this.startTime = timeValue;
 
-   const streams = files.map((data, index) =>
-      task({
-         data,
-         path: paths[index],
-         name: getStreamFileName(data),
-      })
-   );
+         return;
+      }
 
-   let result: IResult[] = [];
-
-   try {
-      result = await processStreams(streams);
-      result = await hashFileNames(result, options.release);
-      result = await writeStreams(result, options.outputPath);
-      result = await writeManifest(result, options.outputPath);
-   } catch ({ message, file, line }) {
-      log.error(message, file, line);
-
-      process.exit(1);
+      this.endTime = timeValue;
    }
 
-   if (options.verbose) {
-      result.forEach(log.result);
+   private async readPaths() {
+      const { sourcePath } = this;
+
+      this.filePaths = await readGlobFiles(sourcePath);
+
+      return this.filePaths;
    }
-}
 
-/* -----------------------------------
- *
- * Watch
- *
- * -------------------------------- */
+   private async setMethod() {
+      const { methodKey, options } = this;
 
-async function watchTask(
-   methodKey: string,
-   taskMethod: () => Promise<void>
-) {
-   const startTime = new Date().getTime();
+      const method = await tasks[methodKey](options);
 
-   log.info('Running', methodKey, 'task...');
+      this.taskMethod = () => this.runTask(method);
+   }
 
-   await taskMethod();
+   private async runTask(method: Task) {
+      const { options, filePaths } = this;
 
-   const duration = timeAgo(new Date().getTime() - startTime);
+      const files = filePaths.map((item) => readFile(item));
 
-   log.info('Finished', methodKey, `after ${duration}`);
+      const streams = files.map((data, index) =>
+         method({
+            data,
+            path: filePaths[index],
+            name: getStreamFileName(data),
+         })
+      );
+
+      let result: IResult[] = [];
+
+      try {
+         result = await processStreams(streams);
+         result = await hashFileNames(result, options.release);
+         result = await writeStreams(result, options.outputPath);
+         result = await writeManifest(result, options.outputPath);
+      } catch ({ message, file, line }) {
+         log.error(message, file, line);
+
+         process.exit(1);
+      }
+
+      if (options.verbose) {
+         result.forEach(log.result);
+      }
+   }
+
+   private async watchTask() {
+      const { methodKey } = this;
+
+      const startTime = new Date().getTime();
+
+      log.info('Running', methodKey, 'task...');
+
+      await this.taskMethod();
+
+      const duration = timeAgo(new Date().getTime() - startTime);
+
+      log.info('Finished', methodKey, `after ${duration}`);
+   }
 }
 
 /* -----------------------------------
@@ -139,4 +167,4 @@ async function watchTask(
  *
  * -------------------------------- */
 
-export { taskRunner };
+export { TaskRunner };
