@@ -1,9 +1,8 @@
 {
    "name": "ideal-tools",
    "version": "1.0.0",
-   "main": "index.js",
    "repository": "https://github.com/jhdevuk/ideal",
-   "author": "jhdevuk",
+   "author": "James Hill",
    "license": "MIT",
    "scripts": {
       "build": "webpack",
