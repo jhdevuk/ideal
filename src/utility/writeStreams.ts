@@ -14,10 +14,10 @@ async function writeStreams(
    outputPath: string
 ): Promise<IResult[]> {
    await Promise.all(
-      streams.map(({ name, hash, type, stream }) =>
+      streams.map((result) =>
          writeFile(
-            path.join(outputPath, getResultFileName(name, hash, type)),
-            stream
+            path.join(outputPath, getResultFileName(result)),
+            result.stream
          )
       )
    );

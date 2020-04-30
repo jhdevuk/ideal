@@ -1,13 +1,21 @@
+import { IResult } from '@/tasks';
+
 /* -----------------------------------
  *
  * getResultFileName
  *
  * -------------------------------- */
 
-function getResultFileName(name: string, hash: string, type: string) {
+function getResultFileName({ name, type, hash, prefix }: IResult) {
    const hashPart = hash ? `.${hash}` : '';
 
-   return name + hashPart + type;
+   let result = name + hashPart + type;
+
+   if (prefix) {
+      result = `${prefix}-${result}`;
+   }
+
+   return result;
 }
 
 /* -----------------------------------
