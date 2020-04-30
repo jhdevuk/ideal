@@ -18,8 +18,8 @@ async function writeManifest(
    const manifestPath = path.join(outputPath, 'assets.json');
    const currentManifest = await loadManifest(manifestPath);
 
-   const buildAssets = streams.reduce((result, { name, hash, type }) => {
-      result[name + type] = getResultFileName(name, hash, type);
+   const buildAssets = streams.reduce((result, item) => {
+      result[item.name + item.type] = getResultFileName(item);
 
       return result;
    }, {});

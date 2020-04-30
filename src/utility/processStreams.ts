@@ -10,10 +10,11 @@ import { flattenArray } from '@/utility/flattenArray';
  * -------------------------------- */
 
 async function processStreams(
-   tasks: Array<Promise<IStream>>
+   tasks: Array<Promise<IStream>>,
+   filePrefix?: string
 ): Promise<IResult[]> {
    const streams: IStream[] = await Promise.all(tasks);
-   const result = simplifyStreams(streams);
+   const result = simplifyStreams(streams, filePrefix);
 
    return result;
 }
@@ -24,11 +25,13 @@ async function processStreams(
  *
  * -------------------------------- */
 
-function simplifyStreams(streams: IStream[]) {
+function simplifyStreams(streams: IStream[], filePrefix?: string) {
    const formatItems = streams
       .map((item) => Object.keys(item))
       .map((item, index) =>
-         item.map((name) => formatResult(streams[index], name))
+         item.map((name) =>
+            formatResult(streams[index], name, filePrefix)
+         )
       );
 
    const result = flattenArray(formatItems)
@@ -50,7 +53,11 @@ function simplifyStreams(streams: IStream[]) {
  *
  * -------------------------------- */
 
-function formatResult(stream: IStream, name: string): IResult {
+function formatResult(
+   stream: IStream,
+   name: string,
+   filePrefix?: string
+): IResult {
    const file = path.parse(name);
    const data = stream[name];
 
@@ -58,6 +65,7 @@ function formatResult(stream: IStream, name: string): IResult {
       name: file.name,
       type: file.ext,
       hash: '',
+      prefix: filePrefix,
       size: data && fileSize(data.readableLength),
       stream: data,
    };

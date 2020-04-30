@@ -46,6 +46,7 @@ interface IResult {
    name: string;
    type: string;
    hash: string;
+   prefix?: string;
    size: string;
    stream: Readable;
 }

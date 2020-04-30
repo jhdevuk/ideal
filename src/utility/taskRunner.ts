@@ -137,11 +137,11 @@ class TaskRunner {
    }
 
    private async processTasks(streams: Array<Promise<IStream>>) {
-      const { release, outputPath } = this.options;
+      const { release, outputPath, filePrefix } = this.options;
 
       let result: IResult[] = [];
 
-      result = await processStreams(streams);
+      result = await processStreams(streams, filePrefix);
       result = await hashFileNames(result, release);
       result = await writeStreams(result, outputPath);
       result = await writeManifest(result, outputPath);
