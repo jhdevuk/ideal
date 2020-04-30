@@ -48,8 +48,10 @@ const runner = new TaskRunner(methodKey, sourcePath, options);
  *
  * -------------------------------- */
 
-if (!validOptions(sourcePath, options)) {
-   log.error('Missing or invalid arguments');
+try {
+   validOptions(sourcePath, options);
+} catch ({ message }) {
+   log.error('Invalid arguments:', message);
 
    process.exit(1);
 }
