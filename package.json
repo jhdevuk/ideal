@@ -12,6 +12,9 @@
    "bin": {
       "ideal": "./dist/build.js"
    },
+   "files": [
+      "dist"
+   ],
    "dependencies": {
       "autoprefixer": "^9.7.6",
       "chalk": "^3.0.0",
