@@ -7,9 +7,16 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function validOptions(source: string, { watchPath }: IOptions) {
+function validOptions(
+   source: string,
+   { watchPath, localWebpackConfig }: IOptions
+) {
    if (!isGlob(source)) {
-      return false;
+      throw new Error('Missing or incorrectly formatted "sourcePath"');
+   }
+
+   if (localWebpackConfig && typeof localWebpackConfig !== 'function') {
+      throw new Error('Local webpack config must be a function');
    }
 
    return true;
