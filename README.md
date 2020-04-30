@@ -1,16 +1,24 @@
-`ideal` is a collection of tools to generate client side assets, wrapped up in an easy to use CLI. It currently supports both `TypeScript` and `SASS`.
+`ideal` is a collection of pre-existing tools for generating client assets, wrapped up in an easy to use CLI. It currently supports `TypeScript` and `SASS`.
 
 # Getting Started
 
-To install `ideal`, run the following in the root of your project:
+Install with npm:
 
-`yarn add {tbd}` or `npm install {tbd}`
+```
+npm install --save-dev ideal-tools
+```
 
-This package can also be installed globally.
+Install with yarn:
+
+```
+yarn add --dev ideal-tools
+```
+
+There are currently two "tasks" provided, `build:css` and `build:js`.
 
 # Basic Usage
 
-`ideal` comes preconfigured to generate assets via a [glob](https://www.npmjs.com/package/glob) path, and outputs in the relative directory `./dist`. This can be configured however with a contextual config file, outlined below.
+`ideal` uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs, by default, in a relative directory: `./dist`. This can be configured with a contextual config file, outlined below.
 
 Try it out:
 
@@ -21,7 +29,25 @@ $ ideal build:css ./src/*.scss
 
 # Configuration
 
-You can configure each build task either via CLI arguments, or with an `ideal.config.js` file, located relative to where `ideal` is being run from.
+You can configure each build task via CLI arguments, or with an `ideal.config.js` file, located relative to where `ideal` is being run from.
+
+## CLI Arguments
+
+Arguments are passed to `ideal` via the following pattern: `--{key}={value}`. Where arguments are `boolean`, no value is required and their presence consistutes `true`.
+
+See below for full list of configurable options:
+
+| Key          | Value             | About                                                           |
+| ------------ | ----------------- | --------------------------------------------------------------- |
+| --outputPath | Relative path     | A relative path to where you would like files to be written     |
+| --release    | N/A               | Determine whether files are built for development or production |
+| --sourceMap  | N/A               | Output source maps to built assets                              |
+| --cssModules | N/A               | Hash class names and build a json map file                      |
+| --watch      | N/A               | Watch files for changes                                         |
+| --watchPath  | N/A               | Path to where source files are being watched                    |
+| --verbose    | N/A               | Output more info in the console                                 |
+| --pathAlias  | Relative path     | Define a path alias for webpack                                 |
+| --filePrefix | Valid file string | Prepend this value to built assets, useful for versioning       |
 
 ## Config File
 
@@ -43,13 +69,9 @@ module.exports = {
 
 This is then picked up at runtime by `ideal`. Each set of properties match their CLI equivelants, in value and casing.
 
-## CLI Arguments
+### JavaScript Specific
 
-Arguments are passed to `ideal` via the following pattern: `--{key}={value}`. Where arguments are `boolean`, no value is required and their presence consistutes `true`.
-
-See below for full list of configurable options:
-
-TBD
+The config file also allows you to pass in a local `webpack.config.js` file via a `localWebpackConfig` property in the `build:js` set of properties. This value _must_ be a function that returns a valid webpack config file. The function is passed all previously defined config options for convenience.
 
 # Manifest
 
