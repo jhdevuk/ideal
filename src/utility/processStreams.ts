@@ -1,6 +1,5 @@
 import fileSize from 'filesize';
 import path from 'path';
-import getHash from 'hasha';
 import { IStream, IResult } from '@/tasks';
 import { flattenArray } from '@/utility/flattenArray';
 
