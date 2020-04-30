@@ -1,3 +1,5 @@
+import { Configuration } from 'webpack';
+
 /* -----------------------------------
  *
  * IOptions
@@ -14,6 +16,7 @@ interface IOptions {
    verbose: boolean;
    pathAlias: string;
    filePrefix: string;
+   localWebpackConfig: (options: IOptions) => Configuration;
 }
 
 /* -----------------------------------

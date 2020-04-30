@@ -5,7 +5,7 @@ import MemoryFileSystem from 'memory-fs';
 import File, { BufferFile } from 'vinyl';
 import path from 'path';
 import { IOptions } from '@/options';
-import { defaultConfig } from './webpack.default';
+import { defaultWebpackConfig } from './webpack.default';
 
 /* -----------------------------------
  *
@@ -29,9 +29,7 @@ class WebpackInstance {
    private fileSystem = new MemoryFileSystem();
    private entry: IEntry = {};
 
-   public constructor(options: IOptions) {
-      this.config = defaultConfig(options);
-   }
+   public constructor(private readonly options: IOptions) {}
 
    public onStreamWrite = ({
       named: name,
@@ -45,10 +43,10 @@ class WebpackInstance {
    };
 
    public onStreamEnd = (stream: ThroughStream) => {
-      const { config, entry } = this;
+      const config = this.getWebpackConfig();
 
       if (!this.instance) {
-         this.instance = webpack({ ...config, entry });
+         this.instance = webpack(config);
       }
 
       this.instance.run(this.onComplete(stream));
@@ -107,6 +105,20 @@ class WebpackInstance {
 
       callback();
    };
+
+   private getWebpackConfig() {
+      const { options, entry, config } = this;
+      const { localWebpackConfig } = this.options;
+
+      if (this.config) {
+         return this.config;
+      }
+
+      const configFunction = localWebpackConfig || defaultWebpackConfig;
+      const configObject = configFunction(options);
+
+      return (this.config = { ...configObject, entry });
+   }
 
    private prepareFile(name: string) {
       const { instance, fileSystem } = this;
