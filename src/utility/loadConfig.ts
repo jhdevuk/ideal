@@ -19,6 +19,7 @@ const defaultOptions: IOptions = {
    verbose: !!argv.verbose,
    pathAlias: (argv.pathAlias as string) || './src',
    filePrefix: (argv.filePrefix as string) || '',
+   localWebpackConfig: null,
 };
 
 /* -----------------------------------

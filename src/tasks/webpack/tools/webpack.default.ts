@@ -8,7 +8,7 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-const defaultConfig = ({
+const defaultWebpackConfig = ({
    release,
    pathAlias,
 }: IOptions): Configuration => ({
@@ -81,4 +81,4 @@ const defaultConfig = ({
  *
  * -------------------------------- */
 
-export { defaultConfig };
+export { defaultWebpackConfig };
