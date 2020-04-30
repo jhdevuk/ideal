@@ -1,7 +1,7 @@
-import chokidar, { watch } from 'chokidar';
+import chokidar from 'chokidar';
 import timeAgo from 'pretty-ms';
 import mkdir from 'mkdirp';
-import { IResult, tasks, Task } from '@/tasks';
+import { IResult, tasks, Task, IStream } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
 import { readFile } from '@/utility/readFile';
@@ -20,7 +20,6 @@ import { writeManifest } from '@/utility/writeManifest';
 
 class TaskRunner {
    private startTime: number;
-   private endTime: number;
    private filePaths: string[];
    private taskMethod: () => Promise<void>;
    private taskRunning: boolean;
@@ -32,10 +31,7 @@ class TaskRunner {
    ) {}
 
    public async start() {
-      const { methodKey, sourcePath, options } = this;
-
-      await this.setTime('start');
-
+      const { sourcePath, options } = this;
       const filePaths = await this.readPaths();
 
       if (!filePaths.length) {
@@ -44,46 +40,28 @@ class TaskRunner {
          return;
       }
 
-      await this.setMethod();
-
-      log.info('Running', methodKey, 'task...');
-
       await mkdir(options.outputPath);
 
+      await this.setMethod();
       await this.taskMethod();
-
-      const duration = timeAgo(new Date().getTime() - this.startTime);
-
-      log.info('Finished', methodKey, `after ${duration}`);
    }
 
    public async watch() {
-      const { sourcePath, methodKey, options } = this;
+      const { sourcePath, methodKey } = this;
+      const { watch, watchPath, outputPath } = this.options;
 
-      if (!options.watch) {
+      if (!watch) {
          return;
       }
 
       log.info('Watching', methodKey, `task...`);
 
       chokidar
-         .watch(options.watchPath || sourcePath, {
+         .watch(watchPath || sourcePath, {
             atomic: false,
-            ignored: [options.outputPath],
+            ignored: [outputPath],
          })
-         .on('change', () => this.watchTask());
-   }
-
-   private setTime(type: 'start' | 'end') {
-      const timeValue = new Date().getTime();
-
-      if (type === 'start') {
-         this.startTime = timeValue;
-
-         return;
-      }
-
-      this.endTime = timeValue;
+         .on('change', () => this.taskMethod());
    }
 
    private async readPaths() {
@@ -103,9 +81,14 @@ class TaskRunner {
    }
 
    private async runTask(method: Task) {
-      const { options, filePaths } = this;
+      const { options, filePaths, taskRunning } = this;
+
+      if (taskRunning) {
+         return;
+      }
 
       this.taskRunning = true;
+      this.logRunTime('start');
 
       const files = filePaths.map((item) => readFile(item));
 
@@ -120,10 +103,7 @@ class TaskRunner {
       let result: IResult[] = [];
 
       try {
-         result = await processStreams(streams);
-         result = await hashFileNames(result, options.release);
-         result = await writeStreams(result, options.outputPath);
-         result = await writeManifest(result, options.outputPath);
+         result = await this.processTasks(streams);
       } catch ({ message, file, line }) {
          log.error(message, file, line);
 
@@ -135,24 +115,38 @@ class TaskRunner {
       }
 
       this.taskRunning = false;
+      this.logRunTime('end');
    }
 
-   private async watchTask() {
-      const { methodKey, taskRunning } = this;
+   private logRunTime(type: 'start' | 'end') {
+      const { methodKey } = this;
 
-      if (taskRunning) {
+      const timeValue = new Date().getTime();
+
+      if (type === 'start') {
+         this.startTime = timeValue;
+
+         log.info('Running', methodKey, `task...`);
+
          return;
       }
 
-      const startTime = new Date().getTime();
-
-      log.info('Running', methodKey, 'task...');
-
-      await this.taskMethod();
-
-      const duration = timeAgo(new Date().getTime() - startTime);
+      const duration = timeAgo(new Date().getTime() - this.startTime);
 
       log.info('Finished', methodKey, `after ${duration}`);
+   }
+
+   private async processTasks(streams: Array<Promise<IStream>>) {
+      const { release, outputPath } = this.options;
+
+      let result: IResult[] = [];
+
+      result = await processStreams(streams);
+      result = await hashFileNames(result, release);
+      result = await writeStreams(result, outputPath);
+      result = await writeManifest(result, outputPath);
+
+      return result;
    }
 }
 
