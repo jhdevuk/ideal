@@ -1,4 +1,8 @@
-`ideal` is a collection of pre-existing tools for generating client assets, wrapped up in an easy to use CLI. It currently supports `TypeScript` and `SASS`.
+ideal is a collection of pre-existing tools for generating client assets, wrapped up in an easy to use CLI. It currently supports `TypeScript` and `SASS`. The tools used are as follows:
+
+-  [webpack](https://webpack.js.org/) and [node-sass](https://github.com/sass/node-sass) for compilation.
+-  ~~[jest](https://jestjs.io/) and [pupeteer](https://pptr.dev/) for unit and integration tests.~~ Coming soon
+-  ~~[ts-lint](https://palantir.github.io/tslint/) and [stylelint](https://stylelint.io/) for linting.~~ Coming soon
 
 # Getting Started
 
