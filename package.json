@@ -36,6 +36,7 @@
       "tslint-config-prettier": "1.18.0",
       "tslint-eslint-rules": "5.4.0",
       "tslint-loader": "^3.5.4",
+      "typescript": "^3.8.3",
       "vinyl": "^2.2.0",
       "vinyl-named": "^1.1.0",
       "vinyl-source-stream": "^2.0.0",
@@ -54,12 +55,10 @@
       "@types/vinyl-source-stream": "^0.0.30",
       "@types/webpack": "^4.26.1",
       "@types/webpack-node-externals": "^1.7.1",
-      "@types/webpack-stream": "^3.2.10",
       "@types/yargs": "^15.0.4",
       "npm-run-all": "^4.1.5",
       "prettier": "2.0.2",
       "ts-node": "^8.8.1",
-      "typescript": "3.8.3",
       "webpack-cli": "^3.3.11",
       "webpack-node-externals": "^1.7.2"
    }

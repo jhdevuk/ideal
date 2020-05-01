@@ -47,14 +47,12 @@ class TaskRunner {
    }
 
    public async watch() {
-      const { sourcePath, methodKey } = this;
+      const { sourcePath } = this;
       const { watch, watchPath, outputPath } = this.options;
 
       if (!watch) {
          return;
       }
-
-      log.info('Watching', methodKey, `task...`);
 
       chokidar
          .watch(watchPath || sourcePath, {
