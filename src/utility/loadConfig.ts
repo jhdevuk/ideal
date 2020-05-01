@@ -15,11 +15,11 @@ const defaultOptions: IOptions = {
    sourceMap: !!argv.sourceMap,
    cssModules: !!argv.cssModules,
    watch: !!argv.watch,
-   watchPath: (argv.watchPath as string) || '',
+   watchPath: (argv.watchPath as string) || null,
    verbose: !!argv.verbose,
    pathAlias: (argv.pathAlias as string) || './src',
-   filePrefix: (argv.filePrefix as string) || '',
-   includePath: (argv.filePrefix as string) || null,
+   filePrefix: (argv.filePrefix as string) || null,
+   includePath: (argv.includePath as string) || null,
    localWebpackConfig: null,
 };
 
