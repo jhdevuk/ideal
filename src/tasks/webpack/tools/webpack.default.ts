@@ -11,10 +11,11 @@ import { IOptions } from '@/options';
 const defaultWebpackConfig = ({
    release,
    pathAlias,
+   includePath,
 }: IOptions): Configuration => ({
    target: 'web',
    mode: release ? 'production' : 'development',
-   cache: !release,
+   // cache: !release,
    output: {
       libraryTarget: 'commonjs',
       filename: '[name].js',
@@ -22,14 +23,16 @@ const defaultWebpackConfig = ({
       jsonpFunction: '__IDL__',
    },
    resolve: {
-      modules: ['node_modules'],
+      modules: [
+         'node_modules',
+         ...(includePath && [path.resolve(includePath)]),
+      ],
       extensions: ['.ts', '.tsx', '.js', '.json'],
       alias: {
-         '@': path.resolve(pathAlias),
+         ...(pathAlias && {
+            '@': path.resolve(pathAlias),
+         }),
       },
-   },
-   externals: {
-      'ideal.config': './ideal.config.js',
    },
    module: {
       rules: [
@@ -43,6 +46,9 @@ const defaultWebpackConfig = ({
          },
          {
             test: /\.tsx?$/,
+            ...(includePath && {
+               include: path.resolve(includePath),
+            }),
             use: [
                {
                   loader: 'ts-loader',
