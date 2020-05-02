@@ -28,21 +28,21 @@ function defaultWebpackConfig({
             'node_modules',
             ...(includePath ? [path.resolve(includePath)] : []),
          ],
-         extensions: ['.ts', '.tsx', '.js', '.json'],
+         extensions: [
+            '.ts',
+            '.tsx',
+            '.js',
+            '.jsx',
+            '.json',
+            '.scss',
+            '.css',
+         ],
          alias: {
             '@': path.resolve(pathAlias),
          },
       },
       module: {
          rules: [
-            {
-               test: /\.tsx?$/,
-               enforce: 'pre',
-               loader: 'tslint-loader',
-               options: {
-                  fix: true,
-               },
-            },
             {
                test: /\.tsx?$/,
                include: includePath ? path.resolve(includePath) : void 0,
@@ -63,7 +63,7 @@ function defaultWebpackConfig({
             cacheGroups: {
                default: false,
                commons: {
-                  name: 'shared',
+                  name: 'common',
                   minChunks: 2,
                   maxInitialRequests: 5,
                },
