@@ -41,17 +41,17 @@ Arguments are passed to `ideal` via the following pattern: `--{key}={value}`. Wh
 
 See below for full list of configurable options:
 
-| Key          | Value             | About                                                           |
-| ------------ | ----------------- | --------------------------------------------------------------- |
-| --outputPath | Relative path     | A relative path to where you would like files to be written     |
-| --release    | N/A               | Determine whether files are built for development or production |
-| --sourceMap  | N/A               | Output source maps to built assets                              |
-| --cssModules | N/A               | Hash class names and build a json map file                      |
-| --watch      | N/A               | Watch files for changes                                         |
-| --watchPath  | N/A               | Path to where source files are being watched                    |
-| --verbose    | N/A               | Output more info in the console                                 |
-| --pathAlias  | Relative path     | Define a path alias for webpack                                 |
-| --filePrefix | Valid file string | Prepend this value to built assets, useful for versioning       |
+| Key          | Value  | Default | About                                                           |
+| ------------ | ------ | ------- | --------------------------------------------------------------- |
+| --outputPath | Path   | ./dist  | A relative path to where you would like files to be written     |
+| --release    | N/A    | false   | Determine whether files are built for development or production |
+| --sourceMap  | N/A    | false   | Output source maps to built assets                              |
+| --cssModules | N/A    | false   | Hash class names and build a json map file                      |
+| --watch      | N/A    | false   | Watch files for changes                                         |
+| --watchPath  | N/A    | null    | Path to where source files are being watched                    |
+| --verbose    | N/A    | false   | Output more info in the console                                 |
+| --pathAlias  | Path   | ./src   | Define a path alias for webpack                                 |
+| --filePrefix | String | null    | Prepend this value to built assets, useful for versioning       |
 
 ## Config File
 
