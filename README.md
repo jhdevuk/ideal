@@ -18,11 +18,11 @@ Install with yarn:
 yarn add --dev ideal-tools
 ```
 
-There are currently two "tasks" provided, `build:css` and `build:js`.
+TypeScript v3.8 is a `peerDependency` of ideal, so ensure you have it setup with a root [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) and installed as a dependency of your project.
 
 # Basic Usage
 
-`ideal` uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs, by default, in a relative directory: `./dist`. This can be configured with a contextual config file, outlined below.
+There are currently two "tasks" provided, `build:css` and `build:js`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs, by default, in a relative directory: `./dist`. This can be configured with a contextual config file, outlined below.
 
 Try it out:
 
@@ -33,11 +33,11 @@ $ ideal build:css ./src/*.scss
 
 # Configuration
 
-You can configure each build task via CLI arguments, or with an `ideal.config.js` file, located relative to where `ideal` is being run from.
+You can configure each build task via CLI arguments, or with an `ideal.config.js` file, located relative to where ideal is being run from.
 
 ## CLI Arguments
 
-Arguments are passed to `ideal` via the following pattern: `--{key}={value}`. Where arguments are `boolean`, no value is required and their presence consistutes `true`.
+Arguments are passed to ideal via the following pattern: `--{key}={value}`. Where arguments are `boolean`, no value is required and their presence consistutes `true`.
 
 See below for full list of configurable options:
 
@@ -71,15 +71,15 @@ module.exports = {
 };
 ```
 
-This is then picked up at runtime by `ideal`. Each set of properties match their CLI equivelants, in value and casing.
+This is then picked up at runtime by ideal. Each set of properties match their CLI equivelants, in value and casing.
 
 ### Webpack Specific
 
-`ideal` allows you to manually specify a `webpack.config.js` file in the root directory of where `ideal` is being run from. If this file is found, these values will be used, if not a default config will be used instead.
+ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, these values will be used, if not a default config will be used instead.
 
 # Manifest
 
-`ideal` creates an `assets.json` file in the output directory (`./dist` by default), that keeps a record of all assets built _so far_. Each subsequent run of `ideal` appends each file name as a property with the hashed or _real_ file name as a value. Each build overides previous asset names or declares new ones that don't yet exist. This file is intended to be ephermeral, e.g when running a production build with `--release`, this file should not exist in the output path. Equally the `assets.json` file should not be commited to your repository. This ensures that the file is an accurate reflection of the built files for the _currently_ provided source.
+ideal creates an `assets.json` file in the output directory (`./dist` by default), that keeps a record of all assets built _so far_. Each subsequent run of ideal appends each file name as a property with the hashed or _real_ file name as a value. Each build overides previous asset names or declares new ones that don't yet exist. This file is intended to be ephermeral, e.g when running a production build with `--release`, this file should not exist in the output path. Equally the `assets.json` file should not be commited to your repository. This ensures that the file is an accurate reflection of the built files for the _currently_ provided source.
 
 # Development
 
