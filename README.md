@@ -73,9 +73,9 @@ module.exports = {
 
 This is then picked up at runtime by `ideal`. Each set of properties match their CLI equivelants, in value and casing.
 
-### JavaScript Specific
+### Webpack Specific
 
-The config file also allows you to pass in a local `webpack.config.js` file via a `localWebpackConfig` property in the `build:js` set of properties. This value _must_ be a function that returns a valid webpack config file. The function is passed all previously defined config options for convenience.
+`ideal` allows you to manually specify a `webpack.config.js` file in the root directory of where `ideal` is being run from. If this file is found, these values will be used, if not a default config will be used instead.
 
 # Manifest
 
