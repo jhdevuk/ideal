@@ -1,6 +1,7 @@
 import path from 'path';
 import { Configuration } from 'webpack';
 import { IOptions } from '@/options';
+import { resolveLoader } from './resolveLoader';
 
 /* -----------------------------------
  *
@@ -48,7 +49,7 @@ function defaultWebpackConfig({
                include: includePath ? path.resolve(includePath) : void 0,
                use: [
                   {
-                     loader: 'ts-loader',
+                     loader: resolveLoader('ts-loader'),
                   },
                ],
             },
