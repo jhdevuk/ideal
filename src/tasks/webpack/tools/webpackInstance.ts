@@ -110,8 +110,8 @@ class WebpackInstance {
    private getWebpackConfig() {
       const { options, entry, config } = this;
 
-      if (this.config) {
-         return this.config;
+      if (config) {
+         return config;
       }
 
       let configObject;
