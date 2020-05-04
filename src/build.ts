@@ -39,7 +39,7 @@ if (!tasks[methodKey]) {
  *
  * -------------------------------- */
 
-const options = loadConfig(methodKey);
+const options = loadConfig(sourcePath, methodKey);
 const runner = new TaskRunner(methodKey, sourcePath, options);
 
 /* -----------------------------------

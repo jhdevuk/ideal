@@ -7,6 +7,7 @@ import { Configuration } from 'webpack';
  * -------------------------------- */
 
 interface IOptions {
+   sourcePath: string;
    outputPath: string;
    release: boolean;
    sourceMap: boolean;
@@ -17,6 +18,7 @@ interface IOptions {
    pathAlias: string;
    filePrefix?: string;
    includePath?: string;
+   autoFix?: boolean;
 }
 
 /* -----------------------------------

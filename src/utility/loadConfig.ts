@@ -10,6 +10,7 @@ import { runtimeRequire } from '@/utility/runtimeRequire';
  * -------------------------------- */
 
 const defaultOptions: IOptions = {
+   sourcePath: null,
    release: !!argv.release,
    outputPath: (argv.outputPath as string) || './dist',
    sourceMap: !!argv.sourceMap,
@@ -20,6 +21,7 @@ const defaultOptions: IOptions = {
    pathAlias: (argv.pathAlias as string) || './src',
    filePrefix: (argv.filePrefix as string) || null,
    includePath: (argv.includePath as string) || null,
+   autoFix: !!argv.autoFix,
 };
 
 /* -----------------------------------
@@ -28,15 +30,15 @@ const defaultOptions: IOptions = {
  *
  * -------------------------------- */
 
-function loadConfig(methodKey: string) {
+function loadConfig(sourcePath: string, methodKey: string) {
    try {
       const { [methodKey]: localOptions = {} } = runtimeRequire(
          path.resolve('./ideal.config')
       );
 
-      return { ...defaultOptions, ...localOptions };
+      return { ...defaultOptions, ...localOptions, sourcePath };
    } catch (error) {
-      return defaultOptions;
+      return { ...defaultOptions, sourcePath };
    }
 }
 
