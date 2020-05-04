@@ -17,7 +17,6 @@ interface IOptions {
    pathAlias: string;
    filePrefix?: string;
    includePath?: string;
-   localWebpackConfig?: (options: IOptions) => Configuration;
 }
 
 /* -----------------------------------

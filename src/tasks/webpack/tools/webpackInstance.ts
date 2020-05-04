@@ -5,6 +5,7 @@ import MemoryFileSystem from 'memory-fs';
 import File, { BufferFile } from 'vinyl';
 import path from 'path';
 import { IOptions } from '@/options';
+import { runtimeRequire } from '@/utility/runtimeRequire';
 import { defaultWebpackConfig } from './webpack.default';
 
 /* -----------------------------------
@@ -108,14 +109,18 @@ class WebpackInstance {
 
    private getWebpackConfig() {
       const { options, entry, config } = this;
-      const { localWebpackConfig } = this.options;
 
       if (this.config) {
          return this.config;
       }
 
-      const configFunction = localWebpackConfig || defaultWebpackConfig;
-      const configObject = configFunction(options);
+      let configObject;
+
+      try {
+         configObject = runtimeRequire('./webpack.config.js');
+      } catch (error) {
+         configObject = defaultWebpackConfig(options);
+      }
 
       return (this.config = { ...configObject, entry });
    }
