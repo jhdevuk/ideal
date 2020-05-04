@@ -17,12 +17,13 @@ function defaultWebpackConfig({
    return {
       target: 'web',
       mode: release ? 'production' : 'development',
-      // cache: !release,
+      cache: !release,
       output: {
          libraryTarget: 'commonjs',
          filename: '[name].js',
          chunkFilename: '[name].js',
          jsonpFunction: '__IDL__',
+         crossOriginLoading: 'anonymous',
       },
       resolve: {
          modules: [
