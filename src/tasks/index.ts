@@ -66,7 +66,7 @@ type Method = (options: IOptions) => Promise<Task>;
  *
  * -------------------------------- */
 
-type Task = (props: IProps) => Promise<IStream>;
+type Task = (props: IProps) => Promise<IStream | void>;
 
 /* -----------------------------------
  *

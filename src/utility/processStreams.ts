@@ -10,10 +10,12 @@ import { flattenArray } from '@/utility/flattenArray';
  * -------------------------------- */
 
 async function processStreams(
-   tasks: Array<Promise<IStream>>,
+   tasks: Array<Promise<IStream | void>>,
    filePrefix?: string
 ): Promise<IResult[]> {
-   const streams: IStream[] = await Promise.all(tasks);
+   const taskResult = await Promise.all(tasks);
+   const streams = taskResult.filter((stream) => !!stream) as IStream[];
+
    const result = simplifyStreams(streams, filePrefix);
 
    return result;

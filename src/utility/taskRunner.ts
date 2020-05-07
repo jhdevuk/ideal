@@ -134,7 +134,7 @@ class TaskRunner {
       log.info('Finished', methodKey, `after ${duration}`);
    }
 
-   private async processTasks(streams: Array<Promise<IStream>>) {
+   private async processTasks(streams: Array<Promise<IStream | void>>) {
       const { release, outputPath, filePrefix } = this.options;
 
       let result: IResult[] = [];
