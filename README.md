@@ -1,8 +1,6 @@
-ideal is a collection of pre-existing tools for generating client assets, wrapped up in an easy to use CLI. It currently supports `TypeScript` and `SASS`. The tools used are as follows:
+ideal is a collection of pre-existing tools for generating client assets, wrapped up in a CLI. It currently supports `TypeScript` and `SASS`. The tools used are as follows:
 
 -  [webpack](https://webpack.js.org/) and [node-sass](https://github.com/sass/node-sass) for compilation.
--  ~~[jest](https://jestjs.io/) and [pupeteer](https://pptr.dev/) for unit and integration tests.~~ Coming soon
--  ~~[ts-lint](https://palantir.github.io/tslint/) and [stylelint](https://stylelint.io/) for linting.~~ Coming soon
 
 # Getting Started
 
@@ -22,7 +20,7 @@ TypeScript v3.8 is a `peerDependency` of ideal, so ensure you have it setup with
 
 # Basic Usage
 
-There are currently two "tasks" provided, `build:css` and `build:js`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs, by default, in a relative directory: `./dist`. This can be configured with a contextual config file, outlined below.
+There are currently three "tasks" provided, `build:css`, `build:js` and `update:csproj`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs in a relative directory. This can be configured with a contextual config file, outlined below.
 
 Try it out:
 
@@ -41,18 +39,21 @@ Arguments are passed to ideal via the following pattern: `--{key}={value}`. Wher
 
 See below for full list of configurable options:
 
-| Key           | Value  | Default | About                                                           |
-| ------------- | ------ | ------- | --------------------------------------------------------------- |
-| --outputPath  | Path   | ./dist  | A relative path to where you would like files to be written     |
-| --release     | N/A    | false   | Determine whether files are built for development or production |
-| --sourceMap   | N/A    | false   | Output source maps to built assets                              |
-| --cssModules  | N/A    | false   | Hash class names and build a json map file                      |
-| --watch       | N/A    | false   | Watch files for changes                                         |
-| --watchPath   | N/A    | null    | Path to where source files are being watched                    |
-| --verbose     | N/A    | false   | Output more info in the console                                 |
-| --pathAlias   | Path   | ./src   | Define a path alias for "@" in webpack                          |
-| --filePrefix  | String | null    | Prepend this value to built assets, useful for versioning       |
-| --includePath | Path   | null    | Define source directory for file resolution                     |
+| Key               | Value  | Default | About                                                                |
+| ----------------- | ------ | ------- | -------------------------------------------------------------------- |
+| --outputPath      | Path   | ./dist  | A relative path to where you would like files to be written          |
+| --sourceDirectory | Path   | null    | A base directory to resolve all files from prior to sourcePath       |
+| --release         | N/A    | false   | Determine whether files are built for development or production      |
+| --sourceMap       | N/A    | false   | Output source maps to built assets                                   |
+| --cssModules      | N/A    | false   | Hash class names and build a json map file                           |
+| --watch           | N/A    | false   | Watch files for changes                                              |
+| --watchPath       | N/A    | null    | Path to where source files are being watched                         |
+| --verbose         | N/A    | false   | Output more info in the console                                      |
+| --pathAlias       | Path   | ./src   | Define a path alias for "@" in webpack                               |
+| --filePrefix      | String | null    | Prepend this value to built assets, useful for versioning            |
+| --includePath     | Path   | null    | Define source directory for file resolution                          |
+| --skipManifest    | N/A    | false   | Exclude output files from being written to the manifest              |
+| --manifestPath    | Path   | null    | Path where the manifest json file will be, default to "--outputPath" |
 
 ## Config File
 
