@@ -149,16 +149,19 @@ class TaskRunner {
          release,
          outputPath,
          filePrefix,
+         skipManifest,
          manifestPath,
       } = this.options;
 
       let result: IResult[] = [];
 
       result = await processStreams(streams, filePrefix);
-
       result = await hashFileNames(result, release);
       result = await writeStreams(result, outputPath);
-      result = await writeManifest(result, manifestPath);
+
+      if (!skipManifest) {
+         result = await writeManifest(result, manifestPath);
+      }
 
       return result;
    }
