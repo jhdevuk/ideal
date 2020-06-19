@@ -20,6 +20,7 @@ const argumentOptions = {
    pathAlias: argv.pathAlias as string,
    filePrefix: (argv.filePrefix as string) || undefined,
    includePath: (argv.includePath as string) || undefined,
+   skipManifest: !!argv.skipManifest,
    manifestPath:
       ((argv.manifestPath || argv.outputPath) as string) || undefined,
 };
@@ -31,6 +32,10 @@ const argumentOptions = {
  * -------------------------------- */
 
 function loadConfig(methodKey: string, sourcePath: string) {
+   if (sourcePath.startsWith('--')) {
+      sourcePath = undefined;
+   }
+
    try {
       const { [methodKey]: localOptions = {} } = runtimeRequire(
          path.resolve('./ideal.config')
@@ -54,7 +59,11 @@ function buildConfig(
    sourcePath: string,
    localOptions?: IOptions
 ): IOptions {
-   const argKeys = Object.keys(argumentOptions);
+   const nonPrimary = ['skipManifest'];
+
+   const argKeys = Object.keys(argumentOptions).filter((key) =>
+      nonPrimary.indexOf(key)
+   );
 
    const result = {
       ...localOptions,
