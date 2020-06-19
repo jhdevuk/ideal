@@ -17,6 +17,7 @@ interface IOptions {
    pathAlias: string;
    filePrefix?: string;
    includePath?: string;
+   manifestPath: string;
 }
 
 /* -----------------------------------

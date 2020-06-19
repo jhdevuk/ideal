@@ -1,6 +1,8 @@
 import chokidar from 'chokidar';
 import timeAgo from 'pretty-ms';
 import mkdir from 'mkdirp';
+import isGlob from 'is-glob';
+import fs from 'fs';
 import { IResult, tasks, Task, IStream } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
@@ -65,7 +67,11 @@ class TaskRunner {
    private async readPaths() {
       const { sourcePath } = this;
 
-      this.filePaths = await readGlobFiles(sourcePath);
+      this.filePaths = [sourcePath];
+
+      if (isGlob(sourcePath)) {
+         this.filePaths = await readGlobFiles(sourcePath);
+      }
 
       return this.filePaths;
    }
@@ -135,14 +141,19 @@ class TaskRunner {
    }
 
    private async processTasks(streams: Array<Promise<IStream>>) {
-      const { release, outputPath, filePrefix } = this.options;
+      const {
+         release,
+         outputPath,
+         filePrefix,
+         manifestPath,
+      } = this.options;
 
       let result: IResult[] = [];
 
       result = await processStreams(streams, filePrefix);
       result = await hashFileNames(result, release);
       result = await writeStreams(result, outputPath);
-      result = await writeManifest(result, outputPath);
+      result = await writeManifest(result, manifestPath);
 
       return result;
    }

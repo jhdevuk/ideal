@@ -13,10 +13,10 @@ import { writeFile } from '@/utility/writeFile';
 
 async function writeManifest(
    streams: IResult[],
-   outputPath: string
+   manifestPath: string
 ): Promise<IResult[]> {
-   const manifestPath = path.join(outputPath, 'assets.json');
-   const currentManifest = await loadManifest(manifestPath);
+   const outputPath = path.join(manifestPath, 'assets.json');
+   const currentManifest = await loadManifest(outputPath);
 
    const buildAssets = streams.reduce((result, item) => {
       result[item.name + item.type] = getResultFileName(item);
@@ -28,7 +28,7 @@ async function writeManifest(
       JSON.stringify({ ...currentManifest, ...buildAssets })
    );
 
-   await writeFile(manifestPath, updatedManifest);
+   await writeFile(outputPath, updatedManifest);
 
    return streams;
 }

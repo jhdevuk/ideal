@@ -3,6 +3,7 @@ import { Readable } from 'stream';
 import { IOptions } from '@/options';
 import { method as sassMethod } from './sass';
 import { method as webpackMethod } from './webpack';
+import { method as csprojMethod } from './csproj';
 
 /* -----------------------------------
  *
@@ -76,6 +77,7 @@ type Task = (props: IProps) => Promise<IStream>;
 const tasks: ITasks = {
    'build:css': sassMethod,
    'build:js': webpackMethod,
+   'update:csproj': csprojMethod,
 };
 
 /* -----------------------------------
