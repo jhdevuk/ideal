@@ -50,7 +50,7 @@ See below for full list of configurable options:
 | --watch           | N/A    | false   | Watch files for changes                                                 |
 | --watchPath       | N/A    | null    | Path to where source files are being watched                            |
 | --verbose         | N/A    | false   | Output more info in the console                                         |
-| --pathAlias       | Path   | ./src   | Define a path alias for "@" in webpack                                  |
+| --pathAlias       | Path   | null    | Define a path alias for "@/" in webpack                                 |
 | --filePrefix      | String | null    | Prepend this value to built assets, useful for versioning               |
 | --includePath     | Path   | null    | Define source directory for file resolution                             |
 | --skipManifest    | N/A    | false   | Exclude output files from being written to the manifest                 |
