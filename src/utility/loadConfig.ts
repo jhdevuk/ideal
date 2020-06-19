@@ -20,6 +20,7 @@ const defaultOptions: IOptions = {
    pathAlias: (argv.pathAlias as string) || './src',
    filePrefix: (argv.filePrefix as string) || null,
    includePath: (argv.includePath as string) || null,
+   manifestPath: (argv.includePath as string) || './dist',
 };
 
 /* -----------------------------------

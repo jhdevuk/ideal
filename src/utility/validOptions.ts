@@ -1,4 +1,5 @@
 import isGlob from 'is-glob';
+import fs from 'fs';
 import { IOptions } from '@/options';
 
 /* -----------------------------------
@@ -8,8 +9,8 @@ import { IOptions } from '@/options';
  * -------------------------------- */
 
 function validOptions(sourcePath: string, { watchPath }: IOptions) {
-   if (!isGlob(sourcePath)) {
-      throw new Error('Missing or incorrectly formatted "sourcePath"');
+   if (!isGlob(sourcePath) && !fs.existsSync(sourcePath)) {
+      throw new Error('No files found in "sourcePath"');
    }
 
    if (watchPath && !isGlob(watchPath)) {
