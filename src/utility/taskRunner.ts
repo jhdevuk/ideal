@@ -28,16 +28,15 @@ class TaskRunner {
 
    public constructor(
       private readonly methodKey: string,
-      private readonly sourcePath: string,
       private readonly options: IOptions
    ) {}
 
    public async start() {
-      const { sourcePath, options } = this;
+      const { options } = this;
       const filePaths = await this.readPaths();
 
       if (!filePaths.length) {
-         log.error('No matching files for', sourcePath);
+         log.error('No matching files for', options.sourcePath);
 
          return;
       }
@@ -49,8 +48,7 @@ class TaskRunner {
    }
 
    public async watch() {
-      const { sourcePath } = this;
-      const { watch, watchPath, outputPath } = this.options;
+      const { sourcePath, watch, watchPath, outputPath } = this.options;
 
       if (!watch) {
          return;
@@ -65,7 +63,7 @@ class TaskRunner {
    }
 
    private async readPaths() {
-      const { sourcePath } = this;
+      const { sourcePath } = this.options;
 
       this.filePaths = [sourcePath];
 
@@ -157,6 +155,7 @@ class TaskRunner {
       let result: IResult[] = [];
 
       result = await processStreams(streams, filePrefix);
+
       result = await hashFileNames(result, release);
       result = await writeStreams(result, outputPath);
       result = await writeManifest(result, manifestPath);

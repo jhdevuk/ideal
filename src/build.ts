@@ -39,8 +39,8 @@ if (!tasks[methodKey]) {
  *
  * -------------------------------- */
 
-const options = loadConfig(methodKey);
-const runner = new TaskRunner(methodKey, sourcePath, options);
+const options = loadConfig(methodKey, sourcePath);
+const runner = new TaskRunner(methodKey, options);
 
 /* -----------------------------------
  *
@@ -49,7 +49,7 @@ const runner = new TaskRunner(methodKey, sourcePath, options);
  * -------------------------------- */
 
 try {
-   validOptions(sourcePath, options);
+   validOptions(options);
 } catch ({ message }) {
    log.error('Invalid arguments:', message);
 

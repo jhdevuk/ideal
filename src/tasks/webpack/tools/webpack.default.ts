@@ -40,7 +40,7 @@ function defaultWebpackConfig({
             '.css',
          ],
          alias: {
-            '@': path.resolve(pathAlias),
+            ...(pathAlias ? { '@': path.resolve(pathAlias) } : {}),
          },
       },
       module: {
