@@ -39,21 +39,22 @@ Arguments are passed to ideal via the following pattern: `--{key}={value}`. Wher
 
 See below for full list of configurable options:
 
-| Key               | Value  | Default | About                                                                |
-| ----------------- | ------ | ------- | -------------------------------------------------------------------- |
-| --outputPath      | Path   | ./dist  | A relative path to where you would like files to be written          |
-| --sourceDirectory | Path   | null    | A base directory to resolve all files from prior to sourcePath       |
-| --release         | N/A    | false   | Determine whether files are built for development or production      |
-| --sourceMap       | N/A    | false   | Output source maps to built assets                                   |
-| --cssModules      | N/A    | false   | Hash class names and build a json map file                           |
-| --watch           | N/A    | false   | Watch files for changes                                              |
-| --watchPath       | N/A    | null    | Path to where source files are being watched                         |
-| --verbose         | N/A    | false   | Output more info in the console                                      |
-| --pathAlias       | Path   | ./src   | Define a path alias for "@" in webpack                               |
-| --filePrefix      | String | null    | Prepend this value to built assets, useful for versioning            |
-| --includePath     | Path   | null    | Define source directory for file resolution                          |
-| --skipManifest    | N/A    | false   | Exclude output files from being written to the manifest              |
-| --manifestPath    | Path   | null    | Path where the manifest json file will be, default to "--outputPath" |
+| Key               | Value  | Default | About                                                                   |
+| ----------------- | ------ | ------- | ----------------------------------------------------------------------- |
+| --outputPath      | Path   | ./dist  | A relative path to where you would like files to be written             |
+| --sourceDirectory | Path   | null    | A base directory to resolve all files from prior to sourcePath          |
+| --sourcePath      | Path   | null    | The path to source files, this can also be provided as the 3rd argument |
+| --release         | N/A    | false   | Determine whether files are built for development or production         |
+| --sourceMap       | N/A    | false   | Output source maps to built assets                                      |
+| --cssModules      | N/A    | false   | Hash class names and build a json map file                              |
+| --watch           | N/A    | false   | Watch files for changes                                                 |
+| --watchPath       | N/A    | null    | Path to where source files are being watched                            |
+| --verbose         | N/A    | false   | Output more info in the console                                         |
+| --pathAlias       | Path   | ./src   | Define a path alias for "@" in webpack                                  |
+| --filePrefix      | String | null    | Prepend this value to built assets, useful for versioning               |
+| --includePath     | Path   | null    | Define source directory for file resolution                             |
+| --skipManifest    | N/A    | false   | Exclude output files from being written to the manifest                 |
+| --manifestPath    | Path   | null    | Path where the manifest json file will be, default to "--outputPath"    |
 
 ## Config File
 
