@@ -69,8 +69,8 @@ function buildConfig(
       }
    });
 
-   if (!result.outputPath) {
-      result.outputPath = './dist';
+   if (!result.manifestPath) {
+      result.manifestPath = result.outputPath;
    }
 
    return result;
