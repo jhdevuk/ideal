@@ -79,9 +79,15 @@ class TaskRunner {
    private async setMethod() {
       const { methodKey, options } = this;
 
-      const method = await tasks[methodKey](options);
+      try {
+         const method = await tasks[methodKey](options);
 
-      this.taskMethod = () => this.runTask(method);
+         this.taskMethod = () => this.runTask(method);
+      } catch ({ message, file, line }) {
+         log.error(message, file, line);
+
+         process.exit(1);
+      }
    }
 
    private async runTask(method: Task) {
