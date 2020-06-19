@@ -12,6 +12,8 @@ import { buildResult } from './tools/buildResult';
 async function method({ manifestPath }: IOptions): Promise<Task> {
    const manifest = await loadManifest(manifestPath);
 
+   console.log('MANIFEST--->', manifestPath);
+
    return async ({ data, name }: IProps) => {
       const result = await buildResult(manifest, data);
 
