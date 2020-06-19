@@ -10,6 +10,7 @@ import { runtimeRequire } from '@/utility/runtimeRequire';
  * -------------------------------- */
 
 const argumentOptions = {
+   sourceDirectory: (argv.sourceDir as string) || undefined,
    release: !!argv.release,
    outputPath: (argv.outputPath as string) || undefined,
    sourceMap: !!argv.sourceMap,

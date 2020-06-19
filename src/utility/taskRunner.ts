@@ -2,7 +2,7 @@ import chokidar from 'chokidar';
 import timeAgo from 'pretty-ms';
 import mkdir from 'mkdirp';
 import isGlob from 'is-glob';
-import fs from 'fs';
+import path from 'path';
 import { IResult, tasks, Task, IStream } from '@/tasks';
 import { IOptions } from '@/options';
 import * as log from '@/utility/logOutput';
@@ -63,12 +63,13 @@ class TaskRunner {
    }
 
    private async readPaths() {
-      const { sourcePath } = this.options;
+      const { sourceDirectory, sourcePath } = this.options;
+      const fullPath = path.join(sourceDirectory || '', sourcePath);
 
-      this.filePaths = [sourcePath];
+      this.filePaths = [fullPath];
 
       if (isGlob(sourcePath)) {
-         this.filePaths = await readGlobFiles(sourcePath);
+         this.filePaths = await readGlobFiles(fullPath);
       }
 
       return this.filePaths;

@@ -8,6 +8,7 @@ import { Configuration } from 'webpack';
 
 interface IOptions {
    sourcePath: string;
+   sourceDirectory?: string;
    outputPath: string;
    release: boolean;
    sourceMap: boolean;
