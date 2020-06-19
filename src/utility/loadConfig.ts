@@ -20,7 +20,8 @@ const defaultOptions: IOptions = {
    pathAlias: (argv.pathAlias as string) || './src',
    filePrefix: (argv.filePrefix as string) || null,
    includePath: (argv.includePath as string) || null,
-   manifestPath: (argv.includePath as string) || './dist',
+   manifestPath:
+      ((argv.manifestPath || argv.outputPath) as string) || null,
 };
 
 /* -----------------------------------
@@ -35,7 +36,12 @@ function loadConfig(methodKey: string) {
          path.resolve('./ideal.config')
       );
 
-      return { ...defaultOptions, ...localOptions };
+      const result = {
+         ...defaultOptions,
+         ...localOptions,
+      };
+
+      return result;
    } catch (error) {
       return defaultOptions;
    }
