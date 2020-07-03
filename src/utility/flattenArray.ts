@@ -5,7 +5,7 @@
  * -------------------------------- */
 
 function flattenArray<T>(arrays: T[]): T {
-   return [].concat.apply([], arrays);
+  return [].concat.apply([], arrays);
 }
 
 /* -----------------------------------

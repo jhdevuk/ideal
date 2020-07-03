@@ -9,11 +9,11 @@ import { IOptions } from '@/options';
  * -------------------------------- */
 
 function sassCompiler({ sourceMap }: IOptions) {
-   return (path: string) =>
-      new Transform({
-         objectMode: true,
-         transform: transformSource(path, sourceMap),
-      });
+  return (path: string) =>
+    new Transform({
+      objectMode: true,
+      transform: transformSource(path, sourceMap),
+    });
 }
 
 /* -----------------------------------
@@ -23,17 +23,17 @@ function sassCompiler({ sourceMap }: IOptions) {
  * -------------------------------- */
 
 function transformSource(path: string, sourceMap: boolean) {
-   return function run(file: Buffer) {
-      const result = renderSync({
-         data: file.toString(),
-         file: path,
-         includePaths: [],
-         sourceMap,
-         sourceMapEmbed: sourceMap,
-      });
+  return function run(file: Buffer) {
+    const result = renderSync({
+      data: file.toString(),
+      file: path,
+      includePaths: [],
+      sourceMap,
+      sourceMapEmbed: sourceMap,
+    });
 
-      this.push(result);
-   };
+    this.push(result);
+  };
 }
 
 /* -----------------------------------

@@ -7,19 +7,17 @@ import { Readable } from 'stream';
  * -------------------------------- */
 
 function streamToString(
-   readStream: Readable,
-   encoding: BufferEncoding = 'utf8'
+  readStream: Readable,
+  encoding: BufferEncoding = 'utf8'
 ): Promise<string> {
-   const chunks: any[] = [];
+  const chunks: any[] = [];
 
-   return new Promise((resolve, reject) => {
-      readStream
-         .on('error', reject)
-         .on('data', (chunk) => chunks.push(chunk))
-         .on('end', () =>
-            resolve(Buffer.concat(chunks).toString(encoding))
-         );
-   });
+  return new Promise((resolve, reject) => {
+    readStream
+      .on('error', reject)
+      .on('data', (chunk) => chunks.push(chunk))
+      .on('end', () => resolve(Buffer.concat(chunks).toString(encoding)));
+  });
 }
 
 /* -----------------------------------
@@ -29,15 +27,15 @@ function streamToString(
  * -------------------------------- */
 
 function stringToStream(
-   value: string | Buffer,
-   encoding: BufferEncoding = null
+  value: string | Buffer,
+  encoding: BufferEncoding = null
 ): Readable {
-   const readStream = new Readable();
+  const readStream = new Readable();
 
-   readStream.push(value, encoding);
-   readStream.push(null, encoding);
+  readStream.push(value, encoding);
+  readStream.push(null, encoding);
 
-   return readStream;
+  return readStream;
 }
 
 /* -----------------------------------
@@ -47,14 +45,14 @@ function stringToStream(
  * -------------------------------- */
 
 function bufferToStream(binary: Buffer) {
-   const readStream = new Readable({
-      read() {
-         this.push(binary);
-         this.push(null);
-      },
-   });
+  const readStream = new Readable({
+    read() {
+      this.push(binary);
+      this.push(null);
+    },
+  });
 
-   return readStream;
+  return readStream;
 }
 
 /* -----------------------------------

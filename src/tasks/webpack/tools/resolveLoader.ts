@@ -16,11 +16,11 @@ const deepPath = 'node_modules/ideal-tools/node_modules';
  * -------------------------------- */
 
 function resolveLoader(name: string) {
-   if (fs.existsSync(`node_modules/${name}`)) {
-      return name;
-   }
+  if (fs.existsSync(`node_modules/${name}`)) {
+    return name;
+  }
 
-   return path.resolve(deepPath, name);
+  return path.resolve(deepPath, name);
 }
 
 /* -----------------------------------

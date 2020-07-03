@@ -1,6 +1,6 @@
 ideal is a collection of pre-existing tools for generating client assets, wrapped up in a CLI. It currently supports `TypeScript` and `SASS`. The tools used are as follows:
 
--  [webpack](https://webpack.js.org/) and [node-sass](https://github.com/sass/node-sass) for compilation.
+- [webpack](https://webpack.js.org/) and [node-sass](https://github.com/sass/node-sass) for compilation.
 
 # Getting Started
 

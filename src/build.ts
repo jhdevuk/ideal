@@ -28,9 +28,9 @@ const sourcePath = process.argv[3] || '';
  * -------------------------------- */
 
 if (!tasks[methodKey]) {
-   log.error('Unknown build task:', `"${methodKey}"`);
+  log.error('Unknown build task:', `"${methodKey}"`);
 
-   process.exit(1);
+  process.exit(1);
 }
 
 /* -----------------------------------
@@ -49,11 +49,11 @@ const runner = new TaskRunner(methodKey, options);
  * -------------------------------- */
 
 try {
-   validOptions(options);
+  validOptions(options);
 } catch ({ message }) {
-   log.error('Invalid arguments:', message);
+  log.error('Invalid arguments:', message);
 
-   process.exit(1);
+  process.exit(1);
 }
 
 /* -----------------------------------

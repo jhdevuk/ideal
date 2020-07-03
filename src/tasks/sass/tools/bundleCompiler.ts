@@ -11,8 +11,8 @@ import { emitFile } from './emitFile';
  * -------------------------------- */
 
 interface IFile {
-   cssValue: Readable;
-   cssModule: Readable;
+  cssValue: Readable;
+  cssModule: Readable;
 }
 
 /* -----------------------------------
@@ -22,17 +22,17 @@ interface IFile {
  * -------------------------------- */
 
 function bundleCompiler(options: IOptions) {
-   const compiler = sassCompiler(options);
-   const processor = cssProcessor(options);
+  const compiler = sassCompiler(options);
+  const processor = cssProcessor(options);
 
-   return async (data: Readable, path: string): Promise<IFile> =>
-      new Promise((resolve, reject) =>
-         data
-            .pipe(compiler(path))
-            .pipe(processor(path))
-            .pipe(emitFile(resolve))
-            .on('error', reject)
-      );
+  return async (data: Readable, path: string): Promise<IFile> =>
+    new Promise((resolve, reject) =>
+      data
+        .pipe(compiler(path))
+        .pipe(processor(path))
+        .pipe(emitFile(resolve))
+        .on('error', reject)
+    );
 }
 
 /* -----------------------------------

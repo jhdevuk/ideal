@@ -7,20 +7,20 @@ import { Configuration } from 'webpack';
  * -------------------------------- */
 
 interface IOptions {
-   sourcePath: string;
-   sourceDirectory?: string;
-   outputPath: string;
-   release: boolean;
-   sourceMap: boolean;
-   cssModules: boolean;
-   watch: boolean;
-   watchPath?: string;
-   verbose: boolean;
-   pathAlias: string;
-   filePrefix?: string;
-   includePath?: string;
-   skipManifest: boolean;
-   manifestPath: string;
+  sourcePath: string;
+  sourceDirectory?: string;
+  outputPath: string;
+  release: boolean;
+  sourceMap: boolean;
+  cssModules: boolean;
+  watch: boolean;
+  watchPath?: string;
+  verbose: boolean;
+  pathAlias: string;
+  filePrefix?: string;
+  includePath?: string;
+  skipManifest: boolean;
+  manifestPath: string;
 }
 
 /* -----------------------------------

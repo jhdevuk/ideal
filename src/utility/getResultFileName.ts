@@ -7,15 +7,15 @@ import { IResult } from '@/tasks';
  * -------------------------------- */
 
 function getResultFileName({ name, type, hash, prefix }: IResult) {
-   const hashPart = hash ? `.${hash}` : '';
+  const hashPart = hash ? `.${hash}` : '';
 
-   let result = name + hashPart + type;
+  let result = name + hashPart + type;
 
-   if (prefix) {
-      result = `${prefix}-${result}`;
-   }
+  if (prefix) {
+    result = `${prefix}-${result}`;
+  }
 
-   return result;
+  return result;
 }
 
 /* -----------------------------------

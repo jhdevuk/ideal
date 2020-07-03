@@ -8,7 +8,7 @@ import { ReadStream } from 'fs';
  * -------------------------------- */
 
 function getStreamFileNames(files: ReadStream[]) {
-   return files.map(getStreamFileName);
+  return files.map(getStreamFileName);
 }
 
 /* -----------------------------------
@@ -18,9 +18,9 @@ function getStreamFileNames(files: ReadStream[]) {
  * -------------------------------- */
 
 function getStreamFileName({ path: filePath }: ReadStream) {
-   const { name } = path.parse(filePath as string);
+  const { name } = path.parse(filePath as string);
 
-   return name;
+  return name;
 }
 
 /* -----------------------------------

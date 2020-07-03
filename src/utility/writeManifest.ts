@@ -12,25 +12,25 @@ import { writeFile } from '@/utility/writeFile';
  * -------------------------------- */
 
 async function writeManifest(
-   streams: IResult[],
-   manifestPath: string
+  streams: IResult[],
+  manifestPath: string
 ): Promise<IResult[]> {
-   const outputPath = path.join(manifestPath, 'assets.json');
-   const currentManifest = await loadManifest(outputPath);
+  const outputPath = path.join(manifestPath, 'assets.json');
+  const currentManifest = await loadManifest(outputPath);
 
-   const buildAssets = streams.reduce((result, item) => {
-      result[item.name + item.type] = getResultFileName(item);
+  const buildAssets = streams.reduce((result, item) => {
+    result[item.name + item.type] = getResultFileName(item);
 
-      return result;
-   }, {});
+    return result;
+  }, {});
 
-   const updatedManifest = stringToStream(
-      JSON.stringify({ ...currentManifest, ...buildAssets })
-   );
+  const updatedManifest = stringToStream(
+    JSON.stringify({ ...currentManifest, ...buildAssets })
+  );
 
-   await writeFile(outputPath, updatedManifest);
+  await writeFile(outputPath, updatedManifest);
 
-   return streams;
+  return streams;
 }
 
 /* -----------------------------------
@@ -40,25 +40,25 @@ async function writeManifest(
  * -------------------------------- */
 
 const loadManifest = (manifestPath: string): Promise<object> =>
-   new Promise((resolve, reject) =>
-      fs.readFile(manifestPath, (error, data) => {
-         let jsonData = {};
+  new Promise((resolve, reject) =>
+    fs.readFile(manifestPath, (error, data) => {
+      let jsonData = {};
 
-         if (error || !data) {
-            resolve({});
+      if (error || !data) {
+        resolve({});
 
-            return;
-         }
+        return;
+      }
 
-         try {
-            jsonData = JSON.parse(data.toString());
-         } catch {
-            // no-op
-         }
+      try {
+        jsonData = JSON.parse(data.toString());
+      } catch {
+        // no-op
+      }
 
-         resolve(jsonData);
-      })
-   );
+      resolve(jsonData);
+    })
+  );
 
 /* -----------------------------------
  *

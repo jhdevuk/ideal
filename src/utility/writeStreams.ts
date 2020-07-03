@@ -10,19 +10,19 @@ import { writeFile } from '@/utility/writeFile';
  * -------------------------------- */
 
 async function writeStreams(
-   streams: IResult[],
-   outputPath: string
+  streams: IResult[],
+  outputPath: string
 ): Promise<IResult[]> {
-   await Promise.all(
-      streams.map((result) =>
-         writeFile(
-            path.join(outputPath, getResultFileName(result)),
-            result.stream
-         )
+  await Promise.all(
+    streams.map((result) =>
+      writeFile(
+        path.join(outputPath, getResultFileName(result)),
+        result.stream
       )
-   );
+    )
+  );
 
-   return streams;
+  return streams;
 }
 
 /* -----------------------------------

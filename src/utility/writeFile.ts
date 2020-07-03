@@ -9,17 +9,17 @@ import fs, { PathLike } from 'fs';
  * -------------------------------- */
 
 async function writeFile(
-   filePath: PathLike,
-   readStream: Readable,
-   encoding: string = 'utf8'
+  filePath: PathLike,
+  readStream: Readable,
+  encoding: string = 'utf8'
 ): Promise<void> {
-   const writeStream = fs.createWriteStream(filePath, encoding);
+  const writeStream = fs.createWriteStream(filePath, encoding);
 
-   return new Promise(async (resolve, reject) => {
-      readStream.pipe(writeStream).on('finish', resolve);
+  return new Promise(async (resolve, reject) => {
+    readStream.pipe(writeStream).on('finish', resolve);
 
-      writeStream.on('error', reject);
-   });
+    writeStream.on('error', reject);
+  });
 }
 
 /* -----------------------------------

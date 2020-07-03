@@ -5,11 +5,11 @@
  * -------------------------------- */
 
 const config = {
-   path: {
-      src: './src',
-      bin: './src/bin',
-      dist: './dist',
-   },
+  path: {
+    src: './src',
+    bin: './src/bin',
+    dist: './dist',
+  },
 };
 
 /* -----------------------------------

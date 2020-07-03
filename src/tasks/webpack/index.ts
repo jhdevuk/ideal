@@ -9,19 +9,19 @@ import { bundleCompiler } from './tools/bundleCompiler';
  * -------------------------------- */
 
 async function method(options: IOptions): Promise<Task> {
-   const compiler = bundleCompiler(options);
+  const compiler = bundleCompiler(options);
 
-   return async ({ data, path }: IProps) => {
-      const output = await compiler(data, path);
+  return async ({ data, path }: IProps) => {
+    const output = await compiler(data, path);
 
-      const result = output.reduce((prev, item) => {
-         prev[item.name] = item.data;
+    const result = output.reduce((prev, item) => {
+      prev[item.name] = item.data;
 
-         return prev;
-      }, {});
+      return prev;
+    }, {});
 
-      return result;
-   };
+    return result;
+  };
 }
 
 /* -----------------------------------

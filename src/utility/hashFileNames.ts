@@ -10,28 +10,28 @@ import getHash from 'hasha';
  * -------------------------------- */
 
 async function hashFileNames(
-   resultData: IResult[],
-   applyHash: boolean
+  resultData: IResult[],
+  applyHash: boolean
 ): Promise<IResult[]> {
-   if (!applyHash) {
-      return resultData;
-   }
+  if (!applyHash) {
+    return resultData;
+  }
 
-   const { contents, streams } = await convertStreams(
-      resultData.map(({ stream: data }) => data)
-   );
+  const { contents, streams } = await convertStreams(
+    resultData.map(({ stream: data }) => data)
+  );
 
-   const hashData = contents.map((item) =>
-      getHash(item, { algorithm: 'md5' }).substr(0, 8)
-   );
+  const hashData = contents.map((item) =>
+    getHash(item, { algorithm: 'md5' }).substr(0, 8)
+  );
 
-   const result = resultData.map((item, index) => ({
-      ...item,
-      stream: streams[index],
-      hash: hashData[index],
-   }));
+  const result = resultData.map((item, index) => ({
+    ...item,
+    stream: streams[index],
+    hash: hashData[index],
+  }));
 
-   return result;
+  return result;
 }
 
 /* -----------------------------------
@@ -41,13 +41,13 @@ async function hashFileNames(
  * -------------------------------- */
 
 async function convertStreams(data: Readable[]) {
-   const contents = await Promise.all(
-      data.map((item) => streamToString(item))
-   );
+  const contents = await Promise.all(
+    data.map((item) => streamToString(item))
+  );
 
-   const streams = contents.map((item) => stringToStream(item));
+  const streams = contents.map((item) => stringToStream(item));
 
-   return { contents, streams };
+  return { contents, streams };
 }
 
 /* -----------------------------------
