@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "run-s \"build --watch --debug\"",
-    "build": "webpack",
+    "build": "webpack --release",
     "test": "jest ./tests/src",
     "lint": "npm-run-all lint:*",
     "lint:js": "tslint --fix ./src/**/*.ts*",
