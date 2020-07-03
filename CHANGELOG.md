@@ -1,3 +1,9 @@
+### 1.0.1 - 2020-07-03
+
+* #VC-1631 - Aligned indentation format with Groupon - **[@jahill](https://github.groupondev.com/jahill)** [#5](https://github.groupondev.com/Coupons/ideal/pull/5)
+  - [`30851b6`](https://github.groupondev.com/Coupons/ideal/commit/30851b65494db80432134acd1b50a2b28226a6fa) **chore:** [VC-1631] - aligned indentation format with Groupon
+
+
 ### 1.0.0 - 2020-07-03
 
 * #VC-1631 - Setup NLM - **[@jahill](https://github.groupondev.com/jahill)** [#3](https://github.groupondev.com/Coupons/ideal/pull/3)
