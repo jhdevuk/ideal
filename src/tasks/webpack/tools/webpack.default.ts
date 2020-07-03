@@ -28,7 +28,9 @@ function defaultWebpackConfig({
     resolve: {
       modules: [
         'node_modules',
-        ...(includePath ? [path.resolve(includePath)] : []),
+        ...(includePath
+          ? includePath.split(',').map((item) => path.resolve(item))
+          : []),
       ],
       extensions: [
         '.ts',

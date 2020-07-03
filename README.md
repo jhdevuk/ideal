@@ -37,24 +37,27 @@ You can configure each build task via CLI arguments, or with an `ideal.config.js
 
 Arguments are passed to ideal via the following pattern: `--{key}={value}`. Where arguments are `boolean`, no value is required and their presence consistutes `true`.
 
-See below for full list of configurable options:
+## Options
 
-| Key               | Value  | Default | About                                                                   |
-| ----------------- | ------ | ------- | ----------------------------------------------------------------------- |
-| --outputPath      | Path   | ./dist  | A relative path to where you would like files to be written             |
-| --sourceDirectory | Path   | null    | A base directory to resolve all files from prior to sourcePath          |
-| --sourcePath      | Path   | null    | The path to source files, this can also be provided as the 3rd argument |
-| --release         | N/A    | false   | Determine whether files are built for development or production         |
-| --sourceMap       | N/A    | false   | Output source maps to built assets                                      |
-| --cssModules      | N/A    | false   | Hash class names and build a json map file                              |
-| --watch           | N/A    | false   | Watch files for changes                                                 |
-| --watchPath       | N/A    | null    | Path to where source files are being watched                            |
-| --verbose         | N/A    | false   | Output more info in the console                                         |
-| --pathAlias       | Path   | null    | Define a path alias for "@/" in webpack                                 |
-| --filePrefix      | String | null    | Prepend this value to built assets, useful for versioning               |
-| --includePath     | Path   | null    | Define source directory for file resolution                             |
-| --skipManifest    | N/A    | false   | Exclude output files from being written to the manifest                 |
-| --manifestPath    | Path   | null    | Path where the manifest json file will be, default to "--outputPath"    |
+See below for full list of configurable options below. The column "_Usage_" indicates which method can be used to provide the option, as a `CLI` argument, `Config` property or `Both`
+
+| Key             | Usage  | Value    | Default | About                                                                   |
+| --------------- | ------ | -------- | ------- | ----------------------------------------------------------------------- |
+| outputPath      | Both   | Path     | null    | A relative path to where you would like files to be written             |
+| sourceDirectory | Both   | Path     | null    | A base directory to resolve all files from prior to sourcePath          |
+| sourcePath      | Both   | Glob     | null    | The path to source files, this can also be provided as the 3rd argument |
+| release         | Both   | N/A      | false   | Determine whether files are built for development or production         |
+| sourceMap       | Both   | N/A      | false   | Output source maps to built assets                                      |
+| cssModules      | Both   | N/A      | false   | Hash class names and build a json map file                              |
+| watch           | Both   | N/A      | false   | Watch files for changes                                                 |
+| watchPath       | Both   | Path     | null    | Path to where source files are being watched                            |
+| verbose         | Both   | N/A      | false   | Output more info in the console                                         |
+| pathAlias       | Both   | Path     | null    | Define a path alias for "@/" in webpack                                 |
+| filePrefix      | Both   | String   | null    | Prepend this value to built assets, useful for versioning               |
+| renameFile      | Config | Function | null    | Rename output files, provides name and path (SASS only)                 |
+| includePath     | Both   | Path(s)  | null    | Define source directory for file resolution, can be comma delimited     |
+| skipManifest    | Both   | N/A      | false   | Exclude output files from being written to the manifest                 |
+| manifestPath    | Both   | Path     | null    | Path where the manifest json file will be, default to "--outputPath"    |
 
 ## Config File
 
@@ -78,7 +81,7 @@ This is then picked up at runtime by ideal. Each set of properties match their C
 
 ### Webpack Specific
 
-ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, these values will be used, if not a default config will be used instead.
+ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, it will override any default config provided by ideal.
 
 # Manifest
 
