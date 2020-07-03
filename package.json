@@ -28,12 +28,14 @@
   "engines": {
     "node": ">=10"
   },
-  "nlm": {
-    "license": {
-      "files": [
-        "src"
-      ]
-    }
+  "author": {
+    "name": "Groupon"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.groupondev.com"
   },
   "peerDependencies": {
     "typescript": "3.8.x"
@@ -92,14 +94,5 @@
     "typescript": "^3.8.3",
     "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^1.7.2"
-  },
-  "author": {
-    "name": "Groupon"
-  },
-  "files": [
-    "dist"
-  ],
-  "publishConfig": {
-    "registry": "https://npm.groupondev.com"
   }
 }
