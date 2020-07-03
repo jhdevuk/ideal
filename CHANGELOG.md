@@ -1,3 +1,10 @@
+### 1.2.0 - 2020-07-03
+
+* feat: [VC-1631] - renameFile option - **[@jahill](https://github.groupondev.com/jahill)** [#8](https://github.groupondev.com/Coupons/ideal/pull/8)
+  - [`1553dba`](https://github.groupondev.com/Coupons/ideal/commit/1553dba52d0ab715b060be3b552b21b4e4c175de) **feat:** [VC-1631] - added dynamic rename function to options
+  - [`a20988d`](https://github.groupondev.com/Coupons/ideal/commit/a20988da9aaca5465285814f894f82088ac41ea9) **feat:** [VC-1631] - updated README
+
+
 ### 1.1.0 - 2020-07-03
 
 * feat: [VC-1631] - added basic test runner and tests - **[@jahill](https://github.groupondev.com/jahill)** [#6](https://github.groupondev.com/Coupons/ideal/pull/6)
