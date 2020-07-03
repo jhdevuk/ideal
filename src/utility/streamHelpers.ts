@@ -8,7 +8,7 @@ import { Readable } from 'stream';
 
 function streamToString(
    readStream: Readable,
-   encoding: string = 'utf8'
+   encoding: BufferEncoding = 'utf8'
 ): Promise<string> {
    const chunks: any[] = [];
 
@@ -30,7 +30,7 @@ function streamToString(
 
 function stringToStream(
    value: string | Buffer,
-   encoding: string = null
+   encoding: BufferEncoding = null
 ): Readable {
    const readStream = new Readable();
 

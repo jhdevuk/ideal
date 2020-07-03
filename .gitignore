@@ -4,4 +4,6 @@ dist/**
 logs/**
 demo/**
 yarn-error.log
-package-lock.json
+node_modules/
+npm-debug.log
+/.nyc_output
