@@ -12,9 +12,13 @@ async function method(options: IOptions): Promise<Task> {
   const compiler = bundleCompiler(options);
 
   return async ({ data, name, path }: IProps) => {
-    const fileName = `${name}.css`;
+    let fileName = `${name}.css`;
 
     const { cssValue, cssModule } = await compiler(data, path);
+
+    if (typeof options.renameFile === 'function') {
+      fileName = options.renameFile(fileName, path);
+    }
 
     return {
       [fileName]: cssValue,

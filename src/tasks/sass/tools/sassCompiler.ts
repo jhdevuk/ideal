@@ -8,11 +8,11 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function sassCompiler({ sourceMap }: IOptions) {
+function sassCompiler(options: IOptions) {
   return (path: string) =>
     new Transform({
       objectMode: true,
-      transform: transformSource(path, sourceMap),
+      transform: transformSource(path, options),
     });
 }
 
@@ -22,12 +22,15 @@ function sassCompiler({ sourceMap }: IOptions) {
  *
  * -------------------------------- */
 
-function transformSource(path: string, sourceMap: boolean) {
+function transformSource(
+  path: string,
+  { sourceMap, includePath }: IOptions
+) {
   return function run(file: Buffer) {
     const result = renderSync({
       data: file.toString(),
       file: path,
-      includePaths: [],
+      includePaths: includePath ? includePath.split(',') : [],
       sourceMap,
       sourceMapEmbed: sourceMap,
     });

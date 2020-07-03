@@ -21,6 +21,7 @@ interface IOptions {
   includePath?: string;
   skipManifest: boolean;
   manifestPath: string;
+  renameFile?: (name: string, path: string) => string;
 }
 
 /* -----------------------------------
