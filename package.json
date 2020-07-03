@@ -40,6 +40,11 @@
   "peerDependencies": {
     "typescript": "3.8.x"
   },
+  "nlm": {
+    "license": {
+      "files": []
+    }
+  },
   "dependencies": {
     "autoprefixer": "9.8.4",
     "chalk": "3.0.0",
