@@ -1,3 +1,17 @@
+### 1.1.0 - 2020-07-03
+
+* feat: [VC-1631] - added basic test runner and tests - **[@jahill](https://github.groupondev.com/jahill)** [#6](https://github.groupondev.com/Coupons/ideal/pull/6)
+  - [`501b3ab`](https://github.groupondev.com/Coupons/ideal/commit/501b3abc1d016ab6aa2a24367d4a7692a8912faf) **feat:** [VC-1631] - added basic test runner and tests
+  - [`c8c981a`](https://github.groupondev.com/Coupons/ideal/commit/c8c981a688869e23b293848831c45f6c95654d9e) **fix:** [VC-1631] - Added type definitions for Jest
+  - [`e91b112`](https://github.groupondev.com/Coupons/ideal/commit/e91b112a8387138949de3028cab072ad6ca568de) **chore:** [VC-1631] - Re-ordered package.json properties
+  - [`e310594`](https://github.groupondev.com/Coupons/ideal/commit/e3105943fd777620fbbd11a104f9185d3474d2eb) **fix:** [VC-1631] - added built script for now
+  - [`8e78884`](https://github.groupondev.com/Coupons/ideal/commit/8e78884eef197087365ca57161c5210ec010c6ae) **fix:** [VC-1631] - added missing --release flag for CI
+  - [`9621f32`](https://github.groupondev.com/Coupons/ideal/commit/9621f322f3dbe5645aab07c5919adf6de26d901f) **chore:** [VC-1631] - locked all dependency versions for safety
+  - [`80f0823`](https://github.groupondev.com/Coupons/ideal/commit/80f082340f94b390a29820de17a9884b8cd8d6ae) **fix:** [VC-1631] - stop NLM from introducing file changes
+* chore: [VC-1631] - updated all primary dependencies - **[@jahill](https://github.groupondev.com/jahill)** [#7](https://github.groupondev.com/Coupons/ideal/pull/7)
+  - [`ab01c1a`](https://github.groupondev.com/Coupons/ideal/commit/ab01c1a5dd08e3ccbeee0e32b4d6d195c35105af) **chore:** [VC-1631] - updated all primary dependencies
+
+
 ### 1.0.1 - 2020-07-03
 
 * #VC-1631 - Aligned indentation format with Groupon - **[@jahill](https://github.groupondev.com/jahill)** [#5](https://github.groupondev.com/Coupons/ideal/pull/5)
