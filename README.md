@@ -4,9 +4,17 @@ ideal is a collection of pre-existing tools for generating client assets, wrappe
 
 # Getting Started
 
-Install with yarn:
+Install with Yarn:
 
-TODO
+```
+$ yarn add --dev @grpn/ideal
+```
+
+Install with NPM:
+
+```
+$ npm i --save-dev @grpn/ideal
+```
 
 TypeScript v3.8 is a `peerDependency` of ideal, so ensure you have it setup with a root [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) and installed as a dependency of your project.
 

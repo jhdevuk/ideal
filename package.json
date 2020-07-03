@@ -1,19 +1,42 @@
 {
-   "name": "ideal-tools",
-   "version": "1.0.5",
-   "repository": "https://github.groupondev.com/Coupons/ideal",
-   "author": "Groupon",
-   "license": "MIT",
-   "scripts": {
-      "build": "webpack",
-      "watch": "run-s \"build --watch --debug\""
-   },
+   "name": "@grpn/ideal",
+   "version": "0.0.0",
+   "description": "Ideal",
+   "license": "UNLICENSED",
    "bin": {
       "ideal": "./dist/build.js"
    },
-   "files": [
-      "dist"
-   ],
+   "homepage": "https://github.groupondev.com/Coupons/ideal",
+   "repository": {
+      "type": "git",
+      "url": "https://github.groupondev.com/Coupons/ideal"
+   },
+   "bugs": {
+      "url": "https://github.groupondev.com/Coupons/ideal/issues"
+   },
+   "scripts": {
+      "start": "run-s \"build --watch --debug\"",
+      "build": "webpack",
+      "lint": "npm-run-all lint:*",
+      "lint:js": "tslint --fix ./src/**/*.ts*",
+      "pretest": "npm-run-all pretest:*",
+      "posttest": "npm-run-all posttest:*",
+      "pretest:lint": "npm-run-all lint:*",
+      "posttest:nlm": "nlm verify"
+   },
+   "engines": {
+      "node": ">=10"
+   },
+   "nlm": {
+      "license": {
+         "files": [
+            "src"
+         ]
+      }
+   },
+   "peerDependencies": {
+      "typescript": "3.8.x"
+   },
    "dependencies": {
       "autoprefixer": "^9.7.6",
       "chalk": "^3.0.0",
@@ -43,9 +66,6 @@
       "webpack": "^4.26.1",
       "yargs": "^15.3.1"
    },
-   "peerDependencies": {
-      "typescript": "3.8.x"
-   },
    "devDependencies": {
       "@types/autoprefixer": "^9.7.2",
       "@types/cssnano": "^4.0.0",
@@ -60,12 +80,28 @@
       "@types/webpack": "^4.26.1",
       "@types/webpack-node-externals": "^1.7.1",
       "@types/yargs": "^15.0.4",
+      "eslint": "^7.1.0",
+      "eslint-config-groupon": "^10.0.0",
+      "eslint-plugin-import": "^2.20.2",
+      "eslint-plugin-mocha": "^7.0.1",
+      "eslint-plugin-node": "^11.1.0",
+      "eslint-plugin-prettier": "^3.1.3",
+      "nlm": "^4.2.0",
       "npm-run-all": "^4.1.5",
-      "prettier": "2.0.2",
+      "prettier": "^2.0.5",
       "ts-node": "^8.8.1",
       "tslint-loader": "^3.5.4",
       "typescript": "^3.8.3",
       "webpack-cli": "^3.3.11",
       "webpack-node-externals": "^1.7.2"
+   },
+   "author": {
+      "name": "Groupon"
+   },
+   "files": [
+      "dist"
+   ],
+   "publishConfig": {
+      "registry": "https://npm.groupondev.com"
    }
 }
