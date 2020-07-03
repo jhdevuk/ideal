@@ -39,7 +39,7 @@ Arguments are passed to ideal via the following pattern: `--{key}={value}`. Wher
 
 ## Options
 
-See below for full list of configurable options below. The column "_Usage_" indicates which method can be used to provide the option, as a `CLI` argument, `Config` property or `Both`
+See below for full list of configurable options. The column "_Usage_" indicates which method can be used to provide the option, as a `CLI` argument, a `Config` property, or `Both`
 
 | Key             | Usage  | Value    | Default | About                                                                   |
 | --------------- | ------ | -------- | ------- | ----------------------------------------------------------------------- |
