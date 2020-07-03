@@ -9,9 +9,9 @@ import { streamToString } from '@/utility/streamHelpers';
  * -------------------------------- */
 
 async function parseXMLDoc(data: ReadStream) {
-   const xmlContents = await streamToString(data);
+  const xmlContents = await streamToString(data);
 
-   return libxml.parseXml(xmlContents);
+  return libxml.parseXml(xmlContents);
 }
 
 /* -----------------------------------

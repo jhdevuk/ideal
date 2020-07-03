@@ -12,7 +12,7 @@ import { method as csprojMethod } from './csproj';
  * -------------------------------- */
 
 interface ITasks {
-   [index: string]: Method;
+  [index: string]: Method;
 }
 
 /* -----------------------------------
@@ -22,9 +22,9 @@ interface ITasks {
  * -------------------------------- */
 
 interface IProps {
-   data: ReadStream;
-   path: string;
-   name: string;
+  data: ReadStream;
+  path: string;
+  name: string;
 }
 
 /* -----------------------------------
@@ -34,7 +34,7 @@ interface IProps {
  * -------------------------------- */
 
 interface IStream {
-   [index: string]: Readable;
+  [index: string]: Readable;
 }
 
 /* -----------------------------------
@@ -44,12 +44,12 @@ interface IStream {
  * -------------------------------- */
 
 interface IResult {
-   name: string;
-   type: string;
-   hash: string;
-   prefix?: string;
-   size: string;
-   stream: Readable;
+  name: string;
+  type: string;
+  hash: string;
+  prefix?: string;
+  size: string;
+  stream: Readable;
 }
 
 /* -----------------------------------
@@ -75,9 +75,9 @@ type Task = (props: IProps) => Promise<IStream>;
  * -------------------------------- */
 
 const tasks: ITasks = {
-   'build:css': sassMethod,
-   'build:js': webpackMethod,
-   'update:csproj': csprojMethod,
+  'build:css': sassMethod,
+  'build:js': webpackMethod,
+  'update:csproj': csprojMethod,
 };
 
 /* -----------------------------------

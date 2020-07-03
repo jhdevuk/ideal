@@ -7,7 +7,7 @@ import { createReadStream, PathLike, ReadStream } from 'fs';
  * -------------------------------- */
 
 function readFile(file: PathLike, encoding: string = null): ReadStream {
-   return createReadStream(file, encoding);
+  return createReadStream(file, encoding);
 }
 
 /* -----------------------------------

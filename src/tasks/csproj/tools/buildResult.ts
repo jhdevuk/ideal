@@ -12,22 +12,22 @@ import { config } from './config';
  * -------------------------------- */
 
 async function buildResult(
-   manifestPath: string,
-   manifest: object,
-   data: ReadStream
+  manifestPath: string,
+  manifest: object,
+  data: ReadStream
 ) {
-   const xmlDoc = await parseXMLDoc(data);
-   const fileNames = Object.keys(manifest);
+  const xmlDoc = await parseXMLDoc(data);
+  const fileNames = Object.keys(manifest);
 
-   fileNames.forEach((file) => {
-      const element: any = new libxml.Element(xmlDoc, config.element);
+  fileNames.forEach((file) => {
+    const element: any = new libxml.Element(xmlDoc, config.element);
 
-      element.attr(config.attribute, path.join(manifestPath, file));
+    element.attr(config.attribute, path.join(manifestPath, file));
 
-      xmlDoc.get(config.xpath, { xmlns: config.xmlns }).addChild(element);
-   });
+    xmlDoc.get(config.xpath, { xmlns: config.xmlns }).addChild(element);
+  });
 
-   return stringToStream(xmlDoc.toString());
+  return stringToStream(xmlDoc.toString());
 }
 
 /* -----------------------------------

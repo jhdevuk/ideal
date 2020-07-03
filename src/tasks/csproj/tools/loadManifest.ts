@@ -8,19 +8,19 @@ import path from 'path';
  * -------------------------------- */
 
 function loadManifest(manifestPath: string): Promise<object> {
-   const filePath = path.resolve(manifestPath, 'assets.json');
+  const filePath = path.resolve(manifestPath, 'assets.json');
 
-   return new Promise((resolve, reject) => {
-      fs.readFile(filePath, (error, data) => {
-         if (error) {
-            reject(error);
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, (error, data) => {
+      if (error) {
+        reject(error);
 
-            return;
-         }
+        return;
+      }
 
-         resolve(JSON.parse(data.toString()));
-      });
-   });
+      resolve(JSON.parse(data.toString()));
+    });
+  });
 }
 
 /* -----------------------------------

@@ -13,8 +13,8 @@ import { stringToStream } from '@/utility/streamHelpers';
  * -------------------------------- */
 
 interface IFile {
-   name: string;
-   data: Readable;
+  name: string;
+  data: Readable;
 }
 
 /* -----------------------------------
@@ -24,25 +24,25 @@ interface IFile {
  * -------------------------------- */
 
 function bundleCompiler(options: IOptions) {
-   const compiler = webpackCompiler(options);
+  const compiler = webpackCompiler(options);
 
-   return (data: Readable, path: string): Promise<IFile[]> =>
-      new Promise((resolve, reject) => {
-         const result: IFile[] = [];
+  return (data: Readable, path: string): Promise<IFile[]> =>
+    new Promise((resolve, reject) => {
+      const result: IFile[] = [];
 
-         data
-            .pipe(source(path))
-            .pipe(named())
-            .pipe(compiler())
-            .on('data', ({ basename, contents }: BufferFile) => {
-               result.push({
-                  name: basename,
-                  data: stringToStream(contents),
-               });
-            })
-            .on('error', reject)
-            .on('close', () => resolve(result));
-      });
+      data
+        .pipe(source(path))
+        .pipe(named())
+        .pipe(compiler())
+        .on('data', ({ basename, contents }: BufferFile) => {
+          result.push({
+            name: basename,
+            data: stringToStream(contents),
+          });
+        })
+        .on('error', reject)
+        .on('close', () => resolve(result));
+    });
 }
 
 /* -----------------------------------

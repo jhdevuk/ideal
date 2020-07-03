@@ -10,15 +10,15 @@ import { buildResult } from './tools/buildResult';
  * -------------------------------- */
 
 async function method({ manifestPath }: IOptions): Promise<Task> {
-   const manifest = await loadManifest(manifestPath);
+  const manifest = await loadManifest(manifestPath);
 
-   return async ({ data, name }: IProps) => {
-      const result = await buildResult(manifestPath, manifest, data);
+  return async ({ data, name }: IProps) => {
+    const result = await buildResult(manifestPath, manifest, data);
 
-      return {
-         [`${name}.csproj`]: result,
-      };
-   };
+    return {
+      [`${name}.csproj`]: result,
+    };
+  };
 }
 
 /* --------------------------------

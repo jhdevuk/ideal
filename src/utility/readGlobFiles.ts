@@ -7,17 +7,17 @@ import glob from 'glob';
  * -------------------------------- */
 
 const readGlobFiles = (path: string): Promise<string[]> =>
-   new Promise((resolve, reject) =>
-      glob(path, async (error, files) => {
-         if (error) {
-            reject(error);
+  new Promise((resolve, reject) =>
+    glob(path, async (error, files) => {
+      if (error) {
+        reject(error);
 
-            return;
-         }
+        return;
+      }
 
-         resolve(files);
-      })
-   );
+      resolve(files);
+    })
+  );
 
 /* -----------------------------------
  *

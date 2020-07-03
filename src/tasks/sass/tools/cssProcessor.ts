@@ -13,34 +13,34 @@ import { IOptions } from '@/options';
  * -------------------------------- */
 
 function cssProcessor({ release, cssModules, sourceMap }: IOptions) {
-   const plugins = [
-      autoprefixer({
-         cascade: false,
-         overrideBrowserslist: ['last 2 versions', '> 1%'],
-      }),
-   ];
+  const plugins = [
+    autoprefixer({
+      cascade: false,
+      overrideBrowserslist: ['last 2 versions', '> 1%'],
+    }),
+  ];
 
-   if (cssModules) {
-      plugins.unshift(
-         modules({
-            generateScopedName: release
-               ? '[hash:base64:8]'
-               : '[name]-[local]',
-         })
-      );
-   }
+  if (cssModules) {
+    plugins.unshift(
+      modules({
+        generateScopedName: release
+          ? '[hash:base64:8]'
+          : '[name]-[local]',
+      })
+    );
+  }
 
-   if (release) {
-      plugins.push(minify());
-   }
+  if (release) {
+    plugins.push(minify());
+  }
 
-   const instance = postCss(plugins);
+  const instance = postCss(plugins);
 
-   return (path: string) =>
-      new Transform({
-         objectMode: true,
-         transform: transformSource(instance, path, sourceMap),
-      });
+  return (path: string) =>
+    new Transform({
+      objectMode: true,
+      transform: transformSource(instance, path, sourceMap),
+    });
 }
 
 /* -----------------------------------
@@ -50,18 +50,18 @@ function cssProcessor({ release, cssModules, sourceMap }: IOptions) {
  * -------------------------------- */
 
 function transformSource(
-   instance: Processor,
-   path: string,
-   sourceMap: boolean
+  instance: Processor,
+  path: string,
+  sourceMap: boolean
 ) {
-   return async function run(file: Result) {
-      const result = await instance.process(file.css, {
-         from: path,
-         map: sourceMap,
-      });
+  return async function run(file: Result) {
+    const result = await instance.process(file.css, {
+      from: path,
+      map: sourceMap,
+    });
 
-      this.push(result);
-   };
+    this.push(result);
+  };
 }
 
 /* -----------------------------------

@@ -9,11 +9,11 @@ import { IResult } from '@/tasks';
  * -------------------------------- */
 
 function error(subject: string, details = '', line = '') {
-   log.error(
-      `${chalk.red('Error')}: ${subject} ${chalk.yellow(details)} ${
-         line && chalk.red(`on line ${line}`)
-      }`
-   );
+  log.error(
+    `${chalk.red('Error')}: ${subject} ${chalk.yellow(details)} ${
+      line && chalk.red(`on line ${line}`)
+    }`
+  );
 }
 
 /* -----------------------------------
@@ -23,9 +23,9 @@ function error(subject: string, details = '', line = '') {
  * -------------------------------- */
 
 function info(prefix: string, value: string, suffix: string = '') {
-   const output = [prefix, chalk.cyan(value), suffix];
+  const output = [prefix, chalk.cyan(value), suffix];
 
-   log.info(output.join(' '));
+  log.info(output.join(' '));
 }
 
 /* -----------------------------------
@@ -35,13 +35,13 @@ function info(prefix: string, value: string, suffix: string = '') {
  * -------------------------------- */
 
 function result({ name, size, type }: IResult) {
-   const output = [
-      chalk.grey(' ->'),
-      chalk.yellow(name + type),
-      chalk.grey(size),
-   ];
+  const output = [
+    chalk.grey(' ->'),
+    chalk.yellow(name + type),
+    chalk.grey(size),
+  ];
 
-   log.info(output.join(' '));
+  log.info(output.join(' '));
 }
 
 /* -----------------------------------

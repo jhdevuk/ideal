@@ -9,14 +9,14 @@ import { stringToStream } from '@/utility/streamHelpers';
  * -------------------------------- */
 
 function emitFile(resolve: any) {
-   return new Transform({
-      objectMode: true,
-      transform: ({ css, messages }: Result) =>
-         resolve({
-            cssValue: stringToStream(css),
-            cssModule: cssModule(messages),
-         }),
-   });
+  return new Transform({
+    objectMode: true,
+    transform: ({ css, messages }: Result) =>
+      resolve({
+        cssValue: stringToStream(css),
+        cssModule: cssModule(messages),
+      }),
+  });
 }
 
 /* -----------------------------------
@@ -26,17 +26,17 @@ function emitFile(resolve: any) {
  * -------------------------------- */
 
 function cssModule(messages: ResultMessage[]) {
-   const pluginResult = messages.find(
-      (item) => item.plugin === 'postcss-modules'
-   );
+  const pluginResult = messages.find(
+    (item) => item.plugin === 'postcss-modules'
+  );
 
-   const jsonResult = pluginResult?.exportTokens;
+  const jsonResult = pluginResult?.exportTokens;
 
-   if (!jsonResult) {
-      return undefined;
-   }
+  if (!jsonResult) {
+    return undefined;
+  }
 
-   return stringToStream(JSON.stringify(jsonResult));
+  return stringToStream(JSON.stringify(jsonResult));
 }
 
 /* -----------------------------------
