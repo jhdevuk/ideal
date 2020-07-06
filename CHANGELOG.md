@@ -1,3 +1,9 @@
+### 1.2.3 - 2020-07-06
+
+* fix: [VC-1631] - fixed single file source validation - **[@jahill](https://github.groupondev.com/jahill)** [#11](https://github.groupondev.com/Coupons/ideal/pull/11)
+  - [`140135c`](https://github.groupondev.com/Coupons/ideal/commit/140135cc4a7bcad4321c4cd145c1b76377a7975e) **fix:** [VC-1631] - fixed single file source validation
+
+
 ### 1.2.2 - 2020-07-06
 
 * fix: [VC-1631] - fixed output module library - **[@jahill](https://github.groupondev.com/jahill)** [#10](https://github.groupondev.com/Coupons/ideal/pull/10)
