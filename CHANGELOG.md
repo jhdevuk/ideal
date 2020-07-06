@@ -1,3 +1,11 @@
+### 1.2.1 - 2020-07-06
+
+* fix: [VC-1631] - improved SASS error handling - **[@jahill](https://github.groupondev.com/jahill)** [#9](https://github.groupondev.com/Coupons/ideal/pull/9)
+  - [`9cecf8f`](https://github.groupondev.com/Coupons/ideal/commit/9cecf8f8cb98915c7e21d38ee0bc36a69fc25602) **fix:** [VC-1631] - improved SASS error handling
+  - [`410e9b3`](https://github.groupondev.com/Coupons/ideal/commit/410e9b367915f71ad970236e427ffae1a00fa820) **chore:** [VC-1631] - built dist file
+  - [`a988bbc`](https://github.groupondev.com/Coupons/ideal/commit/a988bbc32232cdaabad5650eb16b766d55a909fb) **chore:** [VC-1631] - updated package lock file
+
+
 ### 1.2.0 - 2020-07-03
 
 * feat: [VC-1631] - renameFile option - **[@jahill](https://github.groupondev.com/jahill)** [#8](https://github.groupondev.com/Coupons/ideal/pull/8)
