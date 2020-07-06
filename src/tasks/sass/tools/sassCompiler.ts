@@ -9,11 +9,11 @@ import { IOptions } from '@/options';
  * -------------------------------- */
 
 function sassCompiler(options: IOptions) {
-  return (path: string) =>
+  return (path: string, reject) =>
     new Transform({
       objectMode: true,
       transform: transformSource(path, options),
-    });
+    }).on('error', reject);
 }
 
 /* -----------------------------------
@@ -27,15 +27,19 @@ function transformSource(
   { sourceMap, includePath }: IOptions
 ) {
   return function run(file: Buffer) {
-    const result = renderSync({
-      data: file.toString(),
-      file: path,
-      includePaths: includePath ? includePath.split(',') : [],
-      sourceMap,
-      sourceMapEmbed: sourceMap,
-    });
+    try {
+      const result = renderSync({
+        data: file.toString(),
+        file: path,
+        includePaths: includePath ? includePath.split(',') : [],
+        sourceMap,
+        sourceMapEmbed: sourceMap,
+      });
 
-    this.push(result);
+      this.push(result);
+    } catch (error) {
+      this.emit('error', error);
+    }
   };
 }
 
