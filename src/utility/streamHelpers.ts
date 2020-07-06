@@ -7,13 +7,13 @@ import { Readable } from 'stream';
  * -------------------------------- */
 
 function streamToString(
-  readStream: Readable,
+  stream: Readable,
   encoding: BufferEncoding = 'utf8'
 ): Promise<string> {
   const chunks: any[] = [];
 
   return new Promise((resolve, reject) => {
-    readStream
+    stream
       .on('error', reject)
       .on('data', (chunk) => chunks.push(chunk))
       .on('end', () => resolve(Buffer.concat(chunks).toString(encoding)));
@@ -30,12 +30,29 @@ function stringToStream(
   value: string | Buffer,
   encoding: BufferEncoding = null
 ): Readable {
-  const readStream = new Readable();
+  const stream = new Readable();
 
-  readStream.push(value, encoding);
-  readStream.push(null, encoding);
+  stream.push(value, encoding);
+  stream.push(null, encoding);
 
-  return readStream;
+  return stream;
+}
+
+/* -----------------------------------
+ *
+ * Stream
+ *
+ * -------------------------------- */
+
+function bufferToStream(binary: Buffer) {
+  const stream = new Readable({
+    read() {
+      this.push(binary);
+      this.push(null);
+    },
+  });
+
+  return stream;
 }
 
 /* -----------------------------------
@@ -44,15 +61,15 @@ function stringToStream(
  *
  * -------------------------------- */
 
-function bufferToStream(binary: Buffer) {
-  const readStream = new Readable({
-    read() {
-      this.push(binary);
-      this.push(null);
-    },
-  });
+function streamToBuffer(stream: Readable): Promise<Buffer> {
+  const chunks: any[] = [];
 
-  return readStream;
+  return new Promise((resolve, reject) => {
+    stream
+      .on('error', reject)
+      .on('data', (chunk) => chunks.push(chunk))
+      .on('end', () => resolve(Buffer.concat(chunks)));
+  });
 }
 
 /* -----------------------------------
@@ -61,4 +78,4 @@ function bufferToStream(binary: Buffer) {
  *
  * -------------------------------- */
 
-export { streamToString, stringToStream, bufferToStream };
+export { streamToString, stringToStream, bufferToStream, streamToBuffer };

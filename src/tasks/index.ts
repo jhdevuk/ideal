@@ -5,6 +5,7 @@ import { method as sassMethod } from './sass';
 import { method as webpackMethod } from './webpack';
 import { method as csprojMethod } from './csproj';
 import { method as copyMethod } from './copy';
+import { method as fontsMethod } from './fonts';
 
 /* -----------------------------------
  *
@@ -80,6 +81,7 @@ const tasks: ITasks = {
   js: webpackMethod,
   csproj: csprojMethod,
   copy: copyMethod,
+  fonts: fontsMethod,
 };
 
 /* -----------------------------------

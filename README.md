@@ -20,7 +20,7 @@ TypeScript v3.8 is a `peerDependency` of ideal, so ensure you have it setup with
 
 # Basic Usage
 
-There are currently four "tasks" provided, `css`, `js`, `csproj` and `copy`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs in a relative directory. This can be configured with a contextual config file, outlined below.
+There are currently five "tasks" provided, `css`, `js`, `fonts`, `csproj` and `copy`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs in a relative directory. This can be configured with a contextual config file, outlined below.
 
 Try it out:
 
@@ -82,6 +82,10 @@ This is then picked up at runtime by ideal. Each set of properties match their C
 ### Webpack Specific
 
 ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, it will override any default config provided by ideal.
+
+### Fonts Specific
+
+ideal uses meta data contained within the font files to generate a Base64 encoded string and `@font-face` block. If you're having issues with incorrect font families, make sure the meta data within the file (e.g `.woff`) is correct.
 
 # Manifest
 
