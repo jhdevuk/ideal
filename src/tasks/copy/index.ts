@@ -1,5 +1,5 @@
-import { IOptions } from '@/options';
 import { Task, IProps } from '@/tasks';
+import { extname } from 'path';
 
 /* -----------------------------------
  *
@@ -7,11 +7,13 @@ import { Task, IProps } from '@/tasks';
  *
  * -------------------------------- */
 
-async function method({ manifestPath }: IOptions): Promise<Task> {
-  return async ({ data, name }: IProps) => {
-    console.log('COPY', name);
+async function method(): Promise<Task> {
+  return async ({ data, name, path }: IProps) => {
+    const extension = extname(path);
 
-    return {};
+    return {
+      [name + extension]: data,
+    };
   };
 }
 
