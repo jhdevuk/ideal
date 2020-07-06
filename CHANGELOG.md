@@ -1,3 +1,9 @@
+### 1.2.2 - 2020-07-06
+
+* fix: [VC-1631] - fixed output module library - **[@jahill](https://github.groupondev.com/jahill)** [#10](https://github.groupondev.com/Coupons/ideal/pull/10)
+  - [`96344db`](https://github.groupondev.com/Coupons/ideal/commit/96344db0c3ed9d55a70c784586b90763ec18a2d6) **fix:** [VC-1631] - fixed output module library
+
+
 ### 1.2.1 - 2020-07-06
 
 * fix: [VC-1631] - improved SASS error handling - **[@jahill](https://github.groupondev.com/jahill)** [#9](https://github.groupondev.com/Coupons/ideal/pull/9)
