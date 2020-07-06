@@ -20,13 +20,13 @@ TypeScript v3.8 is a `peerDependency` of ideal, so ensure you have it setup with
 
 # Basic Usage
 
-There are currently three "tasks" provided, `build:css`, `build:js` and `update:csproj`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs in a relative directory. This can be configured with a contextual config file, outlined below.
+There are currently four "tasks" provided, `css`, `js`, `csproj` and `copy`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs in a relative directory. This can be configured with a contextual config file, outlined below.
 
 Try it out:
 
 ```
-$ ideal build:js ./src/*.ts
-$ ideal build:css ./src/*.scss
+$ ideal js ./src/*.ts
+$ ideal css ./src/*.scss
 ```
 
 # Configuration
@@ -41,36 +41,36 @@ Arguments are passed to ideal via the following pattern: `--{key}={value}`. Wher
 
 See below for full list of configurable options. The column "_Usage_" indicates which method can be used to provide the option, as a `CLI` argument, a `Config` property, or `Both`
 
-| Key             | Usage  | Value    | Default | About                                                                   |
-| --------------- | ------ | -------- | ------- | ----------------------------------------------------------------------- |
-| outputPath      | Both   | Path     | null    | A relative path to where you would like files to be written             |
-| sourceDirectory | Both   | Path     | null    | A base directory to resolve all files from prior to sourcePath          |
-| sourcePath      | Both   | Glob     | null    | The path to source files, this can also be provided as the 3rd argument |
-| release         | Both   | N/A      | false   | Determine whether files are built for development or production         |
-| sourceMap       | Both   | N/A      | false   | Output source maps to built assets                                      |
-| cssModules      | Both   | N/A      | false   | Hash class names and build a json map file                              |
-| watch           | Both   | N/A      | false   | Watch files for changes                                                 |
-| watchPath       | Both   | Path     | null    | Path to where source files are being watched                            |
-| verbose         | Both   | N/A      | false   | Output more info in the console                                         |
-| pathAlias       | Both   | Path     | null    | Define a path alias for "@/" in webpack                                 |
-| filePrefix      | Both   | String   | null    | Prepend this value to built assets, useful for versioning               |
-| renameFile      | Config | Function | null    | Rename output files, provides name and path (SASS only)                 |
-| includePath     | Both   | Path(s)  | null    | Define source directory for file resolution, can be comma delimited     |
-| skipManifest    | Both   | N/A      | false   | Exclude output files from being written to the manifest                 |
-| manifestPath    | Both   | Path     | null    | Path where the manifest json file will be, default to "--outputPath"    |
+| Key             | Usage  | Value     | Default | About                                                                   |
+| --------------- | ------ | --------- | ------- | ----------------------------------------------------------------------- |
+| outputPath      | Both   | Path      | null    | A relative path to where you would like files to be written             |
+| sourceDirectory | Both   | Path      | null    | A base directory to resolve all files from prior to sourcePath          |
+| sourcePath      | Both   | Glob/Path | null    | The path to source files, this can also be provided as the 3rd argument |
+| release         | Both   | N/A       | false   | Determine whether files are built for development or production         |
+| sourceMap       | Both   | N/A       | false   | Output source maps to built assets                                      |
+| cssModules      | Both   | N/A       | false   | Hash class names and build a json map file                              |
+| watch           | Both   | N/A       | false   | Watch files for changes                                                 |
+| watchPath       | Both   | Path      | null    | Path to where source files are being watched                            |
+| verbose         | Both   | N/A       | false   | Output more info in the console                                         |
+| pathAlias       | Both   | Path      | null    | Define a path alias for "@/" in webpack                                 |
+| filePrefix      | Both   | String    | null    | Prepend this value to built assets, useful for versioning               |
+| renameFile      | Config | Function  | null    | Rename output files, provides name and path (SASS + COPY only)          |
+| includePath     | Both   | Path(s)   | null    | Define source directory for file resolution, can be comma delimited     |
+| skipManifest    | Both   | N/A       | false   | Exclude output files from being written to the manifest                 |
+| manifestPath    | Both   | Path      | null    | Path where the manifest json file will be, default to "--outputPath"    |
 
 ## Config File
 
-The structure of the `ideal.config.js` file can be seen below. Each top level property key matches a particular build task, e.g `build:css`.
+The structure of the `ideal.config.js` file can be seen below. Each top level property key matches a particular build task, e.g `css`.
 
 ```
 module.exports = {
-   'build:css': {
+   css: {
       cssModules: true,
       watchPath: './src/**/*.scss',
       ...
    },
-   'build:js': {
+   js: {
       watchPath: './src/**/*.ts,
       ...
    }
@@ -92,5 +92,5 @@ ideal creates an `assets.json` file in the output directory that keeps a record 
 Once you've cloned this repo and run `yarn`, then `yarn start`, you can make use of [`npm link`](https://docs.npmjs.com/cli/link.html) to simulate how this package will work when installed globally. From there, you can run the following in a directory of your choice to run a build:
 
 ```
-$ ideal build:js ./path/to/stuff --watch
+$ ideal js ./path/to/stuff --watch
 ```

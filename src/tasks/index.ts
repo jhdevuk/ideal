@@ -4,6 +4,7 @@ import { IOptions } from '@/options';
 import { method as sassMethod } from './sass';
 import { method as webpackMethod } from './webpack';
 import { method as csprojMethod } from './csproj';
+import { method as copyMethod } from './copy';
 
 /* -----------------------------------
  *
@@ -75,9 +76,10 @@ type Task = (props: IProps) => Promise<IStream>;
  * -------------------------------- */
 
 const tasks: ITasks = {
-  'build:css': sassMethod,
-  'build:js': webpackMethod,
-  'update:csproj': csprojMethod,
+  css: sassMethod,
+  js: webpackMethod,
+  csproj: csprojMethod,
+  copy: copyMethod,
 };
 
 /* -----------------------------------
