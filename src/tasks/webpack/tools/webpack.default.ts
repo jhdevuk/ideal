@@ -13,17 +13,18 @@ function defaultWebpackConfig({
   release,
   pathAlias,
   includePath,
+  outputPath,
 }: IOptions): Configuration {
   return {
     target: 'web',
     mode: release ? 'production' : 'development',
     cache: !release,
     output: {
-      libraryTarget: 'commonjs',
       filename: '[name].js',
       chunkFilename: '[name].js',
       jsonpFunction: '__IDL__',
       crossOriginLoading: 'anonymous',
+      publicPath: path.join(outputPath, '/'),
     },
     resolve: {
       modules: [
@@ -49,7 +50,6 @@ function defaultWebpackConfig({
       rules: [
         {
           test: /\.tsx?$/,
-          include: includePath ? path.resolve(includePath) : void 0,
           use: [
             {
               loader: resolveLoader('ts-loader'),
@@ -66,11 +66,6 @@ function defaultWebpackConfig({
         chunks: 'async',
         cacheGroups: {
           default: false,
-          commons: {
-            name: 'common',
-            minChunks: 2,
-            maxInitialRequests: 5,
-          },
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendor',
