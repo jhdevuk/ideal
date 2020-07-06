@@ -1,5 +1,5 @@
 import path from 'path';
-import { Configuration, IgnorePlugin } from 'webpack';
+import { Configuration } from 'webpack';
 import { IOptions } from '@/options';
 import { resolveLoader } from './resolveLoader';
 
