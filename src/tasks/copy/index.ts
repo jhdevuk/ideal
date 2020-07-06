@@ -1,3 +1,4 @@
+import { IOptions } from '@/options';
 import { Task, IProps } from '@/tasks';
 import { extname } from 'path';
 
@@ -7,9 +8,13 @@ import { extname } from 'path';
  *
  * -------------------------------- */
 
-async function method(): Promise<Task> {
+async function method({ renameFile }: IOptions): Promise<Task> {
   return async ({ data, name, path }: IProps) => {
     const extension = extname(path);
+
+    if (typeof renameFile === 'function') {
+      name = renameFile(name, path);
+    }
 
     return {
       [name + extension]: data,
