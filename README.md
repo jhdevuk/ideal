@@ -20,13 +20,13 @@ TypeScript v3.8 is a `peerDependency` of ideal, so ensure you have it setup with
 
 # Basic Usage
 
-There are currently three "tasks" provided, `build:css`, `build:js` and `update:csproj`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs in a relative directory. This can be configured with a contextual config file, outlined below.
+There are currently four "tasks" provided, `css`, `js`, `csproj` and `copy`. ideal uses a [glob](https://www.npmjs.com/package/glob) path to target files, and outputs in a relative directory. This can be configured with a contextual config file, outlined below.
 
 Try it out:
 
 ```
-$ ideal build:js ./src/*.ts
-$ ideal build:css ./src/*.scss
+$ ideal js ./src/*.ts
+$ ideal css ./src/*.scss
 ```
 
 # Configuration
@@ -61,16 +61,16 @@ See below for full list of configurable options. The column "_Usage_" indicates 
 
 ## Config File
 
-The structure of the `ideal.config.js` file can be seen below. Each top level property key matches a particular build task, e.g `build:css`.
+The structure of the `ideal.config.js` file can be seen below. Each top level property key matches a particular build task, e.g `css`.
 
 ```
 module.exports = {
-   'build:css': {
+   css: {
       cssModules: true,
       watchPath: './src/**/*.scss',
       ...
    },
-   'build:js': {
+   js: {
       watchPath: './src/**/*.ts,
       ...
    }
@@ -92,5 +92,5 @@ ideal creates an `assets.json` file in the output directory that keeps a record 
 Once you've cloned this repo and run `yarn`, then `yarn start`, you can make use of [`npm link`](https://docs.npmjs.com/cli/link.html) to simulate how this package will work when installed globally. From there, you can run the following in a directory of your choice to run a build:
 
 ```
-$ ideal build:js ./path/to/stuff --watch
+$ ideal js ./path/to/stuff --watch
 ```
