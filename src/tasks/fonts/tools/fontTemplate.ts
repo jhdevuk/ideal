@@ -20,10 +20,9 @@ function fontTemplate({ familyName, encodedData, fileName }: IData) {
   return `
     @font-face {
       font-family: '${familyName}';
-      src: url(data:application/font-woff;charset=utf-8;base64,${encodedData}) format('woff'),
-        url('/Content/dist/${fileName}.ttf') format('truetype');
+      src: url(data:application/font-woff;charset=utf-8;base64,${encodedData}) format('woff');
       font-style: normal;
-  }
+    }
   `;
 }
 
