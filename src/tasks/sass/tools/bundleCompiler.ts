@@ -28,8 +28,8 @@ function bundleCompiler(options: IOptions) {
   return async (data: Readable, path: string): Promise<IFile> =>
     new Promise((resolve, reject) =>
       data
-        .pipe(compiler(path))
-        .pipe(processor(path))
+        .pipe(compiler(path, reject))
+        .pipe(processor(path, reject))
         .pipe(emitFile(resolve))
         .on('error', reject)
     );

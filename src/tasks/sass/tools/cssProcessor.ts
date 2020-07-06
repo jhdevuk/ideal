@@ -36,11 +36,11 @@ function cssProcessor({ release, cssModules, sourceMap }: IOptions) {
 
   const instance = postCss(plugins);
 
-  return (path: string) =>
+  return (path: string, reject) =>
     new Transform({
       objectMode: true,
       transform: transformSource(instance, path, sourceMap),
-    });
+    }).on('error', reject);
 }
 
 /* -----------------------------------
@@ -55,12 +55,16 @@ function transformSource(
   sourceMap: boolean
 ) {
   return async function run(file: Result) {
-    const result = await instance.process(file.css, {
-      from: path,
-      map: sourceMap,
-    });
+    try {
+      const result = await instance.process(file.css, {
+        from: path,
+        map: sourceMap,
+      });
 
-    this.push(result);
+      this.push(result);
+    } catch (error) {
+      this.emit('error', error);
+    }
   };
 }
 
