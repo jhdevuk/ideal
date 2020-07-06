@@ -1,3 +1,10 @@
+### 1.4.0 - 2020-07-06
+
+* feat: [VC-1631] - font task - **[@jahill](https://github.groupondev.com/jahill)** [#13](https://github.groupondev.com/Coupons/ideal/pull/13)
+  - [`5e6b40e`](https://github.groupondev.com/Coupons/ideal/commit/5e6b40e5d05863de938023f35f46d7b004032fa9) **feat:** [VC-1631] - finished font task
+  - [`779c10d`](https://github.groupondev.com/Coupons/ideal/commit/779c10debd6fb788e8b14c0d6130c2d818c1387c) **fix:** [VC-1631] - removed ttf block from template
+
+
 ### 1.3.0 - 2020-07-06
 
 * #VC-1631 - Added copy files task - **[@jahill](https://github.groupondev.com/jahill)** [#12](https://github.groupondev.com/Coupons/ideal/pull/12)
