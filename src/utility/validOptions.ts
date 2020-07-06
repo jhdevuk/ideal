@@ -1,5 +1,6 @@
 import isGlob from 'is-glob';
 import fs from 'fs';
+import path from 'path';
 import { IOptions } from '@/options';
 
 /* -----------------------------------
@@ -8,8 +9,16 @@ import { IOptions } from '@/options';
  *
  * -------------------------------- */
 
-function validOptions({ sourcePath, outputPath, watchPath }: IOptions) {
-  if (!isGlob(sourcePath) && !fs.existsSync(sourcePath)) {
+function validOptions({
+  sourceDirectory = '',
+  sourcePath,
+  outputPath,
+  watchPath,
+}: IOptions) {
+  if (
+    !isGlob(sourcePath) &&
+    !fs.existsSync(path.join(sourceDirectory, sourcePath))
+  ) {
     throw new Error(`Invalid source path: "${sourcePath}"`);
   }
 
