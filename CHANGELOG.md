@@ -1,3 +1,12 @@
+### 1.3.0 - 2020-07-06
+
+* #VC-1631 - Added copy files task - **[@jahill](https://github.groupondev.com/jahill)** [#12](https://github.groupondev.com/Coupons/ideal/pull/12)
+  - [`4e90651`](https://github.groupondev.com/Coupons/ideal/commit/4e90651e37b32db765c3086c4f67dabec1f53ae2) **feat:** [VC-1631] - added copy task and simplified names
+  - [`5cde6ec`](https://github.groupondev.com/Coupons/ideal/commit/5cde6eceb4a685ba040725918820ea7ea7a8d388) **feat:** [VC-1631] - added copy task
+  - [`4990ebc`](https://github.groupondev.com/Coupons/ideal/commit/4990ebc5cc7b36f162bc93e90dd506204cc15fbf) **feat:** [VC-1631] - added support for renameFile
+  - [`fcefe0d`](https://github.groupondev.com/Coupons/ideal/commit/fcefe0da3f0f2ba29cdd6cbc09580dd3defc98fa) **fix:** [VC-1631] - moved SASS file extension write to task
+
+
 ### 1.2.3 - 2020-07-06
 
 * fix: [VC-1631] - fixed single file source validation - **[@jahill](https://github.groupondev.com/jahill)** [#11](https://github.groupondev.com/Coupons/ideal/pull/11)
