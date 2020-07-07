@@ -1,3 +1,11 @@
+### 1.5.0 - 2020-07-07
+
+* #VC-1631 - Exclude webpack chunks from hashing - **[@jahill](https://github.groupondev.com/jahill)** [#14](https://github.groupondev.com/Coupons/ideal/pull/14)
+  - [`8e14672`](https://github.groupondev.com/Coupons/ideal/commit/8e14672424aaba566d70fab6b29a93ef0d5287b7) **feat:** [VC-1631] - Exclude webpack chunks from hashing
+  - [`9c98729`](https://github.groupondev.com/Coupons/ideal/commit/9c987297767d65294899a460443a10b0d591c58a) **fix:** [VC-1631] - fixed package version
+  - [`fc9d06f`](https://github.groupondev.com/Coupons/ideal/commit/fc9d06f35bebaef9fadb031d9a79845030fc8f38) **chore:** [VC-1631] - removed unused import
+
+
 ### 1.4.0 - 2020-07-06
 
 * feat: [VC-1631] - font task - **[@jahill](https://github.groupondev.com/jahill)** [#13](https://github.groupondev.com/Coupons/ideal/pull/13)
