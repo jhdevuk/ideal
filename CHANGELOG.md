@@ -1,3 +1,9 @@
+### 1.5.2 - 2020-07-07
+
+* chore: [VC-1631] - updated browserlist package - **[@jahill](https://github.groupondev.com/jahill)** [#16](https://github.groupondev.com/Coupons/ideal/pull/16)
+  - [`8ff7430`](https://github.groupondev.com/Coupons/ideal/commit/8ff74305e778a6946f2a89d95a5b3b597cd09686) **chore:** [VC-1631] - updated browserlist package
+
+
 ### 1.5.1 - 2020-07-07
 
 * fix: [VC-1631] - removed outputPath check - **[@jahill](https://github.groupondev.com/jahill)** [#15](https://github.groupondev.com/Coupons/ideal/pull/15)
