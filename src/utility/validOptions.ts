@@ -22,7 +22,7 @@ function validOptions({
     throw new Error(`Invalid source path: "${sourcePath}"`);
   }
 
-  if (!outputPath || (outputPath && !fs.existsSync(outputPath))) {
+  if (!outputPath) {
     throw new Error(`Missing output path "${outputPath}"`);
   }
 
