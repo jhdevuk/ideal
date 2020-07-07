@@ -21,6 +21,8 @@ interface IOptions {
   includePath?: string;
   skipManifest: boolean;
   manifestPath: string;
+  msbuildVersion?: string;
+  msbuildPackage: boolean;
   renameFile?: (name: string, path: string) => string;
 }
 

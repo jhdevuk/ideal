@@ -54,10 +54,12 @@ See below for full list of configurable options. The column "_Usage_" indicates 
 | verbose         | Both   | N/A       | false   | Output more info in the console                                         |
 | pathAlias       | Both   | Path      | null    | Define a path alias for "@/" in webpack                                 |
 | filePrefix      | Both   | String    | null    | Prepend this value to built assets, useful for versioning               |
-| renameFile      | Config | Function  | null    | Rename output files, provides name and path (SASS + COPY only)          |
+| renameFile      | Config | Function  | null    | Rename output files, provides name and path (css + copy only)           |
 | includePath     | Both   | Path(s)   | null    | Define source directory for file resolution, can be comma delimited     |
 | skipManifest    | Both   | N/A       | false   | Exclude output files from being written to the manifest                 |
 | manifestPath    | Both   | Path      | null    | Path where the manifest json file will be, default to "--outputPath"    |
+| msbuildVersion  | Both   | String    | 15.0    | Version of MSBuild to use when building dotnet (msbuild only)           |
+| msbuildPackage  | Both   | N/A       | false   | Package project when running MSBuild (msbuild only)                     |
 
 ## Config File
 

@@ -24,6 +24,8 @@ const argumentOptions = {
   skipManifest: !!argv.skipManifest,
   manifestPath:
     ((argv.manifestPath || argv.outputPath) as string) || undefined,
+  msbuildVersion: (argv.msbuildPackage as string) || undefined,
+  msbuildPackage: !!argv.msbuildPackage,
 };
 
 /* -----------------------------------
