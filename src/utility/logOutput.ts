@@ -23,9 +23,9 @@ function error(subject: string, details = '', line = '') {
  * -------------------------------- */
 
 function info(prefix: string, value: string, suffix: string = '') {
-  const output = [prefix, chalk.cyan(value), suffix];
+  const items = [prefix, chalk.cyan(value), suffix];
 
-  log.info(output.join(' '));
+  log.info(items.join(' '));
 }
 
 /* -----------------------------------
@@ -35,13 +35,25 @@ function info(prefix: string, value: string, suffix: string = '') {
  * -------------------------------- */
 
 function result({ name, size, type }: IResult) {
-  const output = [
+  const items = [
     chalk.grey(' ->'),
     chalk.yellow(name + type),
     chalk.grey(size),
   ];
 
-  log.info(output.join(' '));
+  log.info(items.join(' '));
+}
+
+/* -----------------------------------
+ *
+ * Other
+ *
+ * -------------------------------- */
+
+function output(prefix: string, value: string) {
+  const items = [prefix, chalk.grey(' ->'), '\n', chalk.grey(value)];
+
+  log.info(items.join(' '));
 }
 
 /* -----------------------------------
@@ -50,4 +62,4 @@ function result({ name, size, type }: IResult) {
  *
  * -------------------------------- */
 
-export { error, info, result };
+export { error, info, result, output };

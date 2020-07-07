@@ -3,9 +3,10 @@ import { Readable } from 'stream';
 import { IOptions } from '@/options';
 import { method as sassMethod } from './sass';
 import { method as webpackMethod } from './webpack';
-import { method as csprojMethod } from './csproj';
 import { method as copyMethod } from './copy';
 import { method as fontsMethod } from './fonts';
+import { method as csprojMethod } from './csproj';
+import { method as msbuildMethod } from './msbuild';
 
 /* -----------------------------------
  *
@@ -79,9 +80,10 @@ type Task = (props: IProps) => Promise<IStream>;
 const tasks: ITasks = {
   css: sassMethod,
   js: webpackMethod,
-  csproj: csprojMethod,
   copy: copyMethod,
   fonts: fontsMethod,
+  csproj: csprojMethod,
+  msbuild: msbuildMethod,
 };
 
 /* -----------------------------------
