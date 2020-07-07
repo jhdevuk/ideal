@@ -1,3 +1,9 @@
+### 1.5.1 - 2020-07-07
+
+* fix: [VC-1631] - removed outputPath check - **[@jahill](https://github.groupondev.com/jahill)** [#15](https://github.groupondev.com/Coupons/ideal/pull/15)
+  - [`02a8723`](https://github.groupondev.com/Coupons/ideal/commit/02a872344e589e76031d8e0be34ecebfc2b53962) **fix:** [VC-1631] - removed outputPath check
+
+
 ### 1.5.0 - 2020-07-07
 
 * #VC-1631 - Exclude webpack chunks from hashing - **[@jahill](https://github.groupondev.com/jahill)** [#14](https://github.groupondev.com/Coupons/ideal/pull/14)
