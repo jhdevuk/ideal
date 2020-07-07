@@ -1,3 +1,10 @@
+### 1.6.0 - 2020-07-07
+
+* #VC-1631 - MSBuild task - **[@jahill](https://github.groupondev.com/jahill)** [#17](https://github.groupondev.com/Coupons/ideal/pull/17)
+  - [`ce3c60f`](https://github.groupondev.com/Coupons/ideal/commit/ce3c60f549f31a2847f291995d99cc4e9aeafc12) **feat:** [VC-1631] - added nuget restore
+  - [`0ec4c5e`](https://github.groupondev.com/Coupons/ideal/commit/0ec4c5ea687b46085541eb7bd36fb931aa83952d) **feat:** [VC-1631] - added msbuild task
+
+
 ### 1.5.2 - 2020-07-07
 
 * chore: [VC-1631] - updated browserlist package - **[@jahill](https://github.groupondev.com/jahill)** [#16](https://github.groupondev.com/Coupons/ideal/pull/16)
