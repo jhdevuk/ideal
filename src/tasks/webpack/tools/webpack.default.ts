@@ -5,6 +5,15 @@ import { resolveLoader } from './resolveLoader';
 
 /* -----------------------------------
  *
+ * Plugins
+ *
+ * -------------------------------- */
+
+// @ts-ignore
+import ChunkRenamePlugin from 'webpack-chunk-rename-plugin';
+
+/* -----------------------------------
+ *
  * Config
  *
  * -------------------------------- */
@@ -21,7 +30,7 @@ function defaultWebpackConfig({
     cache: !release,
     output: {
       filename: '[name].js',
-      chunkFilename: '[name].js',
+      chunkFilename: release ? '[name].[chunkhash:8].js' : '[name].js',
       jsonpFunction: '__IDL__',
       crossOriginLoading: 'anonymous',
       publicPath: path.join(outputPath, '/'),
@@ -75,6 +84,11 @@ function defaultWebpackConfig({
         },
       },
     },
+    plugins: [
+      new ChunkRenamePlugin({
+        vendor: '[name].js',
+      }),
+    ],
   };
 }
 

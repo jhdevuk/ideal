@@ -1,7 +1,8 @@
 import { Readable } from 'stream';
+import getHash from 'hasha';
 import { IResult } from '@/tasks';
 import { streamToString, stringToStream } from '@/utility/streamHelpers';
-import getHash from 'hasha';
+import { isHashed } from '@/utility/isHashed';
 
 /* -----------------------------------
  *
@@ -28,7 +29,7 @@ async function hashFileNames(
   const result = resultData.map((item, index) => ({
     ...item,
     stream: streams[index],
-    hash: hashData[index],
+    hash: !isHashed(item.name) && hashData[index],
   }));
 
   return result;
