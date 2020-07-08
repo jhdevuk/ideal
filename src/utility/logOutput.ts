@@ -50,8 +50,12 @@ function result({ name, size, type }: IResult) {
  *
  * -------------------------------- */
 
-function output(prefix: string, value: string) {
-  const items = [prefix, chalk.grey(' ->'), '\n', chalk.grey(value)];
+function output(value: string, prefix?: string) {
+  let items = ['\n', chalk.grey(value)];
+
+  if (prefix) {
+    items = [prefix, chalk.grey('->')].concat(items);
+  }
 
   log.info(items.join(' '));
 }
