@@ -76,7 +76,7 @@
     "vinyl-source-stream": "2.0.0",
     "webpack": "4.43.0",
     "webpack-chunk-rename-plugin": "1.0.3",
-    "webpack-update-public-path-plugin": "^1.0.1",
+    "webpack-update-public-path-plugin": "1.0.1",
     "yargs": "15.3.1"
   },
   "devDependencies": {
