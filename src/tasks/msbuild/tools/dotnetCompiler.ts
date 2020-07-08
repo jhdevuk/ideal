@@ -40,7 +40,7 @@ function nugetRestore(options: IOptions) {
         { maxBuffer },
         (error, stdout) => {
           if (stdout.trim()) {
-            log.output('Nuget:', stdout);
+            log.output(stdout);
           }
 
           if (error) {
