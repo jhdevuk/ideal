@@ -83,7 +83,13 @@ This is then picked up at runtime by ideal. Each set of properties match their C
 
 ### Webpack Specific
 
-ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, it will override any default config provided by ideal.
+ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, it will override any default config provided by ideal. You can find the default settings used for [webpack here](https://github.groupondev.com/Coupons/ideal/blob/master/src/tasks/webpack/tools/webpack.default.ts)
+
+If you need to define a path at _runtime_, you can set the following property, e.g:
+
+```
+window.__publicPath = '/cdn/path/';
+```
 
 ### Fonts Specific
 
