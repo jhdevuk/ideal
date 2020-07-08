@@ -11,6 +11,7 @@ import { resolveLoader } from './resolveLoader';
 
 // @ts-ignore
 import ChunkRenamePlugin from 'webpack-chunk-rename-plugin';
+import RuntimePathPlugin from 'webpack-update-public-path-plugin';
 
 /* -----------------------------------
  *
@@ -88,8 +89,28 @@ function defaultWebpackConfig({
       new ChunkRenamePlugin({
         vendor: '[name].js',
       }),
+      new RuntimePathPlugin({
+        publicPath: getRuntimePath(outputPath),
+      }),
     ],
   };
+}
+
+/* -----------------------------------
+ *
+ * Runtime
+ *
+ * -------------------------------- */
+
+function getRuntimePath(outputPath: string) {
+  const runtimePath = 'window.__publicPath';
+
+  const result = path
+    .join('/', outputPath, '/')
+    .replace(/\\/g, '/')
+    .toLowerCase();
+
+  return `${runtimePath} || '${result}'`;
 }
 
 /* -----------------------------------
