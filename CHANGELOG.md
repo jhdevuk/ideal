@@ -1,3 +1,13 @@
+### 1.7.0 - 2020-07-08
+
+* chore: [VC-1631] - improved msbuild output - **[@jahill](https://github.groupondev.com/jahill)** [#18](https://github.groupondev.com/Coupons/ideal/pull/18)
+  - [`255f83a`](https://github.groupondev.com/Coupons/ideal/commit/255f83ae6b01f703cf95e96cfe0bcc5aa6fb4312) **chore:** [VC-1631] - improved msbuild output
+* #VC-1631 - Dynamic runtime path - **[@jahill](https://github.groupondev.com/jahill)** [#19](https://github.groupondev.com/Coupons/ideal/pull/19)
+  - [`616ffa1`](https://github.groupondev.com/Coupons/ideal/commit/616ffa152c4dcc3300627d3e939519b79193f54d) **feat:** [VC-1631] - added run time path setup
+  - [`258b008`](https://github.groupondev.com/Coupons/ideal/commit/258b00848b5c4fd314aa3c8e911c56bbfcb198b5) **chore:** [VC-1631] - build production file
+  - [`5a5c8b5`](https://github.groupondev.com/Coupons/ideal/commit/5a5c8b582cd15301bcc6cf310e4b3c71d4fe926c) **chore:** [VC-1631] - fixed package version
+
+
 ### 1.6.0 - 2020-07-07
 
 * #VC-1631 - MSBuild task - **[@jahill](https://github.groupondev.com/jahill)** [#17](https://github.groupondev.com/Coupons/ideal/pull/17)
