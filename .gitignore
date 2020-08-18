@@ -1,7 +1,9 @@
 node_modules
 tests/coverage
 logs/**
+dist/**
 yarn-error.log
 node_modules/
 npm-debug.log
 /.nyc_output
+package-lock.json

@@ -13,7 +13,7 @@ import { IOptions } from '@/options';
  * -------------------------------- */
 
 function cssProcessor({ release, cssModules, sourceMap }: IOptions) {
-  const plugins = [
+  const plugins: any[] = [
     autoprefixer({
       cascade: false,
       overrideBrowserslist: ['last 2 versions', '> 1%'],

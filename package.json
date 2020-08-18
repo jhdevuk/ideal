@@ -1,50 +1,33 @@
 {
-  "name": "@grpn/ideal",
+  "name": "ideal-tools",
   "version": "1.7.0",
   "description": "Ideal",
   "license": "UNLICENSED",
   "bin": {
     "ideal": "./dist/build.js"
   },
-  "homepage": "https://github.groupondev.com/Coupons/ideal",
+  "homepage": "https://github.com/jhukdev/ideal",
   "repository": {
     "type": "git",
-    "url": "https://github.groupondev.com/Coupons/ideal"
+    "url": "https://github.com/jhukdev/ideal"
   },
   "bugs": {
-    "url": "https://github.groupondev.com/Coupons/ideal/issues"
+    "url": "https://github.com/jhukdev/ideal/issues"
   },
   "scripts": {
     "start": "run-s \"watch --debug\"",
     "build": "webpack --release",
     "watch": "webpack --watch",
-    "test": "jest ./tests/src",
-    "lint": "npm-run-all lint:*",
-    "lint:js": "tslint --fix ./src/**/*.ts*",
-    "pretest": "npm-run-all pretest:*",
-    "posttest": "npm-run-all posttest:*",
-    "pretest:lint": "npm-run-all lint:*",
-    "posttest:nlm": "nlm verify"
+    "test": "jest ./tests/src"
   },
   "engines": {
     "node": ">=10"
   },
-  "author": {
-    "name": "Groupon"
-  },
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://npm.groupondev.com"
-  },
   "peerDependencies": {
     "typescript": "3.8.x"
-  },
-  "nlm": {
-    "license": {
-      "files": []
-    }
   },
   "dependencies": {
     "autoprefixer": "9.8.4",
@@ -96,7 +79,6 @@
     "@types/webpack-node-externals": "1.7.1",
     "@types/yargs": "15.0.4",
     "jest": "26.1.0",
-    "nlm": "4.2.0",
     "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
     "ts-jest": "26.1.1",

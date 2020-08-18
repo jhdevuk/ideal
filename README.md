@@ -7,13 +7,13 @@ ideal is a collection of pre-existing tools for generating client assets, wrappe
 Install with Yarn:
 
 ```
-$ yarn add --dev @grpn/ideal
+$ yarn add --dev ideal-tools
 ```
 
 Install with NPM:
 
 ```
-$ npm i --save-dev @grpn/ideal
+$ npm i --save-dev ideal-tools
 ```
 
 TypeScript v3.8 is a `peerDependency` of ideal, so ensure you have it setup with a root [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) and installed as a dependency of your project.
@@ -83,7 +83,7 @@ This is then picked up at runtime by ideal. Each set of properties match their C
 
 ### Webpack Specific
 
-ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, it will override any default config provided by ideal. You can find the default settings used for [webpack here](https://github.groupondev.com/Coupons/ideal/blob/master/src/tasks/webpack/tools/webpack.default.ts)
+ideal allows you to manually specify a `webpack.config.js` file in the root directory of where ideal is being run from. If this file is found, it will override any default config provided by ideal. You can find the default settings used for [webpack here](https://github.com/jhukdev/ideal/blob/master/src/tasks/webpack/tools/webpack.default.ts)
 
 If you need to define a path at _runtime_, you can set the following property, e.g:
 
