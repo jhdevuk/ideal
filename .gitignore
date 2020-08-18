@@ -1,7 +1,7 @@
 node_modules
 tests/coverage
 logs/**
-dist/**
+dist
 yarn-error.log
 node_modules/
 npm-debug.log
